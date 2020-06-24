@@ -20,8 +20,10 @@
 package util;
 
 import exceptions.DoubleValueInvalidException;
+import exceptions.FileStreamInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
+import model.bytes.IFileStream;
 
 /**
  * Classe responsável por comportar-se como um filtro.
@@ -69,6 +71,19 @@ public abstract class Filter {
             Integer.parseInt(value);
         } catch (final NumberFormatException ex) {
             throw new IntegerValueInvalidException(value);
+        }
+    }
+    
+    /**
+     * Método responsável por realizar a filtragem de arquivos em fluxo inválidos.
+     * @param fileStream Refere-se ao arquivo em fluxo possívelmente nulo.
+     * @throws FileStreamInvalidException Exceção lançada em caso de arquivo em fluxo inválido.
+     */
+    public static void InvalidFileStream(final IFileStream fileStream) throws FileStreamInvalidException {
+        if(fileStream == null) {
+            throw new FileStreamInvalidException();
+        } else if (fileStream.getObject() == null) {
+            throw new FileStreamInvalidException();
         }
     }
     
