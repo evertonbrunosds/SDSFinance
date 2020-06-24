@@ -17,37 +17,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.offers;
+package model.territories;
 
 import exceptions.NullObjectException;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de uma oferta.
- * @author Everton Bruno Silva dos Santos.
+ * Classe abstrata responsável por fornecer os métodos de um território.
+ * @author Everton Bruo Silva dos Santos.
  */
-public abstract class Offer implements IOffer, IElement<String> {
+public abstract class Territories implements ITerritories, IElement<String> {
     /**
      * Refere-se ao número de série da classe.
      */
-    private static final long serialVersionUID = -3453059105283424072L;
+    private static final long serialVersionUID = 2226894436948334167L;
 
     /**
-     * Método responsável por alterar o valor da oferta.
-     * @param value Refere-se ao novo valor da oferta.
-     */
-    public abstract void setValue(double value);
-    
-    /**
-     * Método responsável por alterar o nome da oferta.
-     * @param key Refere-se ao novo nome da oferta.
+     * Método responsável por alterar o nome do território.
+     * 
+     * @param key Refere-se ao novo nome do território.
      * @throws NullObjectException Exceção lançada em caso de nome nulo.
      */
     @Override
     public abstract void setKey(String key) throws NullObjectException;
     
     /**
-     * Método responsável por pré-visualizar nome da ofeta pós-alterações.
+     * Método responsável por pré-visualizar nome do território pós-alterações.
      * @param key Refere-se ao novo nome.
      * @return Retorna pré-visualização de novo nome.
      * @throws NullObjectException Exceção lançada em caso de nome nulo.

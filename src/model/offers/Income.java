@@ -22,13 +22,12 @@ package model.offers;
 import exceptions.NullObjectException;
 import util.Converter;
 import util.Filter;
-import util.IElement;
 
 /**
  * Classe responsável por comportar-se como renda.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Income extends Offer implements IIncome, IElement<String> {
+public class Income extends Offer implements IIncome {
     /**
      * Refere-se ao número de série da classe.
      */

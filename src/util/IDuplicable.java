@@ -17,41 +17,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.offers;
-
-import java.io.Serializable;
-import util.IDuplicable;
+package util;
 
 /**
- * Interface responsável por fornecer os métodos de oferta.
+ * Interface responsável por fornecer o método de duplicabilidade.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IOffer extends Serializable, IDuplicable {
+public interface IDuplicable {
     
     /**
-     * Método responsável por retornar o nome da oferta.
-     * @return Retorna nome da oferta.
+     * Método responsável por realizar duplicações de um dado objeto.
+     * @return Retorna duplicata do objeto.
      */
-    @Override
-    public String toString();
-    
-    /**
-     * Método responsável por duplicar oferta.
-     * @return Retorna oferta duplicata.
-     */
-    @Override
-    public IOffer duplicate();
-    
-    /**
-     * Método responsável por retornar valor de oferta.
-     * @return Retorna valor de oferta.
-     */
-    public double getValue();
-    
-    /**
-     * Método responsável por retornar a chave comparável.
-     * @return Retorna chave comparável.
-     */
-    public Comparable<String> getKey();
+    public IDuplicable duplicate();
     
 }

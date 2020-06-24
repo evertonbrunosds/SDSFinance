@@ -22,13 +22,12 @@ package model.offers;
 import exceptions.NullObjectException;
 import util.Converter;
 import util.Filter;
-import util.IElement;
 
 /**
  * Classe responsável por comportar-se como despesa.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Expense extends Offer implements IExpense, IElement<String> {
+public class Expense extends Offer implements IExpense {
     /**
      * Refere-se ao número de série da classe.
      */

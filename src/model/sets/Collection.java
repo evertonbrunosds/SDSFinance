@@ -35,7 +35,7 @@ public class Collection<K,E> implements ICollection<K,E> {
     /**
      * Refere-se ao número de série da classe.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8576255233641277803L;
     /**
      * Refere-se a árvore responsável por organizar os elementos.
      */
@@ -146,7 +146,7 @@ public class Collection<K,E> implements ICollection<K,E> {
             } else {
                 redefineKey(elementInCurrentState, newKey);
             }
-        } catch(ElementNotFoundException ex) {
+        } catch(final ElementNotFoundException ex) {
             redefineKey(elementInCurrentState, newKey);
         }
     }
@@ -159,7 +159,7 @@ public class Collection<K,E> implements ICollection<K,E> {
      * @throws NullObjectException Exceção lançada em caso de string nula.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
-    private void redefineKey(IElement<K> elementInCurrentState, final K newKey)
+    private void redefineKey(final IElement<K> elementInCurrentState, final K newKey)
             throws ElementNotFoundException, NullObjectException, KeyUsedException {
         tree.remove(elementInCurrentState.getKey());
         elementInCurrentState.setKey(newKey);
