@@ -114,7 +114,7 @@ public class Income extends Offer implements IIncome, IElement<String> {
      * @return Retorna renda duplicata.
      */
     @Override
-    public IIncome duplicate() {
+    public Income duplicate() {
         final Income income = new Income();
         income.name = name;
         income.value = value;

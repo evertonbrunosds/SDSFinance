@@ -138,15 +138,32 @@ public class Collection<K,E> implements ICollection<K,E> {
     @Override
     public void redefineKey(final Comparable<K> currentKey, final K newKey)
             throws ElementNotFoundException, NullObjectException, KeyUsedException {
-        final IElement<K> e = tree.search(currentKey);
+        final IElement<K> elementInCurrentState = tree.search(currentKey);
         try {
-            final IElement<K> exist = tree.search(e.previewKey(newKey));
-            throw new KeyUsedException(exist);
-        } catch (final ElementNotFoundException ex) {
-            tree.remove(currentKey);
-            e.setKey(newKey);
-            tree.insert(e.getKey(), e);
+            final IElement<K> elementInNewState = tree.search(elementInCurrentState.previewKey(newKey));
+            if(!elementInCurrentState.equals(elementInNewState)) {
+                throw new KeyUsedException(elementInNewState);
+            } else {
+                redefineKey(elementInCurrentState, newKey);
+            }
+        } catch(ElementNotFoundException ex) {
+            redefineKey(elementInCurrentState, newKey);
         }
+    }
+
+    /**
+     * Método responsável por efetuar a redefinição de chave de um elemento.
+     * @param elementInCurrentState Refere-se ao elemento em seu atual estado.
+     * @param newKey Refere-se a nova chave do elemento.
+     * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
+     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
+     */
+    private void redefineKey(IElement<K> elementInCurrentState, final K newKey)
+            throws ElementNotFoundException, NullObjectException, KeyUsedException {
+        tree.remove(elementInCurrentState.getKey());
+        elementInCurrentState.setKey(newKey);
+        tree.insert(elementInCurrentState.getKey(), elementInCurrentState);
     }
 
 }

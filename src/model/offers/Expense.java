@@ -114,7 +114,7 @@ public class Expense extends Offer implements IExpense, IElement<String> {
      * @return Retorna despesa duplicata.
      */
     @Override
-    public IExpense duplicate() {
+    public Expense duplicate() {
         final Expense expense = new Expense();
         expense.name = name;
         expense.value = value;
