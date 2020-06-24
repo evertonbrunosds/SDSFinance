@@ -19,15 +19,15 @@
  */
 package util;
 
-import exceptions.NullStringException;
+import exceptions.NullObjectException;
 import java.io.Serializable;
 
 /**
- * Interface responsável por comportar-se fornecer os métodos de um elemento.
+ * Interface responsável por fornecer os métodos de um elemento.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo do elemento.
+ * @param <K> Refere-se ao tipo de chave do elemento.
  */
-public interface IElement<T> extends Serializable, Comparable<T> {
+public interface IElement<K> extends Serializable {
     
     /**
      * Método responsável por retornar o nome do elemento.
@@ -37,24 +37,24 @@ public interface IElement<T> extends Serializable, Comparable<T> {
     public String toString();
     
     /**
-     * Método responsável por alterar a string do elemento.
-     * @param string Refere-se a string do elemento.
-     * @throws NullStringException Exceção lançada em caso de string nula.
+     * Método responsável por alterar a chave do elemento.
+     * @param key Refere-se a chave do elemento.
+     * @throws NullObjectException Exceção lançada em caso de chave nula.
      */
-    public void setString(String string) throws NullStringException;
+    public void setKey(K key) throws NullObjectException;
     
     /**
-     * Método responsável por retornar a identificação comparável do elemento.
-     * @return Retorna identificação comparável do elemento.
+     * Método responsável por retornar a chave comparável do elemento.
+     * @return Retorna chave comparável do elemento.
      */
-    public Comparable getId();
+    public Comparable<K> getKey();
     
     /**
-     * Método responsável por pré-visualizar identificação de elemento com dada string.
-     * @param string Refere-se a dada string.
-     * @return Retorna pré-visualização de identificação.
-     * @throws NullStringException Exceção lançada em caso de string nula.
+     * Método responsável por pré-visualizar chave de elemento pós-alterações.
+     * @param key Refere-se a nova chave.
+     * @return Retorna pré-visualização de nova chave.
+     * @throws NullObjectException Exceção lançada em caso de chave nula.
      */
-    public Comparable previewId(String string) throws NullStringException;
+    public Comparable<K> previewKey(K key) throws NullObjectException;
     
 }

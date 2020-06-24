@@ -20,18 +20,33 @@
 package exceptions;
 
 /**
- * Classe responsável por comportar-se como uma exceção de string nula.
+ * Classe responsável por comportar-se como uma exceção de valor decimal inválido.
  * @author Everton Bruno Silva dos Santos.
  */
-public class NullStringException extends Exception {
+public class DoubleValueInvalidException extends Exception {
     /**
      * Refere-se ao número de série do objeto.
      */
-    private static final long serialVersionUID = -5838138935936851613L;
+    private static final long serialVersionUID = 3923343624731910393L;
+    /**
+     * Refere-se ao valor decimal inválido.
+     */
+    private final String doubleValueInvalid;
+    
+    /**
+     * Construtor responsável pelo instanciamento da exceção.
+     * @param doubleValueInvalid Refere-se ao valor decimal inválido.
+     */
+    public DoubleValueInvalidException(final String doubleValueInvalid) {
+        this.doubleValueInvalid = doubleValueInvalid;
+    }
 
     /**
-     * Construtor responsável pelo instanciamento da exceção de strings nula.
+     * Método responsável por retornar o valor decimal inválido.
+     * @return Retorna valor decimal inválido.
      */
-    public NullStringException() { }
+    public String getDoubleValueInvalid() {
+        return doubleValueInvalid;
+    }
     
 }

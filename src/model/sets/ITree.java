@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package util;
+package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
@@ -27,9 +27,10 @@ import java.util.function.Consumer;
 /**
  * Interface responsável por fornecer os métodos de árvore.
  * @author Everton Bruno Silva dos Santos.
+ * @param <K> Refere-se ao tipo de chave usada na árvore.
  * @param <E> Refere-se ao tipo de elemento armazenado na árvore.
  */
-public interface ITree<E> extends Serializable {
+public interface ITree<K,E> extends Serializable {
 
     /**
      * Método responsável por retornar a quantidade de elementos contidos na árvore.
@@ -53,7 +54,7 @@ public interface ITree<E> extends Serializable {
      * @param key Refere-se a chave do elemento.
      * @return Retorna indicativo de que a árvore contém o eventual elemento.
      */
-    public boolean isContains(Comparable key);
+    public boolean isContains(Comparable<K> key);
     
     /**
      * Método responsável por buscar dado elemento que está contido na árvore.
@@ -61,14 +62,14 @@ public interface ITree<E> extends Serializable {
      * @return Retorna elemento se contido na árvore.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
-    public E search(Comparable key) throws ElementNotFoundException;
+    public E search(Comparable<K> key) throws ElementNotFoundException;
     
     /**
      * Método responsável por remover dado elemento que está contido na árvore.
      * @param key Refere-se a chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
-    public void remove(Comparable key) throws ElementNotFoundException;
+    public void remove(Comparable<K> key) throws ElementNotFoundException;
     
     /**
      * Método responsável por insetir dado elemento na árvore.
@@ -76,7 +77,7 @@ public interface ITree<E> extends Serializable {
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
-    public void insert(Comparable key, E element) throws KeyUsedException;
+    public void insert(Comparable<K> key, E element) throws KeyUsedException;
     
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore.

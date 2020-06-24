@@ -21,16 +21,17 @@ package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
-import exceptions.NullStringException;
+import exceptions.NullObjectException;
 import java.io.Serializable;
 import java.util.function.Consumer;
 
 /**
  * Interface responsável por fornecer os métodos de coleção.
  * @author Everton Bruno Silva dos Santos.
+ * @param <K> Refere-se ao tipo de chave usada na coleção.
  * @param <E> Refere-se ao tipo de elemento armazenado na coleção.
  */
-public interface ICollection<E> extends Serializable {
+public interface ICollection<K,E> extends Serializable {
     
     /**
      * Método responsável por retornar a quantidade de elementos contidos na coleção.
@@ -54,7 +55,7 @@ public interface ICollection<E> extends Serializable {
      * @param key Refere-se a chave do elemento.
      * @return Retorna indicativo de que a coleção contém o eventual elemento.
      */
-    public boolean isContains(Comparable key);
+    public boolean isContains(Comparable<K> key);
     
     /**
      * Método responsável por insetir dado elemento na coleção.
@@ -75,23 +76,24 @@ public interface ICollection<E> extends Serializable {
      * @return Retorna elemento se contido na coleção.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
-    public E search(Comparable key) throws ElementNotFoundException;
+    public E search(Comparable<K> key) throws ElementNotFoundException;
     
     /**
      * Método responsável por remover dado elemento que está contido na coleção.
      * @param key Refere-se a chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
-    public void remove(Comparable key) throws ElementNotFoundException;
+    public void remove(Comparable<K> key) throws ElementNotFoundException;
     
     /**
-     * Método responsável por reidentificar dado elemento que está contido na coleção.
-     * @param key Refere-se a chave do elemento.
-     * @param string Refere-se a nova string do elemento.
+     * Método responsável por redefinir chave de dado elemento que está contido na coleção.
+     * @param currentKey Refere-se a chave atual do elemento.
+     * @param newKey Refere-se a nova chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
-     * @throws NullStringException Exceção lançada em caso de string nula.
+     * @throws NullObjectException Exceção lançada em caso de string nula.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
-    public void reidentify(Comparable key, String string) throws ElementNotFoundException, NullStringException, KeyUsedException;
+    public void redefineKey(Comparable<K> currentKey, K newKey) 
+            throws ElementNotFoundException, NullObjectException, KeyUsedException;
     
 }

@@ -19,6 +19,7 @@
  */
 package util;
 
+import model.sets.Tree;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import org.junit.After;
@@ -36,7 +37,7 @@ public class TreeTest {
     /**
      * Refere-se a árvore.
      */
-    private Tree<String> tree;
+    private Tree<Integer, String> tree;
     /**
      * Refere-se ao vetor de strings.
      */

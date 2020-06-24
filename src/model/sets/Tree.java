@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package util;
+package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
@@ -27,9 +27,10 @@ import java.util.function.Consumer;
 /**
  * Classe responsável por comportar-se como árvore.
  * @author Everton Bruno Silva dos Santos.
+ * @param <K> Refere-se ao tipo de chave usada na árvore.
  * @param <E> Refere-se ao tipo de elemento armazenado na árvore.
  */
-public class Tree<E> implements ITree<E> {
+public class Tree<K,E> implements ITree<K,E> {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -91,7 +92,7 @@ public class Tree<E> implements ITree<E> {
      * @return Retorna indicativo de que a árvore contém o eventual elemento.
      */
     @Override
-    public boolean isContains(final Comparable key) {
+    public boolean isContains(final Comparable<K> key) {
         return search(key, root) != null;
     }
 
@@ -102,7 +103,7 @@ public class Tree<E> implements ITree<E> {
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     @Override
-    public E search(final Comparable key) throws ElementNotFoundException {
+    public E search(final Comparable<K> key) throws ElementNotFoundException {
         final E element = search(key, root);
         if (element == null) {
             throw new ElementNotFoundException();
@@ -117,11 +118,11 @@ public class Tree<E> implements ITree<E> {
      * @param currentNode Refere-se ao nó atual da busca.
      * @return Retorna elemento se contido na árvore, do contrário retorna referência nula.
      */
-    private E search(final Comparable key, final Node currentNode) {
+    private E search(final Comparable<K> key, final Node currentNode) {
         if (currentNode == null) {
             return null;
         } else {
-            final int comparisonResult = currentNode.key.compareTo(key);
+            final int comparisonResult = currentNode.key.compareTo((K) key);
             if (comparisonResult == 0) {
                 return currentNode.element;
             } else if (comparisonResult > 0) {
@@ -138,7 +139,7 @@ public class Tree<E> implements ITree<E> {
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     @Override
-    public void remove(final Comparable key) throws ElementNotFoundException {
+    public void remove(final Comparable<K> key) throws ElementNotFoundException {
         if (isContains(key)) {
             root = remove(key, root);
         } else {
@@ -152,11 +153,11 @@ public class Tree<E> implements ITree<E> {
      * @param currentNode Refere-se ao nó atual da remoção.
      * @return Retorna nó raiz da árvore reconstruida sem o elemento removido.
      */
-    private Node remove(final Comparable key, final Node currentNode) {
+    private Node remove(final Comparable<K> key, final Node currentNode) {
         if (currentNode == null) {
             return null;
         } else {
-            final int comparisonResult = currentNode.key.compareTo(key);
+            final int comparisonResult = currentNode.key.compareTo((K) key);
             if (comparisonResult == 0) {
                 if (currentNode.isLeaf()) {
                     return null;
@@ -169,7 +170,7 @@ public class Tree<E> implements ITree<E> {
                     while (tmpNode.sonOnTheRight != null) {
                         tmpNode = tmpNode.sonOnTheRight;
                     }
-                    final Comparable tmpKey = tmpNode.key;
+                    final Comparable<K> tmpKey = tmpNode.key;
                     final E tmpElement = tmpNode.element;
                     tmpNode.key = currentNode.key;
                     tmpNode.element = currentNode.element;
@@ -193,7 +194,7 @@ public class Tree<E> implements ITree<E> {
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
     @Override
-    public void insert(final Comparable key, final E element) throws KeyUsedException {
+    public void insert(final Comparable<K> key, final E element) throws KeyUsedException {
         root = insert(key, element, root);
     }
 
@@ -205,11 +206,11 @@ public class Tree<E> implements ITree<E> {
      * @return Retorna nó raiz da árvore reconstruida sem o elemento removido.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
-    private Node insert(final Comparable key, final E element, final Node currentNode) throws KeyUsedException {
+    private Node insert(final Comparable<K> key, final E element, final Node currentNode) throws KeyUsedException {
         if (currentNode == null) {
             return new Node(key, element);
         } else {
-            final int comparisonResult = currentNode.key.compareTo(key);
+            final int comparisonResult = currentNode.key.compareTo((K) key);
             if (comparisonResult == 0) {
                 throw new KeyUsedException(currentNode.element);
             } else if (comparisonResult > 0) {
@@ -350,7 +351,7 @@ public class Tree<E> implements ITree<E> {
         /**
          * Refere-se a chave do nó.
          */
-        private Comparable<Comparable> key;
+        private Comparable<K> key;
         /**
          * Refere-se ao elemento do nó.
          */
@@ -373,7 +374,7 @@ public class Tree<E> implements ITree<E> {
          * @param key Refere-se a chave do nó.
          * @param element Refere-se ao elemento do nó.
          */
-        private Node(final Comparable key, final E element) {
+        private Node(final Comparable<K> key, final E element) {
             this.key = key;
             this.element = element;
             this.balancing = 0;

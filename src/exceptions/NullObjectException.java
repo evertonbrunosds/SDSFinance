@@ -17,12 +17,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.sets.offers;
+package exceptions;
 
 /**
- *
- * @author evertonbrunosds
+ * Classe responsável por comportar-se como uma exceção de objeto nulo.
+ * @author Everton Bruno Silva dos Santos.
  */
-public interface IOffer {
+public class NullObjectException extends Exception {
+    /**
+     * Refere-se ao número de série do objeto.
+     */
+    private static final long serialVersionUID = -5838138935936851613L;
+
+    /**
+     * Construtor responsável pelo instanciamento da exceção de objeto nulo.
+     */
+    public NullObjectException() { }
     
 }

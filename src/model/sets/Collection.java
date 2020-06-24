@@ -21,22 +21,25 @@ package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
-import exceptions.NullStringException;
+import exceptions.NullObjectException;
 import java.util.function.Consumer;
 import util.IElement;
-import util.ITree;
-import util.Tree;
 
 /**
  * Classe responsável por comportar-se como coleção.
  * @author Everton Bruno Silva dos Santos.
+ * @param <K> Refere-se ao tipo de chave usada na coleção.
  * @param <E> Refere-se ao tipo de elemento armazenado na coleção.
  */
-public class Collection<E> implements ICollection<E> {
+public class Collection<K,E> implements ICollection<K,E> {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 1L;
     /**
      * Refere-se a árvore responsável por organizar os elementos.
      */
-    private final ITree<IElement> tree;
+    private final ITree<K,IElement<K>> tree;
     
     /**
      * Construtor responsável pelo instanciamento da coleção
@@ -77,7 +80,7 @@ public class Collection<E> implements ICollection<E> {
      * @return Retorna indicativo de que a coleção contém o eventual elemento.
      */
     @Override
-    public boolean isContains(final Comparable key) {
+    public boolean isContains(final Comparable<K> key) {
         return tree.isContains(key);
     }
 
@@ -88,8 +91,8 @@ public class Collection<E> implements ICollection<E> {
      */
     @Override
     public void insert(final E element) throws KeyUsedException {
-        final IElement e = (IElement) element;
-        tree.insert(e.getId(), e);
+        final IElement<K> e = (IElement<K>) element;
+        tree.insert(e.getKey(), e);
     }
 
     /**
@@ -110,7 +113,7 @@ public class Collection<E> implements ICollection<E> {
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     @Override
-    public E search(final Comparable key) throws ElementNotFoundException {
+    public E search(final Comparable<K> key) throws ElementNotFoundException {
         return (E) tree.search(key);
     }
 
@@ -120,29 +123,29 @@ public class Collection<E> implements ICollection<E> {
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     @Override
-    public void remove(final Comparable key) throws ElementNotFoundException {
+    public void remove(final Comparable<K> key) throws ElementNotFoundException {
         tree.remove(key);
     }
 
     /**
-     * Método responsável por reidentificar dado elemento que está contido na coleção.
-     * @param key Refere-se a chave do elemento.
-     * @param string Refere-se a nova string do elemento.
+     * Método responsável por redefinir chave de dado elemento que está contido na coleção.
+     * @param currentKey Refere-se a chave atual do elemento.
+     * @param newKey Refere-se a nova chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
-     * @throws NullStringException Exceção lançada em caso de string nula.
+     * @throws NullObjectException Exceção lançada em caso de string nula.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
     @Override
-    public void reidentify(final Comparable key, final String string)
-            throws ElementNotFoundException, NullStringException, KeyUsedException {
-        final IElement e = tree.search(key);
+    public void redefineKey(final Comparable<K> currentKey, final K newKey)
+            throws ElementNotFoundException, NullObjectException, KeyUsedException {
+        final IElement<K> e = tree.search(currentKey);
         try {
-            final IElement exist = tree.search(e.previewId(string));
+            final IElement<K> exist = tree.search(e.previewKey(newKey));
             throw new KeyUsedException(exist);
         } catch (final ElementNotFoundException ex) {
-            tree.remove(key);
-            e.setString(string);
-            tree.insert(e.getId(), e);
+            tree.remove(currentKey);
+            e.setKey(newKey);
+            tree.insert(e.getKey(), e);
         }
     }
 
