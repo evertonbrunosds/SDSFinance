@@ -26,7 +26,7 @@ import util.Filter;
  * Classe responsável por comportar-se como uma rua.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Street extends TerritoryEditable implements IStreet {
+public class Street implements IStreet, ITerritoryEditable {
     /**
      * Refere-se ao número de série da classe.
      */

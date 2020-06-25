@@ -21,7 +21,7 @@ package control;
 
 import model.sets.ITerritoryCollection;
 import model.sets.IOrganizationCollection;
-import model.organization.IProvider;
+import model.organizations.IProvider;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;

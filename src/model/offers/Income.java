@@ -27,7 +27,7 @@ import util.Filter;
  * Classe responsável por comportar-se como renda.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Income extends OfferEditable implements IIncome {
+public class Income implements IIncome, IOfferEditable {
     /**
      * Refere-se ao número de série da classe.
      */

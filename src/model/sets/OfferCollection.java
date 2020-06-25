@@ -17,19 +17,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.organization;
+package model.sets;
+
+import exceptions.ElementNotFoundException;
+import model.offers.IOfferEditable;
 
 /**
- * Interface responsável por fornecer os métodos de fornecedor.
+ * Classe responsável por comportar-se como coleção de ofertas.
  * @author Everton Bruno Silva dos Santos.
+ * @param <T> Refere-se ao tipo de oferta.
  */
-public interface IProvider extends IOrganizationVisible {
+public class OfferCollection<T> extends Collection<String,T> implements IOfferCollection<T> {
     
     /**
-     * Método responsável por retornar o nome do fornecedor.
-     * @return Retorna nome do fornecedor.
+     * Método responsável por alterar o valor de uma oferta.
+     * @param key Refere-se a chave da oferta.
+     * @param value Refere-se ao novo valor da oferta.
+     * @throws ElementNotFoundException Exceção lançada no caso da oferta não ser encontrada.
      */
-    @Override
-    public String toString();
+    public void serValue(final String key, final double value) throws ElementNotFoundException {
+        ((IOfferEditable) super.search(key)).setValue(value);
+    }
     
 }

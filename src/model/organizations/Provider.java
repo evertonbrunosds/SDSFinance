@@ -17,9 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.organization;
+package model.organizations;
 
 import exceptions.NullObjectException;
+import model.offers.IExpense;
+import model.offers.IIncome;
+import model.sets.IOfferCollection;
+import model.sets.OfferCollection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -29,7 +33,7 @@ import util.Filter;
  * Classe responsável por comportar-se como fornecedor.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Provider extends OrganizationEditable implements IProvider {
+public class Provider implements IProvider, IOrganizationEditable {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -50,6 +54,14 @@ public class Provider extends OrganizationEditable implements IProvider {
      * Refere-se a cidade do fornecedor.
      */
     private ICity city;
+    /**
+     * Refere-se a coleção de despesas ofertadas no fornecedor.
+     */
+    private final IOfferCollection<IExpense> expenseCollection;
+    /**
+     * Refere-se a coleção de rendas ofertadas pelo fornecedor.
+     */
+    private final IOfferCollection<IIncome> incomeCollection;
 
     /**
      * Construtor responsável pelo instanciamento do fornecedor.
@@ -66,6 +78,8 @@ public class Provider extends OrganizationEditable implements IProvider {
         this.street = street;
         this.neighborhood = neighborhood;
         this.city = city;
+        this.expenseCollection = new OfferCollection<>();
+        this.incomeCollection = new OfferCollection<>();
     }
 
     /**
@@ -196,6 +210,24 @@ public class Provider extends OrganizationEditable implements IProvider {
     @Override
     public ICity getCity() {
         return city;
+    }
+
+    /**
+     * Método responsável por retornar coleção de ofertas de despesa.
+     * @return Retorna coleção de ofertas de despesa.
+     */
+    @Override
+    public IOfferCollection<IExpense> getExpenseCollection() {
+        return expenseCollection;
+    }
+
+    /**
+     * Método responsável por retornar coleção de ofertas de renda.
+     * @return Retorna coleção de ofertas de renda.
+     */
+    @Override
+    public IOfferCollection<IIncome> getIncomeCollection() {
+        return incomeCollection;
     }
 
 }

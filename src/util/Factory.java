@@ -22,6 +22,12 @@ package util;
 import control.Controller;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
+import model.offers.Expense;
+import model.offers.IExpense;
+import model.offers.IIncome;
+import model.offers.Income;
+import model.organizations.IProvider;
+import model.organizations.Provider;
 import model.territories.City;
 import model.territories.ICity;
 import model.territories.INeighborhood;
@@ -81,6 +87,41 @@ public abstract class Factory {
         } catch (final KeyUsedException ex) {
             return (ICity) ex.getElement();
         }
+    }
+
+    /**
+     * Método responsável por gerar instância de fornecedor.
+     * @param name Refere-se ao nome do fornecedor.
+     * @param street Refere-se ao nome da rua do fornecedor.
+     * @param neighborhood Refere-se ao nome do bairro do fornecedor.
+     * @param city Refere-se ao nome da cidade do fornecedor.
+     * @return Retorna instância de fornecedor.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
+     */
+    public static IProvider provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city) throws NullObjectException {
+        return new Provider(name, street, neighborhood, city);
+    }
+    
+    /**
+     * Método responsável por gerar instância de despesa.
+     * @param name Refere-se ao nome da despesa.
+     * @param value Refere-se ao valor da despesa.
+     * @return Retorna instância de despesa.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
+     */
+    public static IExpense expense(final String name, final double value) throws NullObjectException {
+        return new Expense(name, value);
+    }
+    
+    /**
+     * Método responsável por gerar instância de renda.
+     * @param name Refere-se ao nome da renda.
+     * @param value Refere-se ao valor da renda.
+     * @return Retorna instância de renda.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
+     */
+    public static IIncome income(final String name, final double value) throws NullObjectException {
+        return new Income(name, value);
     }
     
 }

@@ -23,14 +23,10 @@ import exceptions.NullObjectException;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de um território editável.
+ * Interface responsável por fornecer os métodos de um território editável.
  * @author Everton Bruo Silva dos Santos.
  */
-public abstract class TerritoryEditable implements ITerritoryVisible, IElement<String> {
-    /**
-     * Refere-se ao número de série da classe.
-     */
-    private static final long serialVersionUID = 2226894436948334167L;
+public interface ITerritoryEditable extends ITerritoryVisible, IElement<String> {
 
     /**
      * Método responsável por alterar chave do território.
@@ -38,7 +34,7 @@ public abstract class TerritoryEditable implements ITerritoryVisible, IElement<S
      * @throws NullObjectException Exceção lançada em caso de nome de terrirório nulo.
      */
     @Override
-    public abstract void setKey(String key) throws NullObjectException;
+    public void setKey(String key) throws NullObjectException;
     
     /**
      * Método responsável por pré-visualizar chave do território pós-alterações.
@@ -47,6 +43,6 @@ public abstract class TerritoryEditable implements ITerritoryVisible, IElement<S
      * @throws NullObjectException Exceção lançada em caso de nome de território nulo.
      */
     @Override
-    public abstract Comparable<String> previewKey(String key) throws NullObjectException;
+    public Comparable<String> previewKey(String key) throws NullObjectException;
     
 }

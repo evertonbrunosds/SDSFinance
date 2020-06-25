@@ -23,20 +23,16 @@ import exceptions.NullObjectException;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de uma oferta editável.
+ * Interface responsável por fornecer os métodos de uma oferta editável.
  * @author Everton Bruno Silva dos Santos.
  */
-public abstract class OfferEditable implements IOfferVisible, IElement<String> {
-    /**
-     * Refere-se ao número de série da classe.
-     */
-    private static final long serialVersionUID = -3453059105283424072L;
+public interface IOfferEditable extends IOfferVisible, IElement<String> {
 
     /**
      * Método responsável por alterar o valor da oferta.
      * @param value Refere-se ao novo valor da oferta.
      */
-    public abstract void setValue(double value);
+    public void setValue(double value);
     
     /**
      * Método responsável por alterar chave da oferta.
@@ -44,7 +40,7 @@ public abstract class OfferEditable implements IOfferVisible, IElement<String> {
      * @throws NullObjectException Exceção lançada em caso de nome de oferta nula.
      */
     @Override
-    public abstract void setKey(String key) throws NullObjectException;
+    public void setKey(String key) throws NullObjectException;
     
     /**
      * Método responsável por pré-visualizar chave da ofeta pós-alterações.
@@ -53,6 +49,6 @@ public abstract class OfferEditable implements IOfferVisible, IElement<String> {
      * @throws NullObjectException Exceção lançada em caso de nome de oferta nula.
      */
     @Override
-    public abstract Comparable<String> previewKey(String key) throws NullObjectException;
+    public Comparable<String> previewKey(String key) throws NullObjectException;
     
 }

@@ -17,41 +17,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.offers;
-
-import java.io.Serializable;
-import util.IDuplicable;
+package model.organizations;
 
 /**
- * Interface responsável por fornecer os métodos de oferta visível.
+ * Interface responsável por fornecer os métodos de fornecedor.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IOfferVisible extends Serializable, IDuplicable {
+public interface IProvider extends IOrganizationVisible {
     
     /**
-     * Método responsável por retornar o nome da oferta.
-     * @return Retorna nome da oferta.
+     * Método responsável por retornar o nome do fornecedor.
+     * @return Retorna nome do fornecedor.
      */
     @Override
     public String toString();
-    
-    /**
-     * Método responsável por duplicar oferta.
-     * @return Retorna oferta duplicata.
-     */
-    @Override
-    public IOfferVisible duplicate();
-    
-    /**
-     * Método responsável por retornar valor de oferta.
-     * @return Retorna valor de oferta.
-     */
-    public double getValue();
-    
-    /**
-     * Método responsável por retornar chave comparável.
-     * @return Retorna chave comparável.
-     */
-    public Comparable<String> getKey();
     
 }

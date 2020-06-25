@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.organization;
+package model.organizations;
 
 import exceptions.NullObjectException;
 import model.territories.ICity;
@@ -26,14 +26,10 @@ import model.territories.IStreet;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de organização editável.
+ * Interface responsável por fornecer os métodos de organização editável.
  * @author Everton Bruno Silva dos Santos.
  */
-public abstract class OrganizationEditable implements IOrganizationVisible, IElement<String> {
-    /**
-     * Refere-se ao número de série da classe.
-     */
-    private static final long serialVersionUID = -3431448314409860304L;
+public interface IOrganizationEditable extends IOrganizationVisible, IElement<String> {
 
     /**
      * Método responsável por alterar chave da organização.
@@ -41,25 +37,25 @@ public abstract class OrganizationEditable implements IOrganizationVisible, IEle
      * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
      */
     @Override
-    public abstract void setKey(String key) throws NullObjectException;
+    public void setKey(String key) throws NullObjectException;
     
     /**
      * Método responsável por alterar a rua da organização.
      * @param street Refere-se a nova rua da organização.
      */
-    public abstract void setStreet(IStreet street);
+    public void setStreet(IStreet street);
     
     /**
      * Método responsável por alterar o bairro da organização.
      * @param neighborhood Refere-se ao novo bairro da organização.
      */
-    public abstract void setNeighborhood(INeighborhood neighborhood);
+    public void setNeighborhood(INeighborhood neighborhood);
     
     /**
      * Método responsável por alterar a cidade da organização.
      * @param city Refere-se a nova cidade da organização.
      */
-    public abstract void setCity(ICity city);
+    public void setCity(ICity city);
     
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
@@ -68,27 +64,27 @@ public abstract class OrganizationEditable implements IOrganizationVisible, IEle
      * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
      */
     @Override
-    public abstract Comparable<String> previewKey(String key) throws NullObjectException;
+    public Comparable<String> previewKey(String key) throws NullObjectException;
     
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param street Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
-    public abstract Comparable<String> previewKey(IStreet street);
+    public Comparable<String> previewKey(IStreet street);
     
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param neighborhood Refere-se ao novo bairro.
      * @return Retorna pré-visualização da nova chave.
      */
-    public abstract Comparable<String> previewKey(INeighborhood neighborhood);
+    public Comparable<String> previewKey(INeighborhood neighborhood);
     
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param city Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
-    public abstract Comparable<String> previewKey(ICity city);
+    public Comparable<String> previewKey(ICity city);
     
 }

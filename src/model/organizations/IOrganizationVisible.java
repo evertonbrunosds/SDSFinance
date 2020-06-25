@@ -17,9 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.organization;
+package model.organizations;
 
 import java.io.Serializable;
+import model.offers.IExpense;
+import model.offers.IIncome;
+import model.sets.IOfferCollection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -60,5 +63,17 @@ public interface IOrganizationVisible extends Serializable {
      * @return Retorna cidade da organização.
      */
     public ICity getCity();
+    
+    /**
+     * Método responsável por retornar coleção de ofertas de despesa.
+     * @return Retorna coleção de ofertas de despesa.
+     */
+    public IOfferCollection<IExpense> getExpenseCollection();
+    
+    /**
+     * Método responsável por retornar coleção de ofertas de renda.
+     * @return Retorna coleção de ofertas de renda.
+     */
+    public IOfferCollection<IIncome> getIncomeCollection();
     
 }

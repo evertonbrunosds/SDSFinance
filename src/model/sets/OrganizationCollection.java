@@ -21,7 +21,7 @@ package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
-import model.organization.OrganizationEditable;
+import model.organizations.IOrganizationEditable;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -29,7 +29,7 @@ import model.territories.IStreet;
 /**
  * Classe responsável por comportar-se como coleção de organizações.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo de território.
+ * @param <T> Refere-se ao tipo de organização.
  */
 public class OrganizationCollection<T> extends Collection<String,T> implements IOrganizationCollection<T> {
     /**
@@ -44,10 +44,11 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
+    @Override
     public void setStreet(final String key, final IStreet newStreet) throws ElementNotFoundException, KeyUsedException {
-        final OrganizationEditable organizationInCurrentState = (OrganizationEditable) super.search(key);
+        final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
-            final OrganizationEditable organizationInNewState = (OrganizationEditable) 
+            final IOrganizationEditable organizationInNewState = (IOrganizationEditable) 
                     super.search(organizationInCurrentState.previewKey(newStreet));
             if (!organizationInCurrentState.equals(organizationInNewState)) {
                 throw new KeyUsedException(organizationInNewState);
@@ -66,7 +67,7 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    private void redefineKey(final OrganizationEditable organizationInCurrentState, final IStreet newStreet)
+    private void redefineKey(final IOrganizationEditable organizationInCurrentState, final IStreet newStreet)
             throws ElementNotFoundException, KeyUsedException {
         super.remove(organizationInCurrentState.getKey());
         organizationInCurrentState.setStreet(newStreet);
@@ -80,11 +81,12 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setStreet(final String key, final INeighborhood newNeighborhood)
+    @Override
+    public void setNeighborhood(final String key, final INeighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException {
-        final OrganizationEditable organizationInCurrentState = (OrganizationEditable) super.search(key);
+        final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
-            final OrganizationEditable organizationInNewState = (OrganizationEditable) 
+            final IOrganizationEditable organizationInNewState = (IOrganizationEditable) 
                     super.search(organizationInCurrentState.previewKey(newNeighborhood));
             if (!organizationInCurrentState.equals(organizationInNewState)) {
                 throw new KeyUsedException(organizationInNewState);
@@ -103,7 +105,7 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    private void redefineKey(final OrganizationEditable organizationInCurrentState, final INeighborhood newNeighborhood)
+    private void redefineKey(final IOrganizationEditable organizationInCurrentState, final INeighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException {
         super.remove(organizationInCurrentState.getKey());
         organizationInCurrentState.setNeighborhood(newNeighborhood);
@@ -117,10 +119,11 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
+    @Override
     public void setCity(final String key, final ICity newCity) throws ElementNotFoundException, KeyUsedException {
-        final OrganizationEditable organizationInCurrentState = (OrganizationEditable) super.search(key);
+        final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
-            final OrganizationEditable organizationInNewState = (OrganizationEditable) super.search(
+            final IOrganizationEditable organizationInNewState = (IOrganizationEditable) super.search(
                     organizationInCurrentState.previewKey(newCity));
             if (!organizationInCurrentState.equals(organizationInNewState)) {
                 throw new KeyUsedException(organizationInNewState);
@@ -139,7 +142,7 @@ public class OrganizationCollection<T> extends Collection<String,T> implements I
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    private void redefineKey(final OrganizationEditable organizationInCurrentState, final ICity newCity)
+    private void redefineKey(final IOrganizationEditable organizationInCurrentState, final ICity newCity)
             throws ElementNotFoundException, KeyUsedException {
         super.remove(organizationInCurrentState.getKey());
         organizationInCurrentState.setCity(newCity);
