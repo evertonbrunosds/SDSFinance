@@ -24,12 +24,17 @@ import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
 import util.Filter;
+import control.GetCorrect;
 
 /**
  * Classe responsável por comportar-se como fornecedor.
  * @author Everton Bruno Silva dos Santos.
  */
 public class Provider extends OrganizationEditable implements IProvider {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 5553043695336369639L;
     /**
      * Refere-se ao nome do fornecedor.
      */
@@ -53,23 +58,24 @@ public class Provider extends OrganizationEditable implements IProvider {
      * @param street Refere-se a rua do fornecedor.
      * @param neighborhood Refere-se ao bairro do fornecedor.
      * @param city Refere-se a cidade do fornecedor.
-     * @throws NullObjectException Exceção lançada no caso do nome ser nulo.
+     * @throws NullObjectException Exceção lançada no caso do nome de fornecedor nulo.
      */
-    public Provider(String name, IStreet street, INeighborhood neighborhood, ICity city) throws NullObjectException {
+    public Provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city)
+            throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-        this.street = getCorrectStreet(street);
-        this.neighborhood = getCorrectNeighborhood(neighborhood);
-        this.city = getCorrectCity(city);
+        this.street = GetCorrect.street(street);
+        this.neighborhood = GetCorrect.neighborhood(neighborhood);
+        this.city = GetCorrect.city(city);
     }
 
     /**
-     * Método responsável por alterar o nome do fornecedor.
+     * Método responsável por alterar chave do fornecedor.
      * @param key Refere-se ao novo nome do fornecedor.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
      */
     @Override
-    public void setKey(String key) throws NullObjectException {
+    public void setKey(final String key) throws NullObjectException {
         Filter.nullObject(key);
         this.name = key;
     }
@@ -79,17 +85,17 @@ public class Provider extends OrganizationEditable implements IProvider {
      * @param street Refere-se a nova rua do fornecedor.
      */
     @Override
-    public void setStreet(IStreet street) {
-        this.street = getCorrectStreet(street);
+    public void setStreet(final IStreet street) {
+        this.street = GetCorrect.street(street);
     }
-    
+
     /**
      * Método responsável por alterar o bairro do fornecedor.
-     * @param neighborhood Refere-se ao nov bairro do fornecedor.
+     * @param neighborhood Refere-se ao novo bairro do fornecedor.
      */
     @Override
-    public void setNeighborhood(INeighborhood neighborhood) {
-        this.neighborhood = getCorrectNeighborhood(neighborhood);
+    public void setNeighborhood(final INeighborhood neighborhood) {
+        this.neighborhood = GetCorrect.neighborhood(neighborhood);
     }
 
     /**
@@ -97,15 +103,15 @@ public class Provider extends OrganizationEditable implements IProvider {
      * @param city Refere-se a nova cidade do fornecedor.
      */
     @Override
-    public void setCity(ICity city) {
-        this.city = getCorrectCity(city);
+    public void setCity(final ICity city) {
+        this.city = GetCorrect.city(city);
     }
 
     /**
-     * Método responsável por pré-visualizar nome do fornecedor pós-alterações.
+     * Método responsável por pré-visualizar chave do fornecedor pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização de nova chave.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
      */
     @Override
     public Comparable<String> previewKey(String key) throws NullObjectException {
@@ -115,12 +121,45 @@ public class Provider extends OrganizationEditable implements IProvider {
     }
 
     /**
-     * Método responsável por retornar nome do fornecedor.
-     * @return Retorna nome da renda.
+     * Método responsável por pré-visualizar chave do fornecedor pós-alterações.
+     * @param street Refere-se a nova cidade.
+     * @return Retorna pré-visualização de nova chave.
+     */
+    @Override
+    public Comparable<String> previewKey(final IStreet street) {
+        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        return key.toLowerCase();
+    }
+
+    /**
+     * Método responsável por pré-visualizar chave do fornecedor pós-alterações.
+     * @param neighborhood Refere-se ao novo bairro.
+     * @return Retorna pré-visualização da nova chave.
+     */
+    @Override
+    public Comparable<String> previewKey(final INeighborhood neighborhood) {
+        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        return key.toLowerCase();
+    }
+
+    /**
+     * Método responsável por pré-visualizar chave do fornecedor pós-alterações.
+     * @param city Refere-se a nova cidade.
+     * @return Retorna pré-visualização da nova chave.
+     */
+    @Override
+    public Comparable<String> previewKey(final ICity city) {
+        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        return key.toLowerCase();
+    }
+
+    /**
+     * Método responsável por retornar chave do fornecedor.
+     * @return Retorna chave do fornecedor.
      */
     @Override
     public Comparable<String> getKey() {
-        String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
         return key.toLowerCase();
     }
 
@@ -159,5 +198,5 @@ public class Provider extends OrganizationEditable implements IProvider {
     public ICity getCity() {
         return city;
     }
-    
+
 }

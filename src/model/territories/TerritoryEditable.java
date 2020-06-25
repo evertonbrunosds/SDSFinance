@@ -33,18 +33,18 @@ public abstract class TerritoryEditable implements ITerritoryVisible, IElement<S
     private static final long serialVersionUID = 2226894436948334167L;
 
     /**
-     * Método responsável por alterar o nome do território.
+     * Método responsável por alterar chave do território.
      * @param key Refere-se ao novo nome do território.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de terrirório nulo.
      */
     @Override
     public abstract void setKey(String key) throws NullObjectException;
     
     /**
-     * Método responsável por pré-visualizar nome do território pós-alterações.
+     * Método responsável por pré-visualizar chave do território pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização de chave nome.
+     * @throws NullObjectException Exceção lançada em caso de nome de território nulo.
      */
     @Override
     public abstract Comparable<String> previewKey(String key) throws NullObjectException;

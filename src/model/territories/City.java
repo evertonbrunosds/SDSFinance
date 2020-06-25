@@ -39,7 +39,7 @@ public class City extends TerritoryEditable implements ICity {
     /**
      * Construtor responsável pelo instanciamento da cidade.
      * @param name Refere-se ao nome da cidade.
-     * @throws NullObjectException Exceção lançada no caso da string ser nula.
+     * @throws NullObjectException Exceção lançada em caso de nome de cidade nulo.
      */
     public City(final String name) throws NullObjectException {
         Filter.nullObject(name);
@@ -47,7 +47,7 @@ public class City extends TerritoryEditable implements ICity {
     }
 
     /**
-     * Método responsável por alterar o nome da cidade.
+     * Método responsável por alterar chave da cidade.
      * @param key Refere-se ao novo nome da cidade.
      * @throws NullObjectException Exceção lançada em caso de nome nulo.
      */
@@ -70,8 +70,8 @@ public class City extends TerritoryEditable implements ICity {
     }
 
     /**
-     * Método responsável por retornar nome da cidade.
-     * @return Retorna nome da cidade.
+     * Método responsável por retornar chave da cidade.
+     * @return Retorna chave da cidade.
      */
     @Override
     public Comparable<String> getKey() {

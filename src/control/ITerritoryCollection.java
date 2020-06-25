@@ -17,13 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.bytes;
+package control;
+
+import model.sets.ICollection;
 
 /**
- * Interface responsável por fornecer os métodos de uma estrutura capaz de carregar
- * e gravar dados em arquivos e outras estruturas.
+ * Interface responsável por fornecer os métodos de coleção de territórios.
  * @author Everton Bruno Silva dos Santos.
+ * @param <T> Refere-se ao tipo de território.
  */
-public interface IFileStream extends IFile, IStream {
+public interface ITerritoryCollection<T> extends ICollection<String,T> {
     
 }

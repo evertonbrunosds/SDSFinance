@@ -17,16 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package exceptions;
+package control;
+
+import model.sets.ICollection;
 
 /**
- * Classe responsável por comportar-se como uma exceção de um arquivo de fluxo inválido.
+ * Interface responsável por fornecer os métodos de coleção de organizações.
  * @author Everton Bruno Silva dos Santos.
+ * @param <T> Refere-se ao tipo de oferta.
  */
-public class FileStreamInvalidException extends Exception {
-    /**
-     * Refere-se ao número de série do objeto.
-     */
-    private static final long serialVersionUID = 665839272456024240L;
+public interface IOrganizationCollection<T> extends ICollection<String,T> {
     
 }

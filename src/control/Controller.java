@@ -19,8 +19,7 @@
  */
 package control;
 
-import model.sets.Collection;
-import model.sets.ICollection;
+import model.organization.IProvider;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -30,17 +29,41 @@ import model.territories.IStreet;
  * @author Everton Bruno Silva dos Santos.
  */
 public class Controller implements IController {
+    /**
+     * Refere-se a instância do controlador.
+     */
     private static Controller instance;
-    private ICollection<String, IStreet> streetCollection;
-    private ICollection<String, INeighborhood> neighborhoodCollection;
-    private ICollection<String, ICity> cityCollection;
+    /**
+     * Refere-se a coleção de ruas.
+     */
+    private ITerritoryCollection<IStreet> streetCollection;
+    /**
+     * Refere-se a coleção de bairros.
+     */
+    private ITerritoryCollection<INeighborhood> neighborhoodCollection;
+    /**
+     * Refere-se a coleção de cidades.
+     */
+    private ITerritoryCollection<ICity> cityCollection;
+    /**
+     * Refere-se a coleção de fornecedores.
+     */
+    private IOrganizationCollection<IProvider> providerCollection;
     
+    /**
+     * Construtor responsável pelo instanciamento do controlador.
+     */
     private Controller() {
-        streetCollection = new Collection<>();
-        neighborhoodCollection = new Collection<>();
-        cityCollection = new Collection<>();
+        streetCollection = new TerritoryCollection<>();
+        neighborhoodCollection = new TerritoryCollection<>();
+        cityCollection = new TerritoryCollection<>();
+        providerCollection = new OrganizationCollection<>();
     }
     
+    /**
+     * Método responsável por retornar instância do controlador.
+     * @return Retorna instância do controlador.
+     */
     public static IController getInstance() {
         if(instance == null) {
             instance = new Controller();
@@ -48,31 +71,56 @@ public class Controller implements IController {
         return instance;
     }
 
+    /**
+     * Método responsável por retornar coleção de ruas.
+     * @return Retorna coleção de ruas.
+     */
     @Override
-    public ICollection<String, IStreet> getStreetCollection() {
+    public ITerritoryCollection<IStreet> getStreetCollection() {
         return streetCollection;
     }
 
+    /**
+     * Método responsável por retornar coleção de bairros.
+     * @return Retorna coleção de bairros.
+     */
     @Override
-    public ICollection<String, INeighborhood> getNeighborhoodCollection() {
+    public ITerritoryCollection<INeighborhood> getNeighborhoodCollection() {
         return neighborhoodCollection;
     }
 
+    /**
+     * Método responsável por retornar coleção de cidades.
+     * @return Retorna coleção de cidades.
+     */
     @Override
-    public ICollection<String, ICity> getCityCollection() {
+    public ITerritoryCollection<ICity> getCityCollection() {
         return cityCollection;
     }
 
-    private void setStreetCollection(ICollection<String, IStreet> streetCollection) {
+    /**
+     * Método responsável por retornar coleção de fornecedores.
+     * @return Retorna coleção de fornecedores.
+     */
+    @Override
+    public IOrganizationCollection<IProvider> getProviderCollection() {
+        return providerCollection;
+    }
+    
+    private void setStreetCollection(final ITerritoryCollection<IStreet> streetCollection) {
         this.streetCollection = streetCollection;
     }
 
-    private void setNeighborhoodCollection(ICollection<String, INeighborhood> neighborhoodCollection) {
+    private void setNeighborhoodCollection(final ITerritoryCollection<INeighborhood> neighborhoodCollection) {
         this.neighborhoodCollection = neighborhoodCollection;
     }
 
-    private void setCityCollection(ICollection<String, ICity> cityCollection) {
+    private void setCityCollection(final ITerritoryCollection<ICity> cityCollection) {
         this.cityCollection = cityCollection;
+    }
+
+    public void setProviderCollection(final IOrganizationCollection<IProvider> providerCollection) {
+        this.providerCollection = providerCollection;
     }
     
 }

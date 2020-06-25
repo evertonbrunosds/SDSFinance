@@ -50,7 +50,7 @@ public class Expense extends OfferEditable implements IExpense {
      * Construtor responsável pelo instanciamento da despesa.
      * @param name Refere-se ao nome da despesa.
      * @param value Refere-se ao valor da despesa.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de despesa nulo.
      */
     public Expense(final String name, final double value) throws NullObjectException {
         Filter.nullObject(name);
@@ -70,7 +70,7 @@ public class Expense extends OfferEditable implements IExpense {
     /**
      * Método responsável por alterar o nome da despesa.
      * @param key Refere-se ao novo nome da despesa.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de despesa nulo.
      */
     @Override
     public void setKey(final String key) throws NullObjectException {
@@ -79,8 +79,8 @@ public class Expense extends OfferEditable implements IExpense {
     }
 
     /**
-     * Método responsável por retornar nome da despesa.
-     * @return Retorna nome da despesa.
+     * Método responsável por retornar chave da despesa.
+     * @return Retorna chave da despesa.
      */
     @Override
     public Comparable<String> getKey() {
@@ -88,10 +88,10 @@ public class Expense extends OfferEditable implements IExpense {
     }
 
     /**
-     * Método responsável por pré-visualizar nome da despesa pós-alterações.
+     * Método responsável por pré-visualizar chave da despesa pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização de nova chave.
+     * @throws NullObjectException Exceção lançada em caso de nome de despesa nula.
      */
     @Override
     public Comparable<String> previewKey(final String key) throws NullObjectException {

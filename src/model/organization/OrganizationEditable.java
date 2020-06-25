@@ -19,8 +19,6 @@
  */
 package model.organization;
 
-import control.Controller;
-import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import model.territories.ICity;
 import model.territories.INeighborhood;
@@ -32,11 +30,15 @@ import util.IElement;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class OrganizationEditable implements IOrganizationVisible, IElement<String> {
-    
     /**
-     * Método responsável por alterar o nome da oferta.
-     * @param key Refere-se ao novo nome da oferta.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = -3431448314409860304L;
+
+    /**
+     * Método responsável por alterar chave da organização.
+     * @param key Refere-se ao novo nome da organização.
+     * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
      */
     @Override
     public abstract void setKey(String key) throws NullObjectException;
@@ -60,54 +62,33 @@ public abstract class OrganizationEditable implements IOrganizationVisible, IEle
     public abstract void setCity(ICity city);
     
     /**
-     * Método responsável por pré-visualizar nome da ofeta pós-alterações.
+     * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização de chave.
+     * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
      */
     @Override
     public abstract Comparable<String> previewKey(String key) throws NullObjectException;
     
     /**
-     * Método responsável por retornar a instância de rua correta.
-     * @param street Refere-se a instância de rua possívelmente correta.
-     * @return Retorna instância de rua correta.
+     * Método responsável por pré-visualizar chave da organização pós-alterações.
+     * @param street Refere-se a nova cidade.
+     * @return Retorna pré-visualização da nova chave.
      */
-    protected static IStreet getCorrectStreet(final IStreet street) {
-        try {
-            Controller.getInstance().getStreetCollection().insert(street);
-            return street;
-        } catch (KeyUsedException ex) {
-            return (IStreet) ex.getElement();
-        }
-    }
+    public abstract Comparable<String> previewKey(IStreet street);
     
     /**
-     * Método responsável por retornar a instância de bairro correto.
-     * @param neighborhood Refere-se a instância de bairo possívelmente correto.
-     * @return Retorna instância de bairro correta.
+     * Método responsável por pré-visualizar chave da organização pós-alterações.
+     * @param neighborhood Refere-se ao novo bairro.
+     * @return Retorna pré-visualização da nova chave.
      */
-    protected static INeighborhood getCorrectNeighborhood(final INeighborhood neighborhood) {
-        try {
-            Controller.getInstance().getNeighborhoodCollection().insert(neighborhood);
-            return neighborhood;
-        } catch (KeyUsedException ex) {
-            return (INeighborhood) ex.getElement();
-        }
-    }
+    public abstract Comparable<String> previewKey(INeighborhood neighborhood);
     
     /**
-     * Método responsável por retornar a instância de cidade correta.
-     * @param city Refere-se a instância de cidade possívelmente correta.
-     * @return Retorna instância de cidade correta.
+     * Método responsável por pré-visualizar chave da organização pós-alterações.
+     * @param city Refere-se a nova cidade.
+     * @return Retorna pré-visualização da nova chave.
      */
-    protected static ICity getCorrectCity(final ICity city) {
-        try {
-            Controller.getInstance().getCityCollection().insert(city);
-            return city;
-        } catch (KeyUsedException ex) {
-            return (ICity) ex.getElement();
-        }
-    }
+    public abstract Comparable<String> previewKey(ICity city);
     
 }

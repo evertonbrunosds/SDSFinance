@@ -39,7 +39,7 @@ public class Neighborhood extends TerritoryEditable implements INeighborhood {
     /**
      * Construtor responsável pelo instanciamento do bairro.
      * @param name Refere-se ao nome do bairro.
-     * @throws NullObjectException Exceção lançada no caso da string ser nula.
+     * @throws NullObjectException Exceção lançada em caso do nome do bairro nulo.
      */
     public Neighborhood(final String name) throws NullObjectException {
         Filter.nullObject(name);
@@ -47,9 +47,9 @@ public class Neighborhood extends TerritoryEditable implements INeighborhood {
     }
 
     /**
-     * Método responsável por alterar o nome do bairro.
+     * Método responsável por alterar chave do bairro.
      * @param key Refere-se ao novo nome do bairro.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
      */
     @Override
     public void setKey(final String key) throws NullObjectException {
@@ -58,10 +58,10 @@ public class Neighborhood extends TerritoryEditable implements INeighborhood {
     }
 
     /**
-     * Método responsável por pré-visualizar nome do bairro pós-alterações.
+     * Método responsável por pré-visualizar chave do bairro pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização da chave.
+     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
      */
     @Override
     public Comparable<String> previewKey(final String key) throws NullObjectException {
@@ -70,8 +70,8 @@ public class Neighborhood extends TerritoryEditable implements INeighborhood {
     }
 
     /**
-     * Método responsável por retornar nome do bairro.
-     * @return Retorna nome do bairro.
+     * Método responsável por retornar chave do bairro.
+     * @return Retorna chave do bairro.
      */
     @Override
     public Comparable<String> getKey() {

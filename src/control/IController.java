@@ -19,7 +19,7 @@
  */
 package control;
 
-import model.sets.ICollection;
+import model.organization.IProvider;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -30,10 +30,28 @@ import model.territories.IStreet;
  */
 public interface IController {
     
-    public ICollection<String, IStreet> getStreetCollection();
+    /**
+     * Método responsável por retornar coleção de ruas.
+     * @return Retorna coleção de ruas.
+     */
+    public ITerritoryCollection<IStreet> getStreetCollection();
     
-    public ICollection<String, INeighborhood> getNeighborhoodCollection();
+    /**
+     * Método responsável por retornar coleção de bairros.
+     * @return Retorna coleção de bairros.
+     */
+    public ITerritoryCollection<INeighborhood> getNeighborhoodCollection();
     
-    public ICollection<String, ICity> getCityCollection();
+    /**
+     * Método responsável por retornar coleção de cidades.
+     * @return Retorna coleção de cidades.
+     */
+    public ITerritoryCollection<ICity> getCityCollection();
+    
+    /**
+     * Método responsável por retornar coleção de fornecedores.
+     * @return Retorna coleção de fornecedores.
+     */
+    public IOrganizationCollection<IProvider> getProviderCollection();
     
 }

@@ -17,10 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.bytes;
+package util;
 
-import exceptions.FileStreamInvalidException;
-import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,13 +26,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import util.Filter;
+import java.io.Serializable;
 
 /**
  * Classe responsável por comportar-se como um arquivo em fluxo.
  * @author Everton Bruno Silva dos Santos.
  */
-public class FileStream implements IFileStream {
+public class FileStream implements Serializable {
     /**
      * Refere-se ao número de série do objeto.
      */
@@ -45,25 +43,22 @@ public class FileStream implements IFileStream {
     private Object object;
     
     /**
-     * Construtor responsável pelo instanciamento da estrutura.
+     * Construtor responsável pelo instanciamento do arquivo em fluxo.
      */
     public FileStream() {
         object = null;
     }
 
     /**
-     * Método responsável pelo carregamento de dados de uma estrutura em arquivo.
+     * Método responsável pelo carregamento de dados de uma estrutura contido em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
      * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
-     * @throws FileStreamInvalidException Exceção lançada em caso de arquivo em fluxo inválido.
-     * @throws IncompatibleTypeException Exceção lançada em caso do tipo ser incompatível.
      */
-    @Override
-    public void loadFromFile(final String fileName) throws NullObjectException, FileNotFoundException,
-            IOException, ClassNotFoundException, FileStreamInvalidException, IncompatibleTypeException {
+    public void loadFromFile(final String fileName) 
+            throws NullObjectException, FileNotFoundException, IOException, ClassNotFoundException {
         Filter.nullObject(fileName);
         try (ObjectInputStream fileStream = new ObjectInputStream(new FileInputStream(fileName))) {
             this.object = fileStream.readObject();
@@ -74,15 +69,12 @@ public class FileStream implements IFileStream {
     /**
      * Método responsável pela gravação de dados de uma estrutura em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
      * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
-     * @throws FileStreamInvalidException Exceção lançada em caso de arquivo em fluxo inválido.
-     * @throws IncompatibleTypeException Exceção lançada em caso do tipo ser incompatível.
      */
-    @Override
-    public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException,
-            IOException, FileStreamInvalidException, IncompatibleTypeException {
+    public void saveFromFile(final String fileName) 
+            throws NullObjectException, FileNotFoundException, IOException {
         Filter.nullObject(fileName);
         try (ObjectOutputStream fileStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             fileStream.writeObject(object);
@@ -91,42 +83,24 @@ public class FileStream implements IFileStream {
     }
 
     /**
-     * Método responsável pelo carregamento de dados de uma estrutura em outra estrutura.
-     * @param fileStream Refere-se a estrutura que será carregada.
-     * @throws FileStreamInvalidException Exceção lançada em caso de arquivo em fluxo inválido.
-     * @throws IncompatibleTypeException Exceção lançada em caso do tipo ser incompatível.
+     * Método responsável por retornar o objeto contido na estrutura.
+     * @return Retorna objeto contido na estrutura.
      */
-    @Override
-    public void loadFromStream(final IFileStream fileStream) throws FileStreamInvalidException, IncompatibleTypeException {
-        Filter.InvalidFileStream(fileStream);
-        object = fileStream.getObject();
-    }
-
-    /**
-     * Método responsável pela gravação de dados de uma estrutura em outra estrutura.
-     * @param fileStream Refere-se a estrutura que será gravada.
-     * @throws FileStreamInvalidException Exceção lançada em caso de arquivo em fluxo inválido.
-     * @throws IncompatibleTypeException Exceção lançada em caso do tipo ser incompatível.
-     */
-    @Override
-    public void saveFromStream(final IFileStream fileStream)  throws FileStreamInvalidException, IncompatibleTypeException {
-        Filter.InvalidFileStream(fileStream);
-        fileStream.loadFromStream(this);
-    }
-
-    /**
-     * Método responsável pelo retorno de dados contidos na estrutura.
-     * @return Retorna dados contidos na estrutura.
-     */
-    @Override
     public Object getObject() {
         return object;
     }
 
     /**
+     * Método responsável por alterar o objeto contido na estrutura.
+     * @param object Refere-se ao novo objeto.
+     */
+    public void setObject(final Serializable object) {
+        this.object = object;
+    }
+    
+    /**
      * Método responsável pelo esvaziamento da estrutura.
      */
-    @Override
     public void clear() {
         object = null;
     }

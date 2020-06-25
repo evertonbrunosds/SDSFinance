@@ -50,7 +50,7 @@ public class Income extends OfferEditable implements IIncome {
      * Construtor responsável pelo instanciamento da renda.
      * @param name Refere-se ao nome da renda.
      * @param value Refere-se ao valor da renda.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de renada nula.
      */
     public Income(final String name, final double value) throws NullObjectException {
         Filter.nullObject(name);
@@ -70,7 +70,7 @@ public class Income extends OfferEditable implements IIncome {
     /**
      * Método responsável por alterar o nome da renda.
      * @param key Refere-se ao novo nome da renda.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @throws NullObjectException Exceção lançada em caso de nome de renda nula.
      */
     @Override
     public void setKey(final String key) throws NullObjectException {
@@ -79,8 +79,8 @@ public class Income extends OfferEditable implements IIncome {
     }
 
     /**
-     * Método responsável por retornar nome da renda.
-     * @return Retorna nome da renda.
+     * Método responsável por retornar chave da renda.
+     * @return Retorna chave da renda.
      */
     @Override
     public Comparable<String> getKey() {
@@ -88,10 +88,10 @@ public class Income extends OfferEditable implements IIncome {
     }
 
     /**
-     * Método responsável por pré-visualizar nome da renda pós-alterações.
+     * Método responsável por pré-visualizar chave da renda pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * @return Retorna pré-visualização de nova chave.
+     * @throws NullObjectException Exceção lançada em caso de nome de renda nula.
      */
     @Override
     public Comparable<String> previewKey(final String key) throws NullObjectException {

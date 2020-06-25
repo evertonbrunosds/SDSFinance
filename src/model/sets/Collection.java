@@ -161,7 +161,7 @@ public class Collection<K,E> implements ICollection<K,E> {
      */
     private void redefineKey(final IElement<K> elementInCurrentState, final K newKey)
             throws ElementNotFoundException, NullObjectException, KeyUsedException {
-        tree.remove(elementInCurrentState.getKey());
+        remove(elementInCurrentState.getKey());
         elementInCurrentState.setKey(newKey);
         tree.insert(elementInCurrentState.getKey(), elementInCurrentState);
     }
