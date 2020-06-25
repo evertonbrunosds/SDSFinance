@@ -17,12 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package control;
+package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import model.organization.OrganizationEditable;
-import model.sets.Collection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;

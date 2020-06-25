@@ -19,6 +19,8 @@
  */
 package control;
 
+import model.sets.ITerritoryCollection;
+import model.sets.IOrganizationCollection;
 import model.organization.IProvider;
 import model.territories.ICity;
 import model.territories.INeighborhood;

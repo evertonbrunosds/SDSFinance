@@ -17,15 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package control;
-
-import model.sets.ICollection;
+package model.sets;
 
 /**
- * Interface responsável por fornecer os métodos de coleção de organizações.
+ * Interface responsável por fornecer os métodos de coleção de territórios.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo de oferta.
+ * @param <T> Refere-se ao tipo de território.
  */
-public interface IOrganizationCollection<T> extends ICollection<String,T> {
+public interface ITerritoryCollection<T> extends ICollection<String,T> {
     
 }

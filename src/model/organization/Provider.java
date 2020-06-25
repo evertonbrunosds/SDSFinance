@@ -24,7 +24,6 @@ import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
 import util.Filter;
-import control.GetCorrect;
 
 /**
  * Classe responsável por comportar-se como fornecedor.
@@ -64,9 +63,9 @@ public class Provider extends OrganizationEditable implements IProvider {
             throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-        this.street = GetCorrect.street(street);
-        this.neighborhood = GetCorrect.neighborhood(neighborhood);
-        this.city = GetCorrect.city(city);
+        this.street = street;
+        this.neighborhood = neighborhood;
+        this.city = city;
     }
 
     /**
@@ -86,7 +85,7 @@ public class Provider extends OrganizationEditable implements IProvider {
      */
     @Override
     public void setStreet(final IStreet street) {
-        this.street = GetCorrect.street(street);
+        this.street = street;
     }
 
     /**
@@ -95,7 +94,7 @@ public class Provider extends OrganizationEditable implements IProvider {
      */
     @Override
     public void setNeighborhood(final INeighborhood neighborhood) {
-        this.neighborhood = GetCorrect.neighborhood(neighborhood);
+        this.neighborhood = neighborhood;
     }
 
     /**
@@ -104,7 +103,7 @@ public class Provider extends OrganizationEditable implements IProvider {
      */
     @Override
     public void setCity(final ICity city) {
-        this.city = GetCorrect.city(city);
+        this.city = city;
     }
 
     /**
