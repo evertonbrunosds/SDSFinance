@@ -17,19 +17,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.territories;
+package model.organization;
 
 import java.io.Serializable;
+import model.territories.ICity;
+import model.territories.INeighborhood;
+import model.territories.IStreet;
 
 /**
- * Interface responsável por fornecer os métodos de um território.
- * @author Everton Bruo Silva dos Santos.
+ * Interface responsável por fornecer os métodos de organização visível.
+ * @author Everton Bruno Silva dos Sanots.
  */
-public interface ITerritories extends Serializable {
+public interface IOrganizationVisible extends Serializable {
     
     /**
-     * Método responsável por retornar o nome do território.
-     * @return Retorna nome do território.
+     * Método responsável por retornar o nome da organização.
+     * @return Retorna nome da organização.
      */
     @Override
     public String toString();
@@ -39,5 +42,23 @@ public interface ITerritories extends Serializable {
      * @return Retorna chave comparável.
      */
     public Comparable<String> getKey();
+    
+    /**
+     * Método responsável por retornar rua da organização.
+     * @return Retorna rua da organização.
+     */
+    public IStreet getStreet();
+    
+    /**
+     * Método responsável por retornar bairro da organização.
+     * @return Retorna bairro da organização.
+     */
+    public INeighborhood getNeighborhood();
+    
+    /**
+     * Método responsável por retornar cidade da organização.
+     * @return Retorna cidade da organização.
+     */
+    public ICity getCity();
     
 }

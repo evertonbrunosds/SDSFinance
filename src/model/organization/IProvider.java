@@ -23,6 +23,13 @@ package model.organization;
  * Interface responsável por fornecer os métodos de fornecedor.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IProvider {
+public interface IProvider extends IOrganizationVisible {
+    
+    /**
+     * Método responsável por retornar o nome do fornecedor.
+     * @return Retorna nome do fornecedor.
+     */
+    @Override
+    public String toString();
     
 }

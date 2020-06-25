@@ -19,10 +19,21 @@
  */
 package control;
 
+import model.sets.ICollection;
+import model.territories.ICity;
+import model.territories.INeighborhood;
+import model.territories.IStreet;
+
 /**
  * Interface responsável por fornecer os métodos de controlador.
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IController {
+    
+    public ICollection<String, IStreet> getStreetCollection();
+    
+    public ICollection<String, INeighborhood> getNeighborhoodCollection();
+    
+    public ICollection<String, ICity> getCityCollection();
     
 }

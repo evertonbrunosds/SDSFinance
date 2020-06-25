@@ -23,10 +23,10 @@ import exceptions.NullObjectException;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de um território.
+ * Classe abstrata responsável por fornecer os métodos de um território editável.
  * @author Everton Bruo Silva dos Santos.
  */
-public abstract class Territories implements ITerritories, IElement<String> {
+public abstract class TerritoryEditable implements ITerritoryVisible, IElement<String> {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -34,7 +34,6 @@ public abstract class Territories implements ITerritories, IElement<String> {
 
     /**
      * Método responsável por alterar o nome do território.
-     * 
      * @param key Refere-se ao novo nome do território.
      * @throws NullObjectException Exceção lançada em caso de nome nulo.
      */

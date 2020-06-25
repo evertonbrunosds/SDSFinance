@@ -26,7 +26,7 @@ import util.Filter;
  * Classe responsável por comportar-se como uma cidade.
  * @author Everton Bruno Silva dos Santos.
  */
-public class City extends Territories implements ICity {
+public class City extends TerritoryEditable implements ICity {
     /**
      * Refere-se ao número de série da classe.
      */

@@ -23,7 +23,7 @@ package model.offers;
  * Interface responsável por fornecer os métodos de despesa.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IExpense extends IOffer {
+public interface IExpense extends IOfferVisible {
     
     /**
      * Método responsável por duplicar despesa.

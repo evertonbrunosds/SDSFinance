@@ -23,10 +23,10 @@ import java.io.Serializable;
 import util.IDuplicable;
 
 /**
- * Interface responsável por fornecer os métodos de oferta.
+ * Interface responsável por fornecer os métodos de oferta visível.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IOffer extends Serializable, IDuplicable {
+public interface IOfferVisible extends Serializable, IDuplicable {
     
     /**
      * Método responsável por retornar o nome da oferta.
@@ -40,7 +40,7 @@ public interface IOffer extends Serializable, IDuplicable {
      * @return Retorna oferta duplicata.
      */
     @Override
-    public IOffer duplicate();
+    public IOfferVisible duplicate();
     
     /**
      * Método responsável por retornar valor de oferta.

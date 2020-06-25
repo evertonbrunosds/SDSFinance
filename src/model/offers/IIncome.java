@@ -23,7 +23,7 @@ package model.offers;
  * Interface responsável por fornecer os métodos de renda.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IIncome extends IOffer {
+public interface IIncome extends IOfferVisible {
     
     /**
      * Método responsável por duplicar renda.

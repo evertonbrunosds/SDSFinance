@@ -19,6 +19,8 @@
  */
 package model.organization;
 
+import control.Controller;
+import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import model.territories.ICity;
 import model.territories.INeighborhood;
@@ -26,10 +28,10 @@ import model.territories.IStreet;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de organização.
+ * Classe abstrata responsável por fornecer os métodos de organização editável.
  * @author Everton Bruno Silva dos Santos.
  */
-public abstract class Organization implements IElement<String> {
+public abstract class OrganizationEditable implements IOrganizationVisible, IElement<String> {
     
     /**
      * Método responsável por alterar o nome da oferta.
@@ -65,5 +67,47 @@ public abstract class Organization implements IElement<String> {
      */
     @Override
     public abstract Comparable<String> previewKey(String key) throws NullObjectException;
+    
+    /**
+     * Método responsável por retornar a instância de rua correta.
+     * @param street Refere-se a instância de rua possívelmente correta.
+     * @return Retorna instância de rua correta.
+     */
+    protected static IStreet getCorrectStreet(final IStreet street) {
+        try {
+            Controller.getInstance().getStreetCollection().insert(street);
+            return street;
+        } catch (KeyUsedException ex) {
+            return (IStreet) ex.getElement();
+        }
+    }
+    
+    /**
+     * Método responsável por retornar a instância de bairro correto.
+     * @param neighborhood Refere-se a instância de bairo possívelmente correto.
+     * @return Retorna instância de bairro correta.
+     */
+    protected static INeighborhood getCorrectNeighborhood(final INeighborhood neighborhood) {
+        try {
+            Controller.getInstance().getNeighborhoodCollection().insert(neighborhood);
+            return neighborhood;
+        } catch (KeyUsedException ex) {
+            return (INeighborhood) ex.getElement();
+        }
+    }
+    
+    /**
+     * Método responsável por retornar a instância de cidade correta.
+     * @param city Refere-se a instância de cidade possívelmente correta.
+     * @return Retorna instância de cidade correta.
+     */
+    protected static ICity getCorrectCity(final ICity city) {
+        try {
+            Controller.getInstance().getCityCollection().insert(city);
+            return city;
+        } catch (KeyUsedException ex) {
+            return (ICity) ex.getElement();
+        }
+    }
     
 }

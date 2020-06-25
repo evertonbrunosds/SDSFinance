@@ -17,12 +17,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.organization;
+package model.territories;
+
+import java.io.Serializable;
 
 /**
- * Interface responsável por fornecer os métodos de organização.
- * @author Everton Bruno Silva dos Sanots.
+ * Interface responsável por fornecer os métodos de um território visível.
+ * @author Everton Bruo Silva dos Santos.
  */
-public interface IOrganization {
+public interface ITerritoryVisible extends Serializable {
+    
+    /**
+     * Método responsável por retornar o nome do território.
+     * @return Retorna nome do território.
+     */
+    @Override
+    public String toString();
+    
+    /**
+     * Método responsável por retornar a chave comparável.
+     * @return Retorna chave comparável.
+     */
+    public Comparable<String> getKey();
     
 }

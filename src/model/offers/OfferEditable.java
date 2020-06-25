@@ -23,10 +23,10 @@ import exceptions.NullObjectException;
 import util.IElement;
 
 /**
- * Classe abstrata responsável por fornecer os métodos de uma oferta.
+ * Classe abstrata responsável por fornecer os métodos de uma oferta editável.
  * @author Everton Bruno Silva dos Santos.
  */
-public abstract class Offer implements IOffer, IElement<String> {
+public abstract class OfferEditable implements IOfferVisible, IElement<String> {
     /**
      * Refere-se ao número de série da classe.
      */

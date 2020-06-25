@@ -19,10 +19,60 @@
  */
 package control;
 
+import model.sets.Collection;
+import model.sets.ICollection;
+import model.territories.ICity;
+import model.territories.INeighborhood;
+import model.territories.IStreet;
+
 /**
  * Classe responsável por comportar-se como controlador.
  * @author Everton Bruno Silva dos Santos.
  */
 public class Controller implements IController {
+    private static Controller instance;
+    private ICollection<String, IStreet> streetCollection;
+    private ICollection<String, INeighborhood> neighborhoodCollection;
+    private ICollection<String, ICity> cityCollection;
+    
+    private Controller() {
+        streetCollection = new Collection<>();
+        neighborhoodCollection = new Collection<>();
+        cityCollection = new Collection<>();
+    }
+    
+    public static IController getInstance() {
+        if(instance == null) {
+            instance = new Controller();
+        }
+        return instance;
+    }
+
+    @Override
+    public ICollection<String, IStreet> getStreetCollection() {
+        return streetCollection;
+    }
+
+    @Override
+    public ICollection<String, INeighborhood> getNeighborhoodCollection() {
+        return neighborhoodCollection;
+    }
+
+    @Override
+    public ICollection<String, ICity> getCityCollection() {
+        return cityCollection;
+    }
+
+    private void setStreetCollection(ICollection<String, IStreet> streetCollection) {
+        this.streetCollection = streetCollection;
+    }
+
+    private void setNeighborhoodCollection(ICollection<String, INeighborhood> neighborhoodCollection) {
+        this.neighborhoodCollection = neighborhoodCollection;
+    }
+
+    private void setCityCollection(ICollection<String, ICity> cityCollection) {
+        this.cityCollection = cityCollection;
+    }
     
 }

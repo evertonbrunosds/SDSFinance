@@ -27,7 +27,7 @@ import util.Filter;
  * Classe responsável por comportar-se como despesa.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Expense extends Offer implements IExpense {
+public class Expense extends OfferEditable implements IExpense {
     /**
      * Refere-se ao número de série da classe.
      */

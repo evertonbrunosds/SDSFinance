@@ -26,7 +26,7 @@ import util.Filter;
  * Classe responsável por comportar-se como um bairro.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Neighborhood extends Territories implements INeighborhood {
+public class Neighborhood extends TerritoryEditable implements INeighborhood {
     /**
      * Refere-se ao número de série da classe.
      */

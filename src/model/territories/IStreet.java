@@ -23,7 +23,7 @@ package model.territories;
  * Interface responsável por fornecer os métodos de uma rua.
  * @author Everton Bruo Silva dos Santos.
  */
-public interface IStreet extends ITerritories {
+public interface IStreet extends ITerritoryVisible {
     
     /**
      * Método responsável por retornar o nome da rua.

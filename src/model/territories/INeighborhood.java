@@ -23,7 +23,7 @@ package model.territories;
  * Interface responsável por fornecer os métodos de um bairro.
  * @author Everton Bruo Silva dos Santos.
  */
-public interface INeighborhood extends ITerritories {
+public interface INeighborhood extends ITerritoryVisible {
     
     /**
      * Método responsável por retornar o nome do bairro.

@@ -23,7 +23,7 @@ package model.territories;
  * Interface responsável por fornecer os métodos de uma cidade.
  * @author Everton Bruo Silva dos Santos.
  */
-public interface ICity extends ITerritories {
+public interface ICity extends ITerritoryVisible {
     
     /**
      * Método responsável por retornar o nome da cidade.
