@@ -17,9 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package util;
+package model.sets;
 
-import model.sets.Tree;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import org.junit.After;

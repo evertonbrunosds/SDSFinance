@@ -28,7 +28,7 @@ import java.util.Calendar;
  * Classe responsável por comportar-se como um data.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Date implements Serializable {
+public class Date implements IDateVisible, Serializable {
     /**
      * Refere-se ao número de série do objeto.
      */
@@ -113,6 +113,7 @@ public class Date implements Serializable {
      * Método responsável por retornar o dia da data.
      * @return Retorna dia da data.
      */
+    @Override
     public int getDay() {
         return day;
     }
@@ -121,6 +122,7 @@ public class Date implements Serializable {
      * Método responsável por retornar o mês da data.
      * @return Retorna mês da data.
      */
+    @Override
     public int getMonth() {
         return month;
     }
@@ -129,6 +131,7 @@ public class Date implements Serializable {
      * Método responsável por retornar o ano da data.
      * @return Retorna ano da data.
      */
+    @Override
     public int getYear() {
         return year;
     }
