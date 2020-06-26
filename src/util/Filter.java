@@ -19,9 +19,13 @@
  */
 package util;
 
+import exceptions.DateInvalidException;
 import exceptions.DoubleValueInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Classe responsável por comportar-se como um filtro.
@@ -69,6 +73,44 @@ public abstract class Filter {
             Integer.parseInt(value);
         } catch (final NumberFormatException ex) {
             throw new IntegerValueInvalidException(value);
+        }
+    }
+    
+    /**
+     * Método responsável por realizar a flitragem de datas válidas.
+     * @param date Refere-se a data possívelmente válida.
+     * @throws NullObjectException Exceção lançada em caso de data nula.
+     * @throws DateInvalidException Exceção lançada em caso de data inválida.
+     */
+    public static void invalidDate(String date) throws NullObjectException, DateInvalidException {
+        nullObject(date);
+        verifyDate(date);
+    }
+    
+    /**
+     * Método responsável por realizar a flitragem de datas válidas.
+     * @param day Refere-se ao dia.
+     * @param month Refere-se ao mês.
+     * @param year Refere-se ao ano.
+     * @throws DateInvalidException Exceção lançada em caso de data inválida.
+     */
+    public static void invalidDate(final int day, final int month, final int year) throws DateInvalidException {
+        verifyDate(Converter.toPositive(day) + "/" + Converter.toPositive(month) + "/" + Converter.toPositive(year));
+    }
+    
+    /**
+     * Método responsável por verificar a validade de uma data.
+     * @param date Refere-se a data.
+     * @throws DateInvalidException Exceção lançada em caso de data inválida.
+     */
+    private static void verifyDate(String date) throws DateInvalidException {
+        date = date.replace('-', '0');
+        final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(date);
+        } catch (final ParseException ex) {
+            throw new DateInvalidException(date);
         }
     }
     
