@@ -17,17 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.FinancialMovement;
+package model.business;
 
-import java.io.Serializable;
-
-public interface IFinancialMovementVisible extends Serializable {
-    
-    /**
-     * Método responsável por retornar o nome da oferta.
-     * @return Retorna nome da oferta.
-     */
-    @Override
-    public String toString();
+public interface IBusinessEditable {
     
 }

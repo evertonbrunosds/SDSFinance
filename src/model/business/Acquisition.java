@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.FinancialMovement;
+package model.business;
 
 import exceptions.NullObjectException;
 import model.offers.IOfferEditable;
@@ -32,7 +32,7 @@ import util.IDateVisible;
  * Classe responsável por comportar-se como aquisição.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Acquisition implements IAcquisition, IFinancialMovementEditable {
+public class Acquisition {
 
     private IProvider provider;
     private IOfferEditable offer;
@@ -46,20 +46,17 @@ public class Acquisition implements IAcquisition, IFinancialMovementEditable {
         this.date = date;
     }
 
-    @Override
     public void setKey(String key) throws NullObjectException {
         Filter.nullObject(key);
         this.offer.setKey(key);
     }
 
-    @Override
     public Comparable<String> getKey() {
         final String dateString = toString(date.getYear()) + toString(date.getMonth()) + toString(date.getDay());
         final String key = dateString + provider.toString() + offer.toString() + offer.getValue();
         return key.toLowerCase();
     }
 
-    @Override
     public Comparable<String> previewKey(String key) throws NullObjectException {
         final String dateString = toString(date.getYear()) + toString(date.getMonth()) + toString(date.getDay());
         key = dateString + provider.toString() + key + offer.getValue();
@@ -121,7 +118,5 @@ public class Acquisition implements IAcquisition, IFinancialMovementEditable {
     public IDateVisible getDate() {
         return date;
     }
-    
-    
 
 }

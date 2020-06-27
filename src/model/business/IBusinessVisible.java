@@ -17,10 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package model.FinancialMovement;
+package model.business;
 
-import util.IElement;
-
-public interface IFinancialMovementEditable extends IElement<String> {
+public interface IBusinessVisible {
     
 }
