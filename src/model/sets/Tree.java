@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * @param <K> Refere-se ao tipo de chave usada na árvore.
  * @param <E> Refere-se ao tipo de elemento armazenado na árvore.
  */
-public class Tree<K,E> implements ITree<K,E> {
+public class Tree<K, E> implements ITree<K, E> {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -46,7 +46,7 @@ public class Tree<K,E> implements ITree<K,E> {
     public Tree() {
         this.root = null;
     }
-    
+
     /**
      * Método responsável por retornar a quantidade de elementos contidos na árvore.
      * @return Retorna quantidade de elementos contidos na árvore.
@@ -55,14 +55,14 @@ public class Tree<K,E> implements ITree<K,E> {
     public int size() {
         return size(root);
     }
-    
+
     /**
      * Método responsável por retornar a quantidade de elementos contidos na árvore.
      * @param currentNode Refere-se ao nó atual da contagem.
      * @return Retorna quantidade de elementos contidos na árvore.
      */
     private int size(final Node currentNode) {
-        if(currentNode == null) {
+        if (currentNode == null) {
             return 0;
         } else {
             return size(currentNode.sonOnTheLeft) + size(currentNode.sonOnTheRight) + 1;
@@ -114,7 +114,7 @@ public class Tree<K,E> implements ITree<K,E> {
 
     /**
      * Método responsável por buscar dado elemento que está contido na árvore.
-     * @param key Refere-se a chave do elemento.
+     * @param key         Refere-se a chave do elemento.
      * @param currentNode Refere-se ao nó atual da busca.
      * @return Retorna elemento se contido na árvore, do contrário retorna referência nula.
      */
@@ -149,7 +149,7 @@ public class Tree<K,E> implements ITree<K,E> {
 
     /**
      * Método responsável por remover dado elemento que está contido na árvore.
-     * @param key Refere-se a chave do elemento.
+     * @param key         Refere-se a chave do elemento.
      * @param currentNode Refere-se ao nó atual da remoção.
      * @return Retorna nó raiz da árvore reconstruida sem o elemento removido.
      */
@@ -189,7 +189,7 @@ public class Tree<K,E> implements ITree<K,E> {
 
     /**
      * Método responsável por insetir dado elemento na árvore.
-     * @param key Refere-se a chave do elemento.
+     * @param key     Refere-se a chave do elemento.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
@@ -200,8 +200,8 @@ public class Tree<K,E> implements ITree<K,E> {
 
     /**
      * Método responsável por insetir dado elemento na árvore.
-     * @param key Refere-se a chave do elemento.
-     * @param element Refere-se ao elemento.
+     * @param key         Refere-se a chave do elemento.
+     * @param element     Refere-se ao elemento.
      * @param currentNode Refere-se ao nó atual da inserção.
      * @return Retorna nó raiz da árvore reconstruida sem o elemento removido.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
@@ -233,7 +233,7 @@ public class Tree<K,E> implements ITree<K,E> {
 
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore.
-     * @param element Refere-se aos elementos contidos na árvore.
+     * @param element     Refere-se aos elementos contidos na árvore.
      * @param currentNode Refere-se ao nó atual da recursão.
      */
     private void forEach(final Consumer<? super E> element, final Node currentNode) {
@@ -317,7 +317,7 @@ public class Tree<K,E> implements ITree<K,E> {
     /**
      * Método responsável por efetuar rotações duplas a esquerda.
      * @param sonOnTheLeft Refere-se ao filho a esquerda.
-     * @param oldRoot Refere-se ao antigo nó raiz.
+     * @param oldRoot      Refere-se ao antigo nó raiz.
      * @return Retorna nó raiz de árvore duplamente rotacionada a esquerda.
      */
     private Node doubleRotationLeft(final Node sonOnTheLeft, final Node oldRoot) {
@@ -330,7 +330,7 @@ public class Tree<K,E> implements ITree<K,E> {
     /**
      * Método responsável por efetuar rotações duplas a direita.
      * @param sonOnTheLeft Refere-se ao filho a direita.
-     * @param oldRoot Refere-se ao antigo nó raiz.
+     * @param oldRoot      Refere-se ao antigo nó raiz.
      * @return Retorna nó raiz de árvore duplamente rotacionada a direita.
      */
     private Node doubleRotationRight(final Node sonOnTheRight, final Node oldRoot) {
@@ -371,7 +371,7 @@ public class Tree<K,E> implements ITree<K,E> {
 
         /**
          * Construtor responsável pelo instanciamento do nó.
-         * @param key Refere-se a chave do nó.
+         * @param key     Refere-se a chave do nó.
          * @param element Refere-se ao elemento do nó.
          */
         private Node(final Comparable<K> key, final E element) {
@@ -381,7 +381,7 @@ public class Tree<K,E> implements ITree<K,E> {
             this.sonOnTheLeft = null;
             this.sonOnTheRight = null;
         }
-        
+
         /**
          * Método responsável por indicar se o nó é uma folha.
          * @return Retorna indicativo de que o nó é uma folha.
@@ -389,7 +389,7 @@ public class Tree<K,E> implements ITree<K,E> {
         private boolean isLeaf() {
             return sonOnTheLeft == null && sonOnTheRight == null;
         }
-        
+
         /**
          * Método responsável por indicar se o nó tem apenas filhos a esquerda.
          * @return Retorna indicativo de que o nó tem apenas filhos a esquerda.
@@ -397,7 +397,7 @@ public class Tree<K,E> implements ITree<K,E> {
         private boolean hasSonJustLeft() {
             return sonOnTheLeft != null && sonOnTheRight == null;
         }
-        
+
         /**
          * Método responsável por indicar se o nó tem apenas filhos a direita.
          * @return Retorna indicativo de que o nó tem apenas filhos a direita.
@@ -405,7 +405,7 @@ public class Tree<K,E> implements ITree<K,E> {
         private boolean hasSonJustRight() {
             return sonOnTheLeft == null && sonOnTheRight != null;
         }
-        
+
     }
 
 }

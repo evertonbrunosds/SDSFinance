@@ -19,6 +19,58 @@
  */
 package model.business;
 
-public interface IBusinessVisible {
-    
+import java.io.Serializable;
+import model.offers.IOfferVisible;
+import model.organizations.IProvider;
+import util.IDateVisible;
+
+/**
+ * Interface responsável por fornecer os métodos de um negócio visível.
+ * @author Everton Bruno Silva dos Santos.
+ */
+public interface IBusinessVisible extends Serializable {
+
+    /**
+     * Método responsável por retornar o nome do negócio.
+     * @return Retorna nome do negócio.
+     */
+    @Override
+    public String toString();
+
+    /**
+     * Método responsável por retornar o fornecedor do negócio.
+     * @return Retorna fornecedor do negócio.
+     */
+    public IProvider getProvider();
+
+    /**
+     * Método responsável por retornar a oferta do negócio.
+     * @return Retorna oferta do negócio.
+     */
+    public IOfferVisible getOffer();
+
+    /**
+     * Método responsável por retornar a quantidade do negócios.
+     * @return Retorna quantidade de negócios.
+     */
+    public int getAmount();
+
+    /**
+     * Método responsável por retornar o valor total do negócio.
+     * @return Retorna valor total do negócio.
+     */
+    public double getTotalValue();
+
+    /**
+     * Método responsável por retornar o data do negócio.
+     * @return Retorna data do negócio.
+     */
+    public IDateVisible getDate();
+
+    /**
+     * Método responsável por retornar chave comparável.
+     * @return Retorna chave comparável.
+     */
+    public Comparable<String> getKey();
+
 }

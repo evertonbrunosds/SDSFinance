@@ -41,7 +41,7 @@ public class FileStream implements Serializable {
      * Refere-se ao objeto que armazena as estruturas.
      */
     private Object object;
-    
+
     /**
      * Construtor responsável pelo instanciamento do arquivo em fluxo.
      */
@@ -52,12 +52,12 @@ public class FileStream implements Serializable {
     /**
      * Método responsável pelo carregamento de dados de uma estrutura contido em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws NullObjectException    Exceção lançada em caso de nome de arquivo nulo.
+     * @throws FileNotFoundException  Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
      */
-    public void loadFromFile(final String fileName) 
+    public void loadFromFile(final String fileName)
             throws NullObjectException, FileNotFoundException, IOException, ClassNotFoundException {
         Filter.nullObject(fileName);
         try (ObjectInputStream fileStream = new ObjectInputStream(new FileInputStream(fileName))) {
@@ -69,12 +69,11 @@ public class FileStream implements Serializable {
     /**
      * Método responsável pela gravação de dados de uma estrutura em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
+     * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
      * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    public void saveFromFile(final String fileName) 
-            throws NullObjectException, FileNotFoundException, IOException {
+    public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException {
         Filter.nullObject(fileName);
         try (ObjectOutputStream fileStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             fileStream.writeObject(object);
@@ -97,7 +96,7 @@ public class FileStream implements Serializable {
     public void setObject(final Serializable object) {
         this.object = object;
     }
-    
+
     /**
      * Método responsável pelo esvaziamento da estrutura.
      */

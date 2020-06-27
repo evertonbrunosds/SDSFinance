@@ -40,15 +40,16 @@ public class Expense implements IExpense, IOfferEditable {
      * Refere-se ao valor da despesa.
      */
     private double value;
-    
-    /**
-     * Construtor responsável pelo instanciamento da despesa.
-     */
-    private Expense() {}
 
     /**
      * Construtor responsável pelo instanciamento da despesa.
-     * @param name Refere-se ao nome da despesa.
+     */
+    private Expense() {
+    }
+
+    /**
+     * Construtor responsável pelo instanciamento da despesa.
+     * @param name  Refere-se ao nome da despesa.
      * @param value Refere-se ao valor da despesa.
      * @throws NullObjectException Exceção lançada em caso de nome de despesa nulo.
      */
@@ -119,7 +120,7 @@ public class Expense implements IExpense, IOfferEditable {
         expense.value = value;
         return expense;
     }
-    
+
     /**
      * Método responsável por retornar o nome da despesa.
      * @return Retorna nome da despesa.

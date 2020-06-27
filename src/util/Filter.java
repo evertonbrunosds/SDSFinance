@@ -32,24 +32,24 @@ import java.text.SimpleDateFormat;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class Filter {
-    
+
     /**
      * Método responsável por realizar a filtragem de objetos nulos.
      * @param object Refere-se a string possívelmente nula.
      * @throws NullObjectException Exceção lançada em caso de objeto nulo.
      */
     public static void nullObject(final Object object) throws NullObjectException {
-        if(object == null) {
+        if (object == null) {
             throw new NullObjectException();
-        } else if(object.toString().equals("")) {
+        } else if (object.toString().equals("")) {
             throw new NullObjectException();
         }
     }
-    
+
     /**
      * Método responsável por realizar a flitragem de valores decimais válidos.
      * @param value Refere-se ao valor possívelmente válido.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException         Exceção lançada em caso de string nula.
      * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal inválido.
      */
     public static void invalidValueDouble(final String value) throws NullObjectException, DoubleValueInvalidException {
@@ -64,10 +64,11 @@ public abstract class Filter {
     /**
      * Método responsável por realizar a flitragem de valores inteiros válidos.
      * @param value Refere-se ao valor possívelmente válido.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException          Exceção lançada em caso de string nula.
      * @throws IntegerValueInvalidException Exceção lançada em caso de valor inteiro inválido.
      */
-    public static void invalidValueInteger(final String value) throws NullObjectException, IntegerValueInvalidException {
+    public static void invalidValueInteger(final String value)
+            throws NullObjectException, IntegerValueInvalidException {
         nullObject(value);
         try {
             Integer.parseInt(value);
@@ -75,29 +76,29 @@ public abstract class Filter {
             throw new IntegerValueInvalidException(value);
         }
     }
-    
+
     /**
      * Método responsável por realizar a flitragem de datas válidas.
      * @param date Refere-se a data possívelmente válida.
-     * @throws NullObjectException Exceção lançada em caso de data nula.
+     * @throws NullObjectException  Exceção lançada em caso de data nula.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
-    public static void invalidDate(String date) throws NullObjectException, DateInvalidException {
+    public static void invalidDate(final String date) throws NullObjectException, DateInvalidException {
         nullObject(date);
         verifyDate(date);
     }
-    
+
     /**
      * Método responsável por realizar a flitragem de datas válidas.
-     * @param day Refere-se ao dia.
+     * @param day   Refere-se ao dia.
      * @param month Refere-se ao mês.
-     * @param year Refere-se ao ano.
+     * @param year  Refere-se ao ano.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
     public static void invalidDate(final int day, final int month, final int year) throws DateInvalidException {
         verifyDate(Converter.toPositive(day) + "/" + Converter.toPositive(month) + "/" + Converter.toPositive(year));
     }
-    
+
     /**
      * Método responsável por verificar a validade de uma data.
      * @param date Refere-se a data.
@@ -113,5 +114,5 @@ public abstract class Filter {
             throw new DateInvalidException(date);
         }
     }
-    
+
 }

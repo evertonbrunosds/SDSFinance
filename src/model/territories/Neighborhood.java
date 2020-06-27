@@ -47,14 +47,12 @@ public class Neighborhood implements INeighborhood, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por alterar chave do bairro.
-     * @param key Refere-se ao novo nome do bairro.
-     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
+     * Método responsável por retornar chave do bairro.
+     * @return Retorna chave do bairro.
      */
     @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
+    public Comparable<String> getKey() {
+        return name.toLowerCase();
     }
 
     /**
@@ -70,14 +68,16 @@ public class Neighborhood implements INeighborhood, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por retornar chave do bairro.
-     * @return Retorna chave do bairro.
+     * Método responsável por alterar chave do bairro.
+     * @param key Refere-se ao novo nome do bairro.
+     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
      */
     @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
+    public void setKey(final String key) throws NullObjectException {
+        Filter.nullObject(key);
+        name = key;
     }
-    
+
     /**
      * Método responsável por retornar o nome do bairro.
      * @return Retorna nome do bairro.
@@ -86,5 +86,5 @@ public class Neighborhood implements INeighborhood, ITerritoryEditable {
     public String toString() {
         return name;
     }
-    
+
 }

@@ -24,12 +24,12 @@ package model.territories;
  * @author Everton Bruo Silva dos Santos.
  */
 public interface ICity extends ITerritoryVisible {
-    
+
     /**
      * Método responsável por retornar o nome da cidade.
      * @return Retorna nome da cidade.
      */
     @Override
     public String toString();
-    
+
 }

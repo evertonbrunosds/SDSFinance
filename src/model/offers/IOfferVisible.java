@@ -27,31 +27,31 @@ import util.IDuplicable;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IOfferVisible extends Serializable, IDuplicable {
-    
+
     /**
      * Método responsável por retornar o nome da oferta.
      * @return Retorna nome da oferta.
      */
     @Override
     public String toString();
-    
+
     /**
      * Método responsável por duplicar oferta.
      * @return Retorna oferta duplicata.
      */
     @Override
     public IOfferVisible duplicate();
-    
+
     /**
      * Método responsável por retornar valor de oferta.
      * @return Retorna valor de oferta.
      */
     public double getValue();
-    
+
     /**
      * Método responsável por retornar chave comparável.
      * @return Retorna chave comparável.
      */
     public Comparable<String> getKey();
-    
+
 }

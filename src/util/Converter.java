@@ -29,19 +29,19 @@ import java.text.DecimalFormat;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class Converter {
-    
+
     /**
      * Método responsável por converter para valor decimal, eventuais caracteres.
      * @param value Refere-se aos eventuais caracteres.
      * @return Retorna valor decimal.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException         Exceção lançada em caso de string nula.
      * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal inválido.
      */
     public static double toDouble(final String value) throws NullObjectException, DoubleValueInvalidException {
         Filter.invalidValueDouble(value);
         return Double.parseDouble(value.replace(',', '.'));
     }
-    
+
     /**
      * Método responsável por converter para caractere, eventuais valores decimais.
      * @param value Refere-se aos eventuais valores valores decimais.
@@ -80,7 +80,7 @@ public abstract class Converter {
      * Método responsável por converter para valor inteiro, eventuais caracteres.
      * @param value Refere-se aos eventuais caracteres.
      * @return Retorna valor inteiro.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException          Exceção lançada em caso de string nula.
      * @throws IntegerValueInvalidException Exceção lançada em caso de valor inteiro inválido.
      */
     public static int toInteger(final String value) throws NullObjectException, IntegerValueInvalidException {
@@ -103,7 +103,7 @@ public abstract class Converter {
      * @return Retorna valor positivo.
      */
     public static int toPositive(int value) {
-        if(value < 0) {
+        if (value < 0) {
             value *= -1;
         }
         return value;
@@ -115,25 +115,25 @@ public abstract class Converter {
      * @return Retorna valor negativo.
      */
     public static int toNegtive(int value) {
-        if(value > 0) {
+        if (value > 0) {
             value *= -1;
         }
         return value;
     }
-    
+
     /**
      * Método responsável por converter para ao nome de extenção indicado, eventuais caminhos de arquivo.
-     * @param pathFile Refere-se ao eventual caminho de arquivo sem o nome de extenção.
+     * @param pathFile      Refere-se ao eventual caminho de arquivo sem o nome de extenção.
      * @param extensionName Refere-se ao novo nome de extenção.
      * @return Retorna caminho de arquivo com nome de extenção.
      */
     public static String toExtensionName(final String pathFile, final String extensionName) {
         if (extensionName != null && pathFile != null) {
-            if(!pathFile.contains(extensionName)) {
+            if (!pathFile.contains(extensionName)) {
                 return pathFile + extensionName;
             }
         }
         return pathFile;
     }
-    
+
 }

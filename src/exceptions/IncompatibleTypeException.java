@@ -28,5 +28,5 @@ public class IncompatibleTypeException extends Exception {
      * Refere-se ao número de série do objeto.
      */
     private static final long serialVersionUID = -1310717302861673485L;
-    
+
 }

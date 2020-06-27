@@ -27,16 +27,20 @@ import model.offers.IOfferEditable;
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo de oferta.
  */
-public class OfferCollection<T> extends Collection<String,T> implements IOfferCollection<T> {
-    
+public class OfferCollection<T> extends Collection<String, T> implements IOfferCollection<T> {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 3858720943074218736L;
+
     /**
      * Método responsável por alterar o valor de uma oferta.
-     * @param key Refere-se a chave da oferta.
+     * @param key   Refere-se a chave da oferta.
      * @param value Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso da oferta não ser encontrada.
      */
     public void serValue(final String key, final double value) throws ElementNotFoundException {
         ((IOfferEditable) super.search(key)).setValue(value);
     }
-    
+
 }

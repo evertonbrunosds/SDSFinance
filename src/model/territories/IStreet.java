@@ -24,12 +24,12 @@ package model.territories;
  * @author Everton Bruo Silva dos Santos.
  */
 public interface IStreet extends ITerritoryVisible {
-    
+
     /**
      * Método responsável por retornar o nome da rua.
      * @return Retorna nome da rua.
      */
     @Override
     public String toString();
-    
+
 }

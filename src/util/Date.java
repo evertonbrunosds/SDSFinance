@@ -45,7 +45,7 @@ public class Date implements IDateVisible, Serializable {
      * Refere-se ao ano da data.
      */
     private int year;
-    
+
     /**
      * Construtor responsável pelo instanciamento da data atual.
      */
@@ -54,11 +54,11 @@ public class Date implements IDateVisible, Serializable {
         month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         year = Calendar.getInstance().get(Calendar.YEAR);
     }
-    
+
     /**
      * Construtor responsável pelo instanciamento da data.
      * @param date Refere-se ao dia, mês e ano.
-     * @throws NullObjectException Exceção lançada em caso de data nula.
+     * @throws NullObjectException  Exceção lançada em caso de data nula.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
     public Date(final String date) throws NullObjectException, DateInvalidException {
@@ -70,9 +70,9 @@ public class Date implements IDateVisible, Serializable {
 
     /**
      * Construtor responsável pelo instanciamento da data.
-     * @param day Refere-se ao dia da data.
+     * @param day   Refere-se ao dia da data.
      * @param month Refere-se ao mês da data.
-     * @param year Refere-se ao ano da data.
+     * @param year  Refere-se ao ano da data.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
     public Date(final int day, final int month, final int year) throws DateInvalidException {
@@ -81,12 +81,12 @@ public class Date implements IDateVisible, Serializable {
         this.month = Converter.toPositive(month);
         this.year = Converter.toPositive(year);
     }
-    
+
     /**
      * Método responsável por alterar a data por inteiro.
-     * @param day Refere-se ao dia da data.
+     * @param day   Refere-se ao dia da data.
      * @param month Refere-se ao mês da data.
-     * @param year Refere-se ao ano da data.
+     * @param year  Refere-se ao ano da data.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
     public void setDate(final int day, final int month, final int year) throws DateInvalidException {
@@ -95,11 +95,11 @@ public class Date implements IDateVisible, Serializable {
         this.month = Converter.toPositive(month);
         this.year = Converter.toPositive(year);
     }
-    
+
     /**
      * Método responsável por alterar a data por inteiro.
      * @param date Refere-se ao dia, mês e ano.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
+     * @throws NullObjectException  Exceção lançada em caso de string nula.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
      */
     public void setDate(final String date) throws NullObjectException, DateInvalidException {
@@ -135,16 +135,16 @@ public class Date implements IDateVisible, Serializable {
     public int getYear() {
         return year;
     }
-    
+
     /**
      * Método responsável por retornar data.
      * @return Retorna data.
      */
     @Override
     public String toString() {
-        return twoChar(day)+"/"+twoChar(month)+"/"+Converter.toString(year);
+        return twoChar(day) + "/" + twoChar(month) + "/" + Converter.toString(year);
     }
-    
+
     /**
      * Método responsável por retornar garantir que um dia ou mês tenha dois caracteres.
      * @param number Refere-se ao número que corresponde ao dia ou mês.
@@ -152,11 +152,11 @@ public class Date implements IDateVisible, Serializable {
      */
     private String twoChar(final int number) {
         final String numberStr = Converter.toString(number);
-        if(numberStr.length() < 2) {
+        if (numberStr.length() < 2) {
             return "0" + numberStr;
         } else {
             return numberStr;
         }
     }
-    
+
 }

@@ -28,10 +28,11 @@ public class ElementNotFoundException extends Exception {
      * Refere-se ao número de série da classe.
      */
     private static final long serialVersionUID = -6509042509524524415L;
-    
+
     /**
      * Construtor responsável pelo instanciamento da exceção de elemento não encontrado.
      */
-    public ElementNotFoundException() { }
-    
+    public ElementNotFoundException() {
+    }
+
 }

@@ -31,29 +31,29 @@ import model.territories.IStreet;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IController {
-    
+
     /**
      * Método responsável por retornar coleção de ruas.
      * @return Retorna coleção de ruas.
      */
     public ITerritoryCollection<IStreet> getStreetCollection();
-    
+
     /**
      * Método responsável por retornar coleção de bairros.
      * @return Retorna coleção de bairros.
      */
     public ITerritoryCollection<INeighborhood> getNeighborhoodCollection();
-    
+
     /**
      * Método responsável por retornar coleção de cidades.
      * @return Retorna coleção de cidades.
      */
     public ITerritoryCollection<ICity> getCityCollection();
-    
+
     /**
      * Método responsável por retornar coleção de fornecedores.
      * @return Retorna coleção de fornecedores.
      */
     public IOrganizationCollection<IProvider> getProviderCollection();
-    
+
 }

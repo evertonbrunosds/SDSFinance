@@ -28,27 +28,27 @@ import java.io.Serializable;
  * @param <K> Refere-se ao tipo de chave do elemento.
  */
 public interface IElement<K> extends Serializable {
-    
+
     /**
      * Método responsável por retornar o nome do elemento.
      * @return Retorna nome do elemento.
      */
     @Override
     public String toString();
-    
+
     /**
      * Método responsável por alterar a chave do elemento.
      * @param key Refere-se a chave do elemento.
      * @throws NullObjectException Exceção lançada em caso de chave nula.
      */
     public void setKey(K key) throws NullObjectException;
-    
+
     /**
      * Método responsável por retornar a chave comparável do elemento.
      * @return Retorna chave comparável do elemento.
      */
     public Comparable<K> getKey();
-    
+
     /**
      * Método responsável por pré-visualizar chave de elemento pós-alterações.
      * @param key Refere-se a nova chave.
@@ -56,5 +56,5 @@ public interface IElement<K> extends Serializable {
      * @throws NullObjectException Exceção lançada em caso de chave nula.
      */
     public Comparable<K> previewKey(K key) throws NullObjectException;
-    
+
 }

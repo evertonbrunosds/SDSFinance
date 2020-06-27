@@ -30,14 +30,14 @@ import java.util.function.Consumer;
  * @param <K> Refere-se ao tipo de chave usada na árvore.
  * @param <E> Refere-se ao tipo de elemento armazenado na árvore.
  */
-public interface ITree<K,E> extends Serializable {
+public interface ITree<K, E> extends Serializable {
 
     /**
      * Método responsável por retornar a quantidade de elementos contidos na árvore.
      * @return Retorna quantidade de elementos contidos na árvore.
      */
     public int size();
-    
+
     /**
      * Método responsável por esvaziar a árvore.
      */
@@ -48,14 +48,14 @@ public interface ITree<K,E> extends Serializable {
      * @return Retorna indicativo de que a árvore está vazia.
      */
     public boolean isEmpty();
-    
+
     /**
      * Método responsável por indicar se determinado elemento está contido na árvore.
      * @param key Refere-se a chave do elemento.
      * @return Retorna indicativo de que a árvore contém o eventual elemento.
      */
     public boolean isContains(Comparable<K> key);
-    
+
     /**
      * Método responsável por buscar dado elemento que está contido na árvore.
      * @param key Refere-se a chave do elemento.
@@ -63,26 +63,26 @@ public interface ITree<K,E> extends Serializable {
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     public E search(Comparable<K> key) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por remover dado elemento que está contido na árvore.
      * @param key Refere-se a chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
      */
     public void remove(Comparable<K> key) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por insetir dado elemento na árvore.
-     * @param key Refere-se a chave do elemento.
+     * @param key     Refere-se a chave do elemento.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
      */
     public void insert(Comparable<K> key, E element) throws KeyUsedException;
-    
+
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore.
      * @param element Refere-se aos elementos contidos na árvore.
      */
     public void forEach(Consumer<? super E> element);
-    
+
 }

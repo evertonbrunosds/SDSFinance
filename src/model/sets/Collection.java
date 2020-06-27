@@ -31,7 +31,7 @@ import util.IElement;
  * @param <K> Refere-se ao tipo de chave usada na coleção.
  * @param <E> Refere-se ao tipo de elemento armazenado na coleção.
  */
-public class Collection<K,E> implements ICollection<K,E> {
+public class Collection<K, E> implements ICollection<K, E> {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -39,15 +39,15 @@ public class Collection<K,E> implements ICollection<K,E> {
     /**
      * Refere-se a árvore responsável por organizar os elementos.
      */
-    private final ITree<K,IElement<K>> tree;
-    
+    private final ITree<K, IElement<K>> tree;
+
     /**
      * Construtor responsável pelo instanciamento da coleção
      */
     public Collection() {
-        this.tree = new Tree<>();        
+        this.tree = new Tree<>();
     }
-    
+
     /**
      * Método responsável por retornar a quantidade de elementos contidos na coleção.
      * @return Retorna quantidade de elementos contidos na coleção.
@@ -56,7 +56,7 @@ public class Collection<K,E> implements ICollection<K,E> {
     public int size() {
         return tree.size();
     }
-    
+
     /**
      * Método responsável por esvaziar a coleção.
      */
@@ -64,7 +64,7 @@ public class Collection<K,E> implements ICollection<K,E> {
     public void clear() {
         tree.clear();
     }
-    
+
     /**
      * Método responsável por indicar se a coleção está vazia.
      * @return Retorna indicativo de que a coleção está vazia.
@@ -73,7 +73,7 @@ public class Collection<K,E> implements ICollection<K,E> {
     public boolean isEmpty() {
         return tree.isEmpty();
     }
-    
+
     /**
      * Método responsável por indicar se determinado elemento está contido na coleção.
      * @param key Refere-se a chave do elemento.
@@ -130,10 +130,10 @@ public class Collection<K,E> implements ICollection<K,E> {
     /**
      * Método responsável por redefinir chave de dado elemento que está contido na coleção.
      * @param currentKey Refere-se a chave atual do elemento.
-     * @param newKey Refere-se a nova chave do elemento.
+     * @param newKey     Refere-se a nova chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
+     * @throws NullObjectException      Exceção lançada em caso de string nula.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso.
      */
     @Override
     public void redefineKey(final Comparable<K> currentKey, final K newKey)
@@ -141,12 +141,12 @@ public class Collection<K,E> implements ICollection<K,E> {
         final IElement<K> elementInCurrentState = tree.search(currentKey);
         try {
             final IElement<K> elementInNewState = tree.search(elementInCurrentState.previewKey(newKey));
-            if(!elementInCurrentState.equals(elementInNewState)) {
+            if (!elementInCurrentState.equals(elementInNewState)) {
                 throw new KeyUsedException(elementInNewState);
             } else {
                 redefineKey(elementInCurrentState, newKey);
             }
-        } catch(final ElementNotFoundException ex) {
+        } catch (final ElementNotFoundException ex) {
             redefineKey(elementInCurrentState, newKey);
         }
     }
@@ -154,10 +154,10 @@ public class Collection<K,E> implements ICollection<K,E> {
     /**
      * Método responsável por efetuar a redefinição de chave de um elemento.
      * @param elementInCurrentState Refere-se ao elemento em seu atual estado.
-     * @param newKey Refere-se a nova chave do elemento.
+     * @param newKey                Refere-se a nova chave do elemento.
      * @throws ElementNotFoundException Exceção lançada no caso do elemento não ser encontrado.
-     * @throws NullObjectException Exceção lançada em caso de string nula.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
+     * @throws NullObjectException      Exceção lançada em caso de string nula.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso.
      */
     private void redefineKey(final IElement<K> elementInCurrentState, final K newKey)
             throws ElementNotFoundException, NullObjectException, KeyUsedException {

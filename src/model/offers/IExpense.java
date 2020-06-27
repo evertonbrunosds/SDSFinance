@@ -24,19 +24,19 @@ package model.offers;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IExpense extends IOfferVisible {
-    
+
     /**
      * Método responsável por duplicar despesa.
      * @return Retorna despesa duplicata.
      */
     @Override
     public IExpense duplicate();
-    
+
     /**
      * Método responsável por retornar o nome da despesa.
      * @return Retorna nome da despesa.
      */
     @Override
     public String toString();
-    
+
 }

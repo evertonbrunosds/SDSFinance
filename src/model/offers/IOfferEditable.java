@@ -33,7 +33,7 @@ public interface IOfferEditable extends IOfferVisible, IElement<String> {
      * @param value Refere-se ao novo valor da oferta.
      */
     public void setValue(double value);
-    
+
     /**
      * Método responsável por alterar chave da oferta.
      * @param key Refere-se ao novo nome da oferta.
@@ -41,14 +41,14 @@ public interface IOfferEditable extends IOfferVisible, IElement<String> {
      */
     @Override
     public void setKey(String key) throws NullObjectException;
-    
+
     /**
      * Método responsável por pré-visualizar chave da ofeta pós-alterações.
      * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
+     * @return Retorna pré-visualização de nova chave.
      * @throws NullObjectException Exceção lançada em caso de nome de oferta nula.
      */
     @Override
     public Comparable<String> previewKey(String key) throws NullObjectException;
-    
+
 }

@@ -47,14 +47,12 @@ public class City implements ICity, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por alterar chave da cidade.
-     * @param key Refere-se ao novo nome da cidade.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
+     * Método responsável por retornar chave da cidade.
+     * @return Retorna chave da cidade.
      */
     @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
+    public Comparable<String> getKey() {
+        return name.toLowerCase();
     }
 
     /**
@@ -70,14 +68,16 @@ public class City implements ICity, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por retornar chave da cidade.
-     * @return Retorna chave da cidade.
+     * Método responsável por alterar chave da cidade.
+     * @param key Refere-se ao novo nome da cidade.
+     * @throws NullObjectException Exceção lançada em caso de nome nulo.
      */
     @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
+    public void setKey(final String key) throws NullObjectException {
+        Filter.nullObject(key);
+        name = key;
     }
-    
+
     /**
      * Método responsável por retornar o nome da cidade.
      * @return Retorna nome da cidade.
@@ -86,5 +86,5 @@ public class City implements ICity, ITerritoryEditable {
     public String toString() {
         return name;
     }
-    
+
 }

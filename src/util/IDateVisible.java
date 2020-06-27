@@ -24,30 +24,30 @@ package util;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IDateVisible {
-    
+
     /**
      * Método responsável por retornar o dia da data.
      * @return Retorna dia da data.
      */
     public int getDay();
-    
+
     /**
      * Método responsável por retornar o mês da data.
      * @return Retorna mês da data.
      */
     public int getMonth();
-    
+
     /**
      * Método responsável por retornar o ano da data.
      * @return Retorna ano da data.
      */
     public int getYear();
-    
+
     /**
      * Método responsável por retornar data.
      * @return Retorna data.
      */
     @Override
     public String toString();
-    
+
 }

@@ -29,14 +29,6 @@ import util.IElement;
 public interface ITerritoryEditable extends ITerritoryVisible, IElement<String> {
 
     /**
-     * Método responsável por alterar chave do território.
-     * @param key Refere-se ao novo nome do território.
-     * @throws NullObjectException Exceção lançada em caso de nome de terrirório nulo.
-     */
-    @Override
-    public void setKey(String key) throws NullObjectException;
-    
-    /**
      * Método responsável por pré-visualizar chave do território pós-alterações.
      * @param key Refere-se ao novo nome.
      * @return Retorna pré-visualização de chave nome.
@@ -44,5 +36,13 @@ public interface ITerritoryEditable extends ITerritoryVisible, IElement<String> 
      */
     @Override
     public Comparable<String> previewKey(String key) throws NullObjectException;
-    
+
+    /**
+     * Método responsável por alterar chave do território.
+     * @param key Refere-se ao novo nome do território.
+     * @throws NullObjectException Exceção lançada em caso de nome de terrirório nulo.
+     */
+    @Override
+    public void setKey(String key) throws NullObjectException;
+
 }

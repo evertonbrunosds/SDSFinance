@@ -32,6 +32,7 @@ public class NullObjectException extends Exception {
     /**
      * Construtor responsável pelo instanciamento da exceção de objeto nulo.
      */
-    public NullObjectException() { }
-    
+    public NullObjectException() {
+    }
+
 }

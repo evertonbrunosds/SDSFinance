@@ -53,7 +53,7 @@ public class Controller implements IController {
      * Refere-se a coleção de fornecedores.
      */
     private IOrganizationCollection<IProvider> providerCollection;
-    
+
     /**
      * Construtor responsável pelo instanciamento do controlador.
      */
@@ -63,13 +63,13 @@ public class Controller implements IController {
         cityCollection = new TerritoryCollection<>();
         providerCollection = new OrganizationCollection<>();
     }
-    
+
     /**
      * Método responsável por retornar instância do controlador.
      * @return Retorna instância do controlador.
      */
     public static IController getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Controller();
         }
         return instance;
@@ -110,7 +110,7 @@ public class Controller implements IController {
     public IOrganizationCollection<IProvider> getProviderCollection() {
         return providerCollection;
     }
-    
+
     private void setStreetCollection(final ITerritoryCollection<IStreet> streetCollection) {
         this.streetCollection = streetCollection;
     }
@@ -126,5 +126,5 @@ public class Controller implements IController {
     public void setProviderCollection(final IOrganizationCollection<IProvider> providerCollection) {
         this.providerCollection = providerCollection;
     }
-    
+
 }

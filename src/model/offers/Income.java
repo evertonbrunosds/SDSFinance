@@ -40,15 +40,16 @@ public class Income implements IIncome, IOfferEditable {
      * Refere-se ao valor da renda.
      */
     private double value;
-    
-    /**
-     * Construtor responsável pelo instanciamento da renda.
-     */
-    private Income() {}
 
     /**
      * Construtor responsável pelo instanciamento da renda.
-     * @param name Refere-se ao nome da renda.
+     */
+    private Income() {
+    }
+
+    /**
+     * Construtor responsável pelo instanciamento da renda.
+     * @param name  Refere-se ao nome da renda.
      * @param value Refere-se ao valor da renda.
      * @throws NullObjectException Exceção lançada em caso de nome de renada nula.
      */
@@ -119,7 +120,7 @@ public class Income implements IIncome, IOfferEditable {
         income.value = value;
         return income;
     }
-    
+
     /**
      * Método responsável por retornar o nome da renda.
      * @return Retorna nome da renda.

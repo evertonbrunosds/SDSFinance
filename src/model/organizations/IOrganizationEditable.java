@@ -32,32 +32,6 @@ import util.IElement;
 public interface IOrganizationEditable extends IOrganizationVisible, IElement<String> {
 
     /**
-     * Método responsável por alterar chave da organização.
-     * @param key Refere-se ao novo nome da organização.
-     * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
-     */
-    @Override
-    public void setKey(String key) throws NullObjectException;
-    
-    /**
-     * Método responsável por alterar a rua da organização.
-     * @param street Refere-se a nova rua da organização.
-     */
-    public void setStreet(IStreet street);
-    
-    /**
-     * Método responsável por alterar o bairro da organização.
-     * @param neighborhood Refere-se ao novo bairro da organização.
-     */
-    public void setNeighborhood(INeighborhood neighborhood);
-    
-    /**
-     * Método responsável por alterar a cidade da organização.
-     * @param city Refere-se a nova cidade da organização.
-     */
-    public void setCity(ICity city);
-    
-    /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param key Refere-se ao novo nome.
      * @return Retorna pré-visualização de chave.
@@ -65,26 +39,52 @@ public interface IOrganizationEditable extends IOrganizationVisible, IElement<St
      */
     @Override
     public Comparable<String> previewKey(String key) throws NullObjectException;
-    
+
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param street Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
     public Comparable<String> previewKey(IStreet street);
-    
+
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param neighborhood Refere-se ao novo bairro.
      * @return Retorna pré-visualização da nova chave.
      */
     public Comparable<String> previewKey(INeighborhood neighborhood);
-    
+
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param city Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
     public Comparable<String> previewKey(ICity city);
-    
+
+    /**
+     * Método responsável por alterar chave da organização.
+     * @param key Refere-se ao novo nome da organização.
+     * @throws NullObjectException Exceção lançada em caso de nome de organização nula.
+     */
+    @Override
+    public void setKey(String key) throws NullObjectException;
+
+    /**
+     * Método responsável por alterar a rua da organização.
+     * @param street Refere-se a nova rua da organização.
+     */
+    public void setStreet(IStreet street);
+
+    /**
+     * Método responsável por alterar o bairro da organização.
+     * @param neighborhood Refere-se ao novo bairro da organização.
+     */
+    public void setNeighborhood(INeighborhood neighborhood);
+
+    /**
+     * Método responsável por alterar a cidade da organização.
+     * @param city Refere-se a nova cidade da organização.
+     */
+    public void setCity(ICity city);
+
 }

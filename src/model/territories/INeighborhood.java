@@ -24,12 +24,12 @@ package model.territories;
  * @author Everton Bruo Silva dos Santos.
  */
 public interface INeighborhood extends ITerritoryVisible {
-    
+
     /**
      * Método responsável por retornar o nome do bairro.
      * @return Retorna nome do bairro.
      */
     @Override
     public String toString();
-    
+
 }

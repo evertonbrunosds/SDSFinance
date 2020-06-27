@@ -47,14 +47,12 @@ public class Street implements IStreet, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por alterar chave da rua.
-     * @param key Refere-se ao novo nome da rua.
-     * @throws NullObjectException Exceção lançada em caso de nome de rua nulo.
+     * Método responsável por retornar chave da rua.
+     * @return Retorna chave da rua.
      */
     @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
+    public Comparable<String> getKey() {
+        return name.toLowerCase();
     }
 
     /**
@@ -70,14 +68,16 @@ public class Street implements IStreet, ITerritoryEditable {
     }
 
     /**
-     * Método responsável por retornar chave da rua.
-     * @return Retorna chave da rua.
+     * Método responsável por alterar chave da rua.
+     * @param key Refere-se ao novo nome da rua.
+     * @throws NullObjectException Exceção lançada em caso de nome de rua nulo.
      */
     @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
+    public void setKey(final String key) throws NullObjectException {
+        Filter.nullObject(key);
+        name = key;
     }
-    
+
     /**
      * Método responsável por retornar o nome da rua.
      * @return Retorna nome da rua.
@@ -86,5 +86,5 @@ public class Street implements IStreet, ITerritoryEditable {
     public String toString() {
         return name;
     }
-    
+
 }

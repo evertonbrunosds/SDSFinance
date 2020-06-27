@@ -24,11 +24,11 @@ package util;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IDuplicable {
-    
+
     /**
      * Método responsável por realizar duplicações de um dado objeto.
      * @return Retorna duplicata do objeto.
      */
     public IDuplicable duplicate();
-    
+
 }

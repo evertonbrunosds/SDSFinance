@@ -24,12 +24,12 @@ package model.organizations;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IProvider extends IOrganizationVisible {
-    
+
     /**
      * Método responsável por retornar o nome do fornecedor.
      * @return Retorna nome do fornecedor.
      */
     @Override
     public String toString();
-    
+
 }

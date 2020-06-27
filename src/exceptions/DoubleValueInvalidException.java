@@ -32,7 +32,7 @@ public class DoubleValueInvalidException extends Exception {
      * Refere-se ao valor decimal inválido.
      */
     private final String doubleValueInvalid;
-    
+
     /**
      * Construtor responsável pelo instanciamento da exceção de valor decimal inválido.
      * @param doubleValueInvalid Refere-se ao valor decimal inválido.
@@ -48,5 +48,5 @@ public class DoubleValueInvalidException extends Exception {
     public String getDoubleValueInvalid() {
         return doubleValueInvalid;
     }
-    
+
 }

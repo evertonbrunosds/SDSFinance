@@ -65,10 +65,10 @@ public class Provider implements IProvider, IOrganizationEditable {
 
     /**
      * Construtor responsável pelo instanciamento do fornecedor.
-     * @param name Refere-se ao nome do fornecedor.
-     * @param street Refere-se a rua do fornecedor.
+     * @param name         Refere-se ao nome do fornecedor.
+     * @param street       Refere-se a rua do fornecedor.
      * @param neighborhood Refere-se ao bairro do fornecedor.
-     * @param city Refere-se a cidade do fornecedor.
+     * @param city         Refere-se a cidade do fornecedor.
      * @throws NullObjectException Exceção lançada no caso do nome de fornecedor nulo.
      */
     public Provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city)
@@ -83,41 +83,58 @@ public class Provider implements IProvider, IOrganizationEditable {
     }
 
     /**
-     * Método responsável por alterar chave do fornecedor.
-     * @param key Refere-se ao novo nome do fornecedor.
-     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
+     * Método responsável por retornar rua do fornecedor.
+     * @return Retorna rua do fornecedor.
      */
     @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        this.name = key;
+    public IStreet getStreet() {
+        return street;
     }
 
     /**
-     * Método responsável por alterar a rua do fornecedor.
-     * @param street Refere-se a nova rua do fornecedor.
+     * Método responsável por retornar bairro do fornecedor.
+     * @return Retorna bairro do fornecedor.
      */
     @Override
-    public void setStreet(final IStreet street) {
-        this.street = street;
+    public INeighborhood getNeighborhood() {
+        return neighborhood;
     }
 
     /**
-     * Método responsável por alterar o bairro do fornecedor.
-     * @param neighborhood Refere-se ao novo bairro do fornecedor.
+     * Método responsável por retornar cidade do fornecedor.
+     * @return Retorna cidade do fornecedor.
      */
     @Override
-    public void setNeighborhood(final INeighborhood neighborhood) {
-        this.neighborhood = neighborhood;
+    public ICity getCity() {
+        return city;
     }
 
     /**
-     * Método responsável por alterar a cidade do fornecedor.
-     * @param city Refere-se a nova cidade do fornecedor.
+     * Método responsável por retornar coleção de ofertas de despesa.
+     * @return Retorna coleção de ofertas de despesa.
      */
     @Override
-    public void setCity(final ICity city) {
-        this.city = city;
+    public IOfferCollection<IExpense> getExpenseCollection() {
+        return expenseCollection;
+    }
+
+    /**
+     * Método responsável por retornar coleção de ofertas de renda.
+     * @return Retorna coleção de ofertas de renda.
+     */
+    @Override
+    public IOfferCollection<IIncome> getIncomeCollection() {
+        return incomeCollection;
+    }
+
+    /**
+     * Método responsável por retornar chave do fornecedor.
+     * @return Retorna chave do fornecedor.
+     */
+    @Override
+    public Comparable<String> getKey() {
+        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        return key.toLowerCase();
     }
 
     /**
@@ -167,13 +184,41 @@ public class Provider implements IProvider, IOrganizationEditable {
     }
 
     /**
-     * Método responsável por retornar chave do fornecedor.
-     * @return Retorna chave do fornecedor.
+     * Método responsável por alterar chave do fornecedor.
+     * @param key Refere-se ao novo nome do fornecedor.
+     * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
      */
     @Override
-    public Comparable<String> getKey() {
-        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
-        return key.toLowerCase();
+    public void setKey(final String key) throws NullObjectException {
+        Filter.nullObject(key);
+        this.name = key;
+    }
+
+    /**
+     * Método responsável por alterar a rua do fornecedor.
+     * @param street Refere-se a nova rua do fornecedor.
+     */
+    @Override
+    public void setStreet(final IStreet street) {
+        this.street = street;
+    }
+
+    /**
+     * Método responsável por alterar o bairro do fornecedor.
+     * @param neighborhood Refere-se ao novo bairro do fornecedor.
+     */
+    @Override
+    public void setNeighborhood(final INeighborhood neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    /**
+     * Método responsável por alterar a cidade do fornecedor.
+     * @param city Refere-se a nova cidade do fornecedor.
+     */
+    @Override
+    public void setCity(final ICity city) {
+        this.city = city;
     }
 
     /**
@@ -183,51 +228,6 @@ public class Provider implements IProvider, IOrganizationEditable {
     @Override
     public String toString() {
         return name;
-    }
-
-    /**
-     * Método responsável por retornar rua do fornecedor.
-     * @return Retorna rua do fornecedor.
-     */
-    @Override
-    public IStreet getStreet() {
-        return street;
-    }
-
-    /**
-     * Método responsável por retornar bairro do fornecedor.
-     * @return Retorna bairro do fornecedor.
-     */
-    @Override
-    public INeighborhood getNeighborhood() {
-        return neighborhood;
-    }
-
-    /**
-     * Método responsável por retornar cidade do fornecedor.
-     * @return Retorna cidade do fornecedor.
-     */
-    @Override
-    public ICity getCity() {
-        return city;
-    }
-
-    /**
-     * Método responsável por retornar coleção de ofertas de despesa.
-     * @return Retorna coleção de ofertas de despesa.
-     */
-    @Override
-    public IOfferCollection<IExpense> getExpenseCollection() {
-        return expenseCollection;
-    }
-
-    /**
-     * Método responsável por retornar coleção de ofertas de renda.
-     * @return Retorna coleção de ofertas de renda.
-     */
-    @Override
-    public IOfferCollection<IIncome> getIncomeCollection() {
-        return incomeCollection;
     }
 
 }

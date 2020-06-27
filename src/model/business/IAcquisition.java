@@ -19,6 +19,10 @@
  */
 package model.business;
 
-public interface IAcquisition {
+/**
+ * Interface responsável por fornecer os métodos de aquisição.
+ * @author Everton Bruno Silva dos Santos.
+ */
+public interface IAcquisition extends IBusinessVisible {
     
 }

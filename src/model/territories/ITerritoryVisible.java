@@ -26,18 +26,18 @@ import java.io.Serializable;
  * @author Everton Bruo Silva dos Santos.
  */
 public interface ITerritoryVisible extends Serializable {
-    
+
     /**
      * Método responsável por retornar o nome do território.
      * @return Retorna nome do território.
      */
     @Override
     public String toString();
-    
+
     /**
      * Método responsável por retornar a chave comparável.
      * @return Retorna chave comparável.
      */
     public Comparable<String> getKey();
-    
+
 }

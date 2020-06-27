@@ -32,7 +32,7 @@ public class IntegerValueInvalidException extends Exception {
      * Refere-se ao valor inteiro inválido.
      */
     private final String integerValueInvalid;
-    
+
     /**
      * Construtor responsável pelo instanciamento da exceção de valor inteiro inválido.
      * @param integerValueInvalid Refere-se ao valor inteiro inválido.
@@ -48,5 +48,5 @@ public class IntegerValueInvalidException extends Exception {
     public String getIntegerValueInvalid() {
         return integerValueInvalid;
     }
-    
+
 }

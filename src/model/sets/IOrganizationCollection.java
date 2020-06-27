@@ -30,35 +30,34 @@ import model.territories.IStreet;
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo de organização.
  */
-public interface IOrganizationCollection<T> extends ICollection<String,T> {
-    
+public interface IOrganizationCollection<T> extends ICollection<String, T> {
+
     /**
      * Método responsável por alterar a rua da organização.
-     * @param key Refere-se a chave da organização.
+     * @param key       Refere-se a chave da organização.
      * @param newStreet Refere-se a nova rua da organização.
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     public void setStreet(String key, IStreet newStreet) throws ElementNotFoundException, KeyUsedException;
-    
+
     /**
      * Método responsável por alterar o bairro da organização.
-     * @param key Refere-se a chave da organização.
+     * @param key             Refere-se a chave da organização.
      * @param newNeighborhood Refere-se ao novo bairro da organização.
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     public void setNeighborhood(String key, INeighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException;
-    
+
     /**
      * Método responsável por alterar a cidade da organização.
-     * @param key Refere-se a chave da organização.
+     * @param key     Refere-se a chave da organização.
      * @param newCity Refere-se a nova cidade da organização.
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outra organização.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     public void setCity(String key, ICity newCity) throws ElementNotFoundException, KeyUsedException;
-    
 
 }

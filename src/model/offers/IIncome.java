@@ -24,19 +24,19 @@ package model.offers;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IIncome extends IOfferVisible {
-    
+
     /**
      * Método responsável por duplicar renda.
      * @return Retorna renda duplicata.
      */
     @Override
     public IIncome duplicate();
-    
+
     /**
      * Método responsável por retornar o nome da renda.
      * @return Retorna nome da renda.
      */
     @Override
     public String toString();
-    
+
 }

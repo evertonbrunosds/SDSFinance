@@ -32,48 +32,48 @@ import model.territories.IStreet;
  * @author Everton Bruno Silva dos Sanots.
  */
 public interface IOrganizationVisible extends Serializable {
-    
+
     /**
      * Método responsável por retornar o nome da organização.
      * @return Retorna nome da organização.
      */
     @Override
     public String toString();
-    
-    /**
-     * Método responsável por retornar a chave comparável.
-     * @return Retorna chave comparável.
-     */
-    public Comparable<String> getKey();
-    
+
     /**
      * Método responsável por retornar rua da organização.
      * @return Retorna rua da organização.
      */
     public IStreet getStreet();
-    
+
     /**
      * Método responsável por retornar bairro da organização.
      * @return Retorna bairro da organização.
      */
     public INeighborhood getNeighborhood();
-    
+
     /**
      * Método responsável por retornar cidade da organização.
      * @return Retorna cidade da organização.
      */
     public ICity getCity();
-    
+
     /**
      * Método responsável por retornar coleção de ofertas de despesa.
      * @return Retorna coleção de ofertas de despesa.
      */
     public IOfferCollection<IExpense> getExpenseCollection();
-    
+
     /**
      * Método responsável por retornar coleção de ofertas de renda.
      * @return Retorna coleção de ofertas de renda.
      */
     public IOfferCollection<IIncome> getIncomeCollection();
-    
+
+    /**
+     * Método responsável por retornar a chave comparável.
+     * @return Retorna chave comparável.
+     */
+    public Comparable<String> getKey();
+
 }
