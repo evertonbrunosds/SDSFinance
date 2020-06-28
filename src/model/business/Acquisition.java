@@ -135,6 +135,18 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
         final String key = dateString + provider.getKey() + offer.toString() + offer.getValue();
         return key.toLowerCase();
     }
+    
+    /**
+     * Método responsável por pré-visualizar chave da aquisição pós-alterações.
+     * @param offer Refere-se a nova oferta.
+     * @return Retorna pré-visualização de nova chave.
+     */
+    @Override
+    public Comparable<String> previewKey(IOfferVisible offer) {
+        final String dateString = toString(date.getYear()) + toString(date.getMonth()) + toString(date.getDay());
+        final String key = dateString + provider.getKey() + offer.toString() + offer.getValue();
+        return key.toLowerCase();
+    }
 
     /**
      * Método responsável por pré-visualizar chave da aquisição pós-alterações.
@@ -190,8 +202,8 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
      * @param offer Refere-se a nova oferta.
      */
     @Override
-    public void setOffer(final IOfferEditable offer) {
-        this.offer = offer;
+    public void setOffer(final IOfferVisible offer) {
+        this.offer = (IOfferEditable) offer;
     }
 
     /**

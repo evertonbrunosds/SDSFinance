@@ -20,7 +20,7 @@
 package model.business;
 
 import exceptions.NullObjectException;
-import model.offers.IOfferEditable;
+import model.offers.IOfferVisible;
 import model.organizations.IProvider;
 import util.Date;
 import util.IElement;
@@ -37,6 +37,13 @@ public interface IBusinessEditable extends IBusinessVisible, IElement<String> {
      * @return Retorna pré-visualização de nova chave.
      */
     public Comparable<String> previewKey(IProvider provider);
+    
+    /**
+     * Método responsável por pré-visualizar chave do negócio pós-alterações.
+     * @param offer Refere-se a nova oferta.
+     * @return Retorna pré-visualização de nova chave.
+     */
+    public Comparable<String> previewKey(IOfferVisible offer);
 
     /**
      * Método responsável por pré-visualizar chave do negócio pós-alterações.
@@ -71,7 +78,7 @@ public interface IBusinessEditable extends IBusinessVisible, IElement<String> {
      * Método responsável por alterar a oferta do negócio.
      * @param offer Refere-se a nova oferta.
      */
-    public void setOffer(IOfferEditable offer);
+    public void setOffer(IOfferVisible offer);
 
     /**
      * Método responsável por alterar o nome da oferta do negócio.
