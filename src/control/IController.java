@@ -19,9 +19,11 @@
  */
 package control;
 
+import model.business.IAcquisition;
 import model.sets.ITerritoryCollection;
 import model.sets.IOrganizationCollection;
 import model.organizations.IProvider;
+import model.sets.IBusinessCollection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -55,5 +57,11 @@ public interface IController {
      * @return Retorna coleção de fornecedores.
      */
     public IOrganizationCollection<IProvider> getProviderCollection();
+    
+    /**
+     * Método responsável por retornar coleção de aquisições.
+     * @return Retorna coleção de aquisições.
+     */
+    public IBusinessCollection<IAcquisition> getAcquisitionCollection();
 
 }

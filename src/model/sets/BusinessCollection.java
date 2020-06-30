@@ -188,7 +188,22 @@ public class BusinessCollection<T> extends Collection<String,T> implements IBusi
      */
     @Override
     public void setAmount(String key, int amount) throws ElementNotFoundException {
-        
+        ((IBusinessEditable) super.search(key)).setAmount(amount);
+    }
+    
+    /**
+     * Método responsável por alterar a data do necócio.
+     * @param key Refere-se a chave do negócio.
+     * @param date Refere-se a nova data do negócio.
+     * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
+     */
+    @Override
+    public void setDate(String key, Date date) throws ElementNotFoundException {
+        try {
+            this.redefineKey(key, date);
+        } catch (KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        }
     }
     
     /**
@@ -198,9 +213,31 @@ public class BusinessCollection<T> extends Collection<String,T> implements IBusi
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    @Override
-    public void setDate(String key, Date date) throws ElementNotFoundException, KeyUsedException {
-        
+    private void redefineKey(String key, Date date) throws ElementNotFoundException, KeyUsedException {
+        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+        try {
+            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(date));
+            if(!businessInCurrentState.equals(businessInNewState)) {
+                throw new KeyUsedException(businessInNewState);
+            } else {
+                redefineKey(businessInCurrentState, date);
+            }
+        } catch (ElementNotFoundException ex) {
+            redefineKey(businessInCurrentState, date);
+        }
+    }
+    
+    /**
+     * Método responsável por alterar a data do necócio.
+     * @param key Refere-se a chave do negócio.
+     * @param date Refere-se a nova data do negócio.
+     * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     */
+    private void redefineKey(IBusinessEditable businessInCurrentState, Date date) throws ElementNotFoundException, KeyUsedException {
+        super.remove(businessInCurrentState.getKey());
+        businessInCurrentState.setDate(date);
+        super.insert((T) businessInCurrentState);
     }
 
 }

@@ -20,7 +20,6 @@
 package model.sets;
 
 import exceptions.ElementNotFoundException;
-import exceptions.KeyUsedException;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
 import util.Date;
@@ -64,8 +63,7 @@ public interface IBusinessCollection<T> extends ICollection<String,T> {
      * @param key Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    public void setDate(String key, Date date) throws ElementNotFoundException, KeyUsedException;
+    public void setDate(String key, Date date) throws ElementNotFoundException;
     
 }

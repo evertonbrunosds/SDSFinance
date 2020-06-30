@@ -19,11 +19,14 @@
  */
 package control;
 
+import model.business.IAcquisition;
 import model.sets.ITerritoryCollection;
 import model.sets.OrganizationCollection;
 import model.sets.IOrganizationCollection;
 import model.sets.TerritoryCollection;
 import model.organizations.IProvider;
+import model.sets.BusinessCollection;
+import model.sets.IBusinessCollection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -53,6 +56,10 @@ public class Controller implements IController {
      * Refere-se a coleção de fornecedores.
      */
     private IOrganizationCollection<IProvider> providerCollection;
+    /**
+     * Refere-se a coleção de aquisições realisadas.
+     */
+    private IBusinessCollection<IAcquisition> acquisitionCollection;
 
     /**
      * Construtor responsável pelo instanciamento do controlador.
@@ -62,6 +69,7 @@ public class Controller implements IController {
         neighborhoodCollection = new TerritoryCollection<>();
         cityCollection = new TerritoryCollection<>();
         providerCollection = new OrganizationCollection<>();
+        acquisitionCollection = new BusinessCollection<>();
     }
 
     /**
@@ -111,6 +119,15 @@ public class Controller implements IController {
         return providerCollection;
     }
 
+    /**
+     * Método responsável por retornar coleção de aquisições.
+     * @return Retorna coleção de aquisições.
+     */
+    @Override
+    public IBusinessCollection<IAcquisition> getAcquisitionCollection() {
+        return acquisitionCollection;
+    }
+    
     private void setStreetCollection(final ITerritoryCollection<IStreet> streetCollection) {
         this.streetCollection = streetCollection;
     }
@@ -123,8 +140,12 @@ public class Controller implements IController {
         this.cityCollection = cityCollection;
     }
 
-    public void setProviderCollection(final IOrganizationCollection<IProvider> providerCollection) {
+    private void setProviderCollection(final IOrganizationCollection<IProvider> providerCollection) {
         this.providerCollection = providerCollection;
     }
 
+    private void setAcquisitionCollection(IBusinessCollection<IAcquisition> acquisitionCollection) {
+        this.acquisitionCollection = acquisitionCollection;
+    }
+    
 }
