@@ -95,4 +95,18 @@ public interface IController extends Serializable {
      */
     public void saveFromFile(String fileName) throws NullObjectException, FileNotFoundException, IOException;
 
+    /**
+     * Método responsável por carregar dados de arquivo para o controlador.
+     * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
+     */
+    public void loadFromFile() throws IOException, ClassNotFoundException;
+
+    /**
+     * Método responsável por gravar dados do controlador em arquivo.
+     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     */
+    public void saveFromFile() throws FileNotFoundException, IOException;
+
 }

@@ -21,6 +21,7 @@ package control;
 
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import model.business.IAcquisition;
@@ -35,6 +36,7 @@ import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
 import util.FileStream;
+import util.Filter;
 
 /**
  * Classe responsável por comportar-se como controlador.
@@ -49,6 +51,10 @@ public class Controller implements IController {
      * Refere-se a versão da classe.
      */
     private final long version = 03062020;
+    /**
+     * Refere-se ao arquivo de registro.
+     */
+    private final String pathFile;
     /**
      * Refere-se a instância do controlador.
      */
@@ -78,6 +84,11 @@ public class Controller implements IController {
      * Construtor responsável pelo instanciamento do controlador.
      */
     private Controller() {
+        this.pathFile = System.getProperty("user.home") + "/.SDSFinance";
+        final File file = new File(pathFile);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
         streetCollection = new TerritoryCollection<>();
         neighborhoodCollection = new TerritoryCollection<>();
         cityCollection = new TerritoryCollection<>();
@@ -165,6 +176,20 @@ public class Controller implements IController {
     @Override
     public void loadFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException,
             ClassNotFoundException, IncompatibleTypeException {
+        Filter.nullObject(fileName);
+        fileInternalLoader(fileName);
+    }
+
+    /**
+     * Método responsável por carregar dados de arquivo para o controlador.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     */
+    private void fileInternalLoader(final String fileName)
+            throws FileNotFoundException, IOException, ClassNotFoundException, IncompatibleTypeException {
         final FileStream fileStream = new FileStream();
         fileStream.loadFromFile(fileName);
         if (fileStream.getObject() instanceof Controller) {
@@ -192,9 +217,44 @@ public class Controller implements IController {
      */
     @Override
     public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException {
+        Filter.nullObject(fileName);
+        fileInternalRecorder(fileName);
+    }
+
+    /**
+     * Método responsável por gravar dados do controlador em arquivo.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     */
+    private void fileInternalRecorder(final String fileName) throws FileNotFoundException, IOException {
         final FileStream fileStream = new FileStream();
         fileStream.setObject(this);
         fileStream.saveFromFile(fileName);
+    }
+
+    /**
+     * Método responsável por carregar dados de arquivo para o controlador.
+     * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
+     */
+    @Override
+    public void loadFromFile() throws IOException, ClassNotFoundException {
+        try {
+            fileInternalLoader(pathFile + "/history.sdsf");
+        } catch (FileNotFoundException | IncompatibleTypeException ex) {
+            saveFromFile();
+        }
+    }
+
+    /**
+     * Método responsável por gravar dados do controlador em arquivo.
+     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     */
+    @Override
+    public void saveFromFile() throws FileNotFoundException, IOException {
+        fileInternalRecorder(pathFile + "/history.sdsf");
     }
 
 }

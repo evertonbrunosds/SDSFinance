@@ -19,7 +19,6 @@
  */
 package util;
 
-import exceptions.NullObjectException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -52,14 +51,12 @@ public class FileStream implements Serializable {
     /**
      * Método responsável pelo carregamento de dados de uma estrutura contido em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException    Exceção lançada em caso de nome de arquivo nulo.
      * @throws FileNotFoundException  Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
      */
     public void loadFromFile(final String fileName)
-            throws NullObjectException, FileNotFoundException, IOException, ClassNotFoundException {
-        Filter.nullObject(fileName);
+            throws FileNotFoundException, IOException, ClassNotFoundException {
         try (ObjectInputStream fileStream = new ObjectInputStream(new FileInputStream(fileName))) {
             this.object = fileStream.readObject();
             fileStream.close();
@@ -69,12 +66,10 @@ public class FileStream implements Serializable {
     /**
      * Método responsável pela gravação de dados de uma estrutura em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
      * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException {
-        Filter.nullObject(fileName);
+    public void saveFromFile(final String fileName) throws FileNotFoundException, IOException {
         try (ObjectOutputStream fileStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             fileStream.writeObject(object);
             fileStream.close();
