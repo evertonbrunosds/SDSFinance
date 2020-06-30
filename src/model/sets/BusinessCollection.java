@@ -136,11 +136,48 @@ public class BusinessCollection<T> extends Collection<String,T> implements IBusi
      * @param key Refere-se a chave do negócio.
      * @param unitaryValue Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
      */
     @Override
-    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException, KeyUsedException {
-        
+    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException {
+        try {
+            this.redefineKey(key, unitaryValue);
+        } catch (KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        }
+    }
+    
+    /**
+     * Método responsável por alterar o valor da oferta negociada.
+     * @param key Refere-se a chave do negócio.
+     * @param unitaryValue Refere-se ao novo valor unitário do negócio.
+     * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     */
+    private void redefineKey(String key, double unitaryValue) throws ElementNotFoundException, KeyUsedException {
+        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+        try {
+            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(unitaryValue));
+            if(!businessInCurrentState.equals(businessInNewState)) {
+                throw new KeyUsedException(businessInNewState);
+            } else {
+                redefineKey(businessInCurrentState, unitaryValue);
+            }
+        } catch (ElementNotFoundException ex) {
+            redefineKey(businessInCurrentState, unitaryValue);
+        }
+    }
+    
+    /**
+     * Método responsável por alterar o valor da oferta negociada.
+     * @param businessInCurrentState Refere-se ao negócio em seu atual estado.
+     * @param unitaryValue Refere-se ao novo valor unitário do negócio.
+     * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
+     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     */
+    private void redefineKey(IBusinessEditable businessInCurrentState, double unitaryValue) throws ElementNotFoundException, KeyUsedException {
+        super.remove(businessInCurrentState.getKey());
+        businessInCurrentState.setUnitaryValue(unitaryValue);
+        super.insert((T) businessInCurrentState);
     }
     
     /**

@@ -48,9 +48,8 @@ public interface IBusinessCollection<T> extends ICollection<String,T> {
      * @param key Refere-se a chave do negócio.
      * @param unitaryValue Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException, KeyUsedException;
+    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException;
     
     /**
      * Método responsável por alterar a quantidade da oferta negociada.
