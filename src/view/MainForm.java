@@ -44,6 +44,10 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        popRemove = new javax.swing.JMenuItem();
+        opoEdit = new javax.swing.JMenuItem();
+        popShow = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         acquisitionTable = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
@@ -57,6 +61,15 @@ public class MainForm extends javax.swing.JFrame {
         optShows = new javax.swing.JMenuItem();
         optAbout = new javax.swing.JMenu();
         optAuthor = new javax.swing.JMenuItem();
+
+        popRemove.setText("Excluir");
+        popupMenu.add(popRemove);
+
+        opoEdit.setText("Editar");
+        popupMenu.add(opoEdit);
+
+        popShow.setText("Exibir");
+        popupMenu.add(popShow);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SDS Finance");
@@ -90,6 +103,11 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         acquisitionTable.getTableHeader().setReorderingAllowed(false);
+        acquisitionTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                acquisitionTableMouseReleased(evt);
+            }
+        });
         scrollPane.setViewportView(acquisitionTable);
         if (acquisitionTable.getColumnModel().getColumnCount() > 0) {
             acquisitionTable.getColumnModel().getColumn(2).setMinWidth(90);
@@ -165,6 +183,12 @@ public class MainForm extends javax.swing.JFrame {
         AuthorAbout.showModal(this);
     }//GEN-LAST:event_optAuthorActionPerformed
 
+    private void acquisitionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquisitionTableMouseReleased
+        if(evt.isMetaDown() && acquisitionTable.getSelectedRow() != -1) {
+            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+        }
+    }//GEN-LAST:event_acquisitionTableMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -198,6 +222,7 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable acquisitionTable;
+    private javax.swing.JMenuItem opoEdit;
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAuthor;
     private javax.swing.JMenuItem optBudgeting;
@@ -208,6 +233,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optRemove;
     private javax.swing.JMenuItem optShows;
     private javax.swing.JMenu optTools;
+    private javax.swing.JMenuItem popRemove;
+    private javax.swing.JMenuItem popShow;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JMenuBar toolBar;
     // End of variables declaration//GEN-END:variables
