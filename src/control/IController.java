@@ -19,6 +19,11 @@
  */
 package control;
 
+import exceptions.IncompatibleTypeException;
+import exceptions.NullObjectException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import model.business.IAcquisition;
 import model.sets.ITerritoryCollection;
 import model.sets.IOrganizationCollection;
@@ -32,7 +37,7 @@ import model.territories.IStreet;
  * Interface responsável por fornecer os métodos de controlador.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IController {
+public interface IController extends Serializable {
 
     /**
      * Método responsável por retornar coleção de ruas.
@@ -57,11 +62,37 @@ public interface IController {
      * @return Retorna coleção de fornecedores.
      */
     public IOrganizationCollection<IProvider> getProviderCollection();
-    
+
     /**
      * Método responsável por retornar coleção de aquisições.
      * @return Retorna coleção de aquisições.
      */
     public IBusinessCollection<IAcquisition> getAcquisitionCollection();
+
+    /**
+     * Método responsável por esvaziar os dados contidos no controlador.
+     */
+    public void clear();
+
+    /**
+     * Método responsável por carregar dados de arquivo para o controlador.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
+     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     */
+    public void loadFromFile(String fileName) throws NullObjectException, FileNotFoundException, IOException,
+            ClassNotFoundException, IncompatibleTypeException;
+
+    /**
+     * Método responsável por gravar dados do controlador em arquivo.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
+     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     */
+    public void saveFromFile(String fileName) throws NullObjectException, FileNotFoundException, IOException;
 
 }

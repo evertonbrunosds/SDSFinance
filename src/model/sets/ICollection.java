@@ -35,7 +35,6 @@ public interface ICollection<K, E> extends Serializable {
 
     /**
      * Método responsável por retornar a quantidade de elementos contidos na coleção.
-     * 
      * @return Retorna quantidade de elementos contidos na coleção.
      */
     public int size();

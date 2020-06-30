@@ -19,6 +19,10 @@
  */
 package control;
 
+import exceptions.IncompatibleTypeException;
+import exceptions.NullObjectException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import model.business.IAcquisition;
 import model.sets.ITerritoryCollection;
 import model.sets.OrganizationCollection;
@@ -30,12 +34,21 @@ import model.sets.IBusinessCollection;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
+import util.FileStream;
 
 /**
  * Classe responsável por comportar-se como controlador.
  * @author Everton Bruno Silva dos Santos.
  */
 public class Controller implements IController {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 3154611275482929630L;
+    /**
+     * Refere-se a versão da classe.
+     */
+    private final long version = 03062020;
     /**
      * Refere-se a instância do controlador.
      */
@@ -128,24 +141,60 @@ public class Controller implements IController {
         return acquisitionCollection;
     }
 
-    private void setStreetCollection(final ITerritoryCollection<IStreet> streetCollection) {
-        this.streetCollection = streetCollection;
+    /**
+     * Método responsável por esvaziar os dados contidos no controlador.
+     */
+    @Override
+    public void clear() {
+        streetCollection = new TerritoryCollection<>();
+        neighborhoodCollection = new TerritoryCollection<>();
+        cityCollection = new TerritoryCollection<>();
+        providerCollection = new OrganizationCollection<>();
+        acquisitionCollection = new BusinessCollection<>();
     }
 
-    private void setNeighborhoodCollection(final ITerritoryCollection<INeighborhood> neighborhoodCollection) {
-        this.neighborhoodCollection = neighborhoodCollection;
+    /**
+     * Método responsável por carregar dados de arquivo para o controlador.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
+     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     */
+    @Override
+    public void loadFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException,
+            ClassNotFoundException, IncompatibleTypeException {
+        final FileStream fileStream = new FileStream();
+        fileStream.loadFromFile(fileName);
+        if (fileStream.getObject() instanceof Controller) {
+            final Controller controller = (Controller) fileStream.getObject();
+            if (controller.version == version) {
+                streetCollection = controller.streetCollection;
+                neighborhoodCollection = controller.neighborhoodCollection;
+                cityCollection = controller.cityCollection;
+                providerCollection = controller.providerCollection;
+                acquisitionCollection = controller.acquisitionCollection;
+            } else {
+                throw new IncompatibleTypeException();
+            }
+        } else {
+            throw new IncompatibleTypeException();
+        }
     }
 
-    private void setCityCollection(final ITerritoryCollection<ICity> cityCollection) {
-        this.cityCollection = cityCollection;
-    }
-
-    private void setProviderCollection(final IOrganizationCollection<IProvider> providerCollection) {
-        this.providerCollection = providerCollection;
-    }
-
-    private void setAcquisitionCollection(final IBusinessCollection<IAcquisition> acquisitionCollection) {
-        this.acquisitionCollection = acquisitionCollection;
+    /**
+     * Método responsável por gravar dados do controlador em arquivo.
+     * @param fileName Refere-se ao nome do arquivo.
+     * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
+     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
+     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     */
+    @Override
+    public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException {
+        final FileStream fileStream = new FileStream();
+        fileStream.setObject(this);
+        fileStream.saveFromFile(fileName);
     }
 
 }

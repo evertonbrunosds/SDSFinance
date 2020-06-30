@@ -230,4 +230,13 @@ public class Provider implements IProvider, IOrganizationEditable {
         return name;
     }
 
+    /**
+     * Método responsável por esvaziar as ofertas contidas no fornecedor.
+     */
+    @Override
+    public void clear() {
+        getExpenseCollection().clear();
+        getIncomeCollection().clear();
+    }
+
 }
