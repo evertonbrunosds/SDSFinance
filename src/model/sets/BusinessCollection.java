@@ -31,210 +31,229 @@ import util.Date;
  * @author Everton Bruno Silva dos Santos
  * @param <T> Refere-se ao tipo de negócio.
  */
-public class BusinessCollection<T> extends Collection<String,T> implements IBusinessCollection<T> {
-    
+public class BusinessCollection<T> extends Collection<String, T> implements IBusinessCollection<T> {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = -4742459143127158906L;
+
     /**
      * Método responsável por alterar o fornecedor do negócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key      Refere-se a chave do negócio.
      * @param provider Refere-se ao novo fornecedor.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setProvider(String key, IProvider provider) throws ElementNotFoundException {
+    public void setProvider(final String key, final IProvider provider) throws ElementNotFoundException {
         try {
             this.redefineKey(key, provider);
-        } catch (KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        } catch (final KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(
+                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
         }
     }
-    
+
     /**
      * Método responsável por alterar o fornecedor do negócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key      Refere-se a chave do negócio.
      * @param provider Refere-se ao novo fornecedor.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(String key, IProvider provider) throws ElementNotFoundException, KeyUsedException {
-        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+    private void redefineKey(final String key, final IProvider provider)
+            throws ElementNotFoundException, KeyUsedException {
+        final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
-            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(provider));
-            if(!businessInCurrentState.equals(businessInNewState)) {
+            final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(
+                    businessInCurrentState.previewKey(provider));
+            if (!businessInCurrentState.equals(businessInNewState)) {
                 throw new KeyUsedException(businessInNewState);
             } else {
                 redefineKey(businessInCurrentState, provider);
             }
-        } catch (ElementNotFoundException ex) {
+        } catch (final ElementNotFoundException ex) {
             redefineKey(businessInCurrentState, provider);
         }
     }
-    
+
     /**
      * Método responsável por efetuar a redefinição de fornecedor de um negócio.
      * @param businessInCurrentState Refere-se ao negócio em seu atual estado.
-     * @param newProvider Refere-se ao novo fornecedor do negócio.
+     * @param newProvider            Refere-se ao novo fornecedor do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(IBusinessEditable businessInCurrentState, IProvider newProvider) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final IBusinessEditable businessInCurrentState, final IProvider newProvider)
+            throws ElementNotFoundException, KeyUsedException {
         super.remove(businessInCurrentState.getKey());
         businessInCurrentState.setProvider(newProvider);
         super.insert((T) businessInCurrentState);
     }
-    
+
     /**
      * Método responsável por alterar a oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key   Refere-se a chave do negócio.
      * @param offer Refere-se a nova oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setOffer(String key, IOfferVisible offer) throws ElementNotFoundException {
+    public void setOffer(final String key, final IOfferVisible offer) throws ElementNotFoundException {
         try {
             this.redefineKey(key, offer);
-        } catch (KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        } catch (final KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(
+                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
         }
     }
-    
+
     /**
      * Método responsável por alterar a oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key   Refere-se a chave do negócio.
      * @param offer Refere-se a nova oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(String key, IOfferVisible offer) throws ElementNotFoundException, KeyUsedException {
-        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+    private void redefineKey(final String key, final IOfferVisible offer)
+            throws ElementNotFoundException, KeyUsedException {
+        final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
-            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(offer));
-            if(!businessInCurrentState.equals(businessInNewState)) {
+            final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(
+                    businessInCurrentState.previewKey(offer));
+            if (!businessInCurrentState.equals(businessInNewState)) {
                 throw new KeyUsedException(businessInNewState);
             } else {
                 redefineKey(businessInCurrentState, offer);
             }
-        } catch (ElementNotFoundException ex) {
+        } catch (final ElementNotFoundException ex) {
             redefineKey(businessInCurrentState, offer);
         }
     }
-    
+
     /**
      * Método responsável por efetuar a redefinição de oferta de um negócio.
      * @param businessInCurrentState Refere-se ao negócio em seu atual estado.
-     * @param newOffer Refere-se a nova oferta do negócio.
+     * @param newOffer               Refere-se a nova oferta do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(IBusinessEditable businessInCurrentState, IOfferVisible newOffer) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final IBusinessEditable businessInCurrentState, final IOfferVisible newOffer)
+            throws ElementNotFoundException, KeyUsedException {
         super.remove(businessInCurrentState.getKey());
         businessInCurrentState.setOffer(newOffer);
         super.insert((T) businessInCurrentState);
     }
-    
+
     /**
      * Método responsável por alterar o valor da oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key          Refere-se a chave do negócio.
      * @param unitaryValue Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException {
+    public void setUnitaryValue(final String key, final double unitaryValue) throws ElementNotFoundException {
         try {
             this.redefineKey(key, unitaryValue);
-        } catch (KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        } catch (final KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(
+                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
         }
     }
-    
+
     /**
      * Método responsável por alterar o valor da oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key          Refere-se a chave do negócio.
      * @param unitaryValue Refere-se ao novo valor unitário do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(String key, double unitaryValue) throws ElementNotFoundException, KeyUsedException {
-        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+    private void redefineKey(final String key, final double unitaryValue)
+            throws ElementNotFoundException, KeyUsedException {
+        final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
-            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(unitaryValue));
-            if(!businessInCurrentState.equals(businessInNewState)) {
+            final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(
+                    businessInCurrentState.previewKey(unitaryValue));
+            if (!businessInCurrentState.equals(businessInNewState)) {
                 throw new KeyUsedException(businessInNewState);
             } else {
                 redefineKey(businessInCurrentState, unitaryValue);
             }
-        } catch (ElementNotFoundException ex) {
+        } catch (final ElementNotFoundException ex) {
             redefineKey(businessInCurrentState, unitaryValue);
         }
     }
-    
+
     /**
      * Método responsável por alterar o valor da oferta negociada.
      * @param businessInCurrentState Refere-se ao negócio em seu atual estado.
-     * @param unitaryValue Refere-se ao novo valor unitário do negócio.
+     * @param unitaryValue           Refere-se ao novo valor unitário do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(IBusinessEditable businessInCurrentState, double unitaryValue) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final IBusinessEditable businessInCurrentState, final double unitaryValue)
+            throws ElementNotFoundException, KeyUsedException {
         super.remove(businessInCurrentState.getKey());
         businessInCurrentState.setUnitaryValue(unitaryValue);
         super.insert((T) businessInCurrentState);
     }
-    
+
     /**
      * Método responsável por alterar a quantidade da oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key    Refere-se a chave do negócio.
      * @param amount Refere-se a nova quantidade da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setAmount(String key, int amount) throws ElementNotFoundException {
+    public void setAmount(final String key, final int amount) throws ElementNotFoundException {
         ((IBusinessEditable) super.search(key)).setAmount(amount);
     }
-    
+
     /**
      * Método responsável por alterar a data do necócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key  Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setDate(String key, Date date) throws ElementNotFoundException {
+    public void setDate(final String key, final Date date) throws ElementNotFoundException {
         try {
             this.redefineKey(key, date);
-        } catch (KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+        } catch (final KeyUsedException ex) {
+            ((IBusinessEditable) ex.getElement()).setAmount(
+                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
         }
     }
-    
+
     /**
      * Método responsável por alterar a data do necócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key  Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(String key, Date date) throws ElementNotFoundException, KeyUsedException {
-        IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
+    private void redefineKey(final String key, final Date date) throws ElementNotFoundException, KeyUsedException {
+        final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
-            IBusinessEditable businessInNewState = (IBusinessEditable) super.search(businessInCurrentState.previewKey(date));
-            if(!businessInCurrentState.equals(businessInNewState)) {
+            final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(
+                    businessInCurrentState.previewKey(date));
+            if (!businessInCurrentState.equals(businessInNewState)) {
                 throw new KeyUsedException(businessInNewState);
             } else {
                 redefineKey(businessInCurrentState, date);
             }
-        } catch (ElementNotFoundException ex) {
+        } catch (final ElementNotFoundException ex) {
             redefineKey(businessInCurrentState, date);
         }
     }
-    
+
     /**
      * Método responsável por alterar a data do necócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key  Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
-     * @throws KeyUsedException Exceção lançada no caso da chave estar em uso por outro negócio.
+     * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(IBusinessEditable businessInCurrentState, Date date) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final IBusinessEditable businessInCurrentState, final Date date)
+            throws ElementNotFoundException, KeyUsedException {
         super.remove(businessInCurrentState.getKey());
         businessInCurrentState.setDate(date);
         super.insert((T) businessInCurrentState);

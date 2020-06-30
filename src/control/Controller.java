@@ -127,7 +127,7 @@ public class Controller implements IController {
     public IBusinessCollection<IAcquisition> getAcquisitionCollection() {
         return acquisitionCollection;
     }
-    
+
     private void setStreetCollection(final ITerritoryCollection<IStreet> streetCollection) {
         this.streetCollection = streetCollection;
     }
@@ -144,8 +144,8 @@ public class Controller implements IController {
         this.providerCollection = providerCollection;
     }
 
-    private void setAcquisitionCollection(IBusinessCollection<IAcquisition> acquisitionCollection) {
+    private void setAcquisitionCollection(final IBusinessCollection<IAcquisition> acquisitionCollection) {
         this.acquisitionCollection = acquisitionCollection;
     }
-    
+
 }

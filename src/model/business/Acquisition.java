@@ -142,7 +142,7 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
      * @return Retorna pré-visualização de nova chave.
      */
     @Override
-    public Comparable<String> previewKey(IOfferVisible offer) {
+    public Comparable<String> previewKey(final IOfferVisible offer) {
         final String dateString = toString(date.getYear()) + toString(date.getMonth()) + toString(date.getDay());
         final String key = dateString + provider.getKey() + offer.toString() + offer.getValue();
         return key.toLowerCase();

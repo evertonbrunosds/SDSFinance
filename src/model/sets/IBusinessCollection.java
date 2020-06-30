@@ -24,46 +24,47 @@ import model.offers.IOfferVisible;
 import model.organizations.IProvider;
 import util.Date;
 
-public interface IBusinessCollection<T> extends ICollection<String,T> {
-    
+public interface IBusinessCollection<T> extends ICollection<String, T> {
+
     /**
      * Método responsável por alterar o fornecedor do negócio.
-     * @param key Refere-se a chave do negócio.
+     * @param key      Refere-se a chave do negócio.
      * @param provider Refere-se ao novo fornecedor.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     public void setProvider(String key, IProvider provider) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por alterar a oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key   Refere-se a chave do negócio.
      * @param offer Refere-se a nova oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     public void setOffer(String key, IOfferVisible offer) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por alterar o valor da oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key          Refere-se a chave do negócio.
      * @param unitaryValue Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por alterar a quantidade da oferta negociada.
-     * @param key Refere-se a chave do negócio.
+     * @param key    Refere-se a chave do negócio.
      * @param amount Refere-se a nova quantidade da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     public void setAmount(String key, int amount) throws ElementNotFoundException;
-    
+
     /**
      * Método responsável por alterar a data do necócio.
-     * @param key Refere-se a chave do negócio.
+     * 
+     * @param key  Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     public void setDate(String key, Date date) throws ElementNotFoundException;
-    
+
 }
