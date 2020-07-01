@@ -19,9 +19,14 @@
  */
 package view.managers;
 
+import control.Controller;
+import exceptions.NullObjectException;
+import java.io.IOException;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import util.Converter;
 
 /**
  * Classe responsável por comportar-se como centro de controle da interface.
@@ -62,6 +67,38 @@ public abstract class ViewControl {
         for (int i = 0; i < rowCount; i++) {
             model.removeRow(0);
         }        
+    }
+    
+    
+    /**
+     * Método responsável por exportar o registro.
+     */
+    public static void exportRecord() {
+        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
+        final String textAproveButton = "Exportar";
+        final String title = "Exportar Registro";
+        final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
+        if(fileDialog.exceute()) {
+            try {
+                Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Você deve especificar um nome de arquivo.");
+            } catch (IOException ex) {
+                Show.errorMessage("Não foi possível exportar o arquivo para o local especificado.");
+            }
+        }
+    }
+    
+    public static void importRecord() {
+        
+    }
+    
+    public static void saveRecord() {
+        
+    }
+    
+    public static void loadRecord() {
+        
     }
     
 }

@@ -89,11 +89,10 @@ public interface IController extends Serializable {
     /**
      * Método responsável por gravar dados do controlador em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
+     * @throws IOException         Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    public void saveFromFile(String fileName) throws NullObjectException, FileNotFoundException, IOException;
+    public void saveFromFile(String fileName) throws NullObjectException, IOException;
 
     /**
      * Método responsável por carregar dados de arquivo para o controlador.
@@ -104,9 +103,8 @@ public interface IController extends Serializable {
 
     /**
      * Método responsável por gravar dados do controlador em arquivo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    public void saveFromFile() throws FileNotFoundException, IOException;
+    public void saveFromFile() throws IOException;
 
 }

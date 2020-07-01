@@ -212,11 +212,10 @@ public class Controller implements IController {
      * Método responsável por gravar dados do controlador em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException   Exceção lançada em caso de nome de arquivo nulo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
      */
     @Override
-    public void saveFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException {
+    public void saveFromFile(final String fileName) throws NullObjectException, IOException {
         Filter.nullObject(fileName);
         fileInternalRecorder(fileName);
     }
@@ -224,10 +223,9 @@ public class Controller implements IController {
     /**
      * Método responsável por gravar dados do controlador em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    private void fileInternalRecorder(final String fileName) throws FileNotFoundException, IOException {
+    private void fileInternalRecorder(final String fileName) throws IOException {
         final FileStream fileStream = new FileStream();
         fileStream.setObject(this);
         fileStream.saveFromFile(fileName);
@@ -249,11 +247,10 @@ public class Controller implements IController {
 
     /**
      * Método responsável por gravar dados do controlador em arquivo.
-     * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
-     * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      */
     @Override
-    public void saveFromFile() throws FileNotFoundException, IOException {
+    public void saveFromFile() throws IOException {
         fileInternalRecorder(pathFile + "/history.sdsf");
     }
 
