@@ -102,6 +102,7 @@ public abstract class ViewControl {
             if(fileDialog.exceute()) {
                 try {
                     Controller.getInstance().loadFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
+                    saveRecord();
                 } catch (NullObjectException ex) {
                     Show.warningMessage("Você deve especificar um nome de arquivo.");
                 } catch (IOException ex) {
@@ -133,7 +134,7 @@ public abstract class ViewControl {
         try {
             Controller.getInstance().loadFromFile();
         } catch (IOException ex) {
-            Show.errorMessage("Não foi possível carregar as alterações.");
+            Show.errorMessage("Não foi possível carregar o registro.");
         }
     }
     

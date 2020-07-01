@@ -22,6 +22,7 @@ package view.windows;
 import control.Controller;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import model.organizations.IProvider;
 import util.Converter;
 import view.managers.ViewControl;
 
@@ -77,6 +78,9 @@ public class ProviderManager extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu = new javax.swing.JPopupMenu();
+        optShowOffers = new javax.swing.JMenuItem();
+        optEditProvider = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         providerTable = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
@@ -84,6 +88,17 @@ public class ProviderManager extends javax.swing.JDialog {
         optAdd = new javax.swing.JMenuItem();
         optSearch = new javax.swing.JMenuItem();
         optRemove = new javax.swing.JMenuItem();
+
+        optShowOffers.setText("Exibir Ofertas");
+        popupMenu.add(optShowOffers);
+
+        optEditProvider.setText("Editar Fornecedor");
+        optEditProvider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optEditProviderActionPerformed(evt);
+            }
+        });
+        popupMenu.add(optEditProvider);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -105,6 +120,11 @@ public class ProviderManager extends javax.swing.JDialog {
             }
         });
         providerTable.getTableHeader().setReorderingAllowed(false);
+        providerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                providerTableMousePressed(evt);
+            }
+        });
         scrollPane.setViewportView(providerTable);
 
         optTools.setText("Ferramentas");
@@ -162,8 +182,18 @@ public class ProviderManager extends javax.swing.JDialog {
     }//GEN-LAST:event_optToolsItemStateChanged
 
     private void optAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddActionPerformed
-        AddProvider.showModal();
+        AddOrEditProvider.showModal();
     }//GEN-LAST:event_optAddActionPerformed
+
+    private void providerTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerTableMousePressed
+        if(evt.isMetaDown() && providerTable.getSelectedRow() != -1) {
+            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+        }
+    }//GEN-LAST:event_providerTableMousePressed
+
+    private void optEditProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditProviderActionPerformed
+        AddOrEditProvider.showModal((IProvider) providerTable.getModel().getValueAt(providerTable.getSelectedRow(), 0));
+    }//GEN-LAST:event_optEditProviderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,9 +234,12 @@ public class ProviderManager extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem optAdd;
+    private javax.swing.JMenuItem optEditProvider;
     private javax.swing.JMenuItem optRemove;
     private javax.swing.JMenuItem optSearch;
+    private javax.swing.JMenuItem optShowOffers;
     private javax.swing.JMenu optTools;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTable providerTable;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JMenuBar toolBar;

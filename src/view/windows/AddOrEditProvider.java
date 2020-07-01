@@ -20,6 +20,7 @@
 package view.windows;
 
 import control.Controller;
+import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import model.organizations.IProvider;
@@ -31,14 +32,18 @@ import view.managers.Show;
 import view.managers.ViewControl;
 
 /**
- * Classe responsável por comportar-se como janela de adição de fornecedores.
+ * Classe responsável por comportar-se como janela de adição ou edição de fornecedores.
  * @author Everton Bruno Silva dos Santos.
  */
-public class AddProvider extends javax.swing.JDialog {
+public class AddOrEditProvider extends javax.swing.JDialog {
     /**
-     * Refere-se a instância da janela de adição de fornecedores.
+     * Refere-se a instância da janela de adição ou edição de fornecedores.
      */
-    private static AddProvider instance;
+    private static AddOrEditProvider instance;
+    /**
+     * Refere-se ao fornecedor contido na classe.
+     */
+    private IProvider provider;
     
     /**
      * Método responsável por adicionar um fornecedor.
@@ -49,16 +54,68 @@ public class AddProvider extends javax.swing.JDialog {
         final ICity city = Factory.city(textCity.getText());
         final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
         final IStreet street = Factory.street(textStreet.getText());
-        final IProvider provider = Factory.provider(textName.getText(), street, neighborhood, city);
+        provider = Factory.provider(textName.getText(), street, neighborhood, city);
         Controller.getInstance().getProviderCollection().insert(provider);
         ViewControl.saveRecord();
+        ProviderManager.updateWindow();
+        dispose();
     }
     
+    /**
+     * Método responsável por editar um fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
+     * @throws KeyUsedException Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
+     */
+    private void editProvider() throws NullObjectException, ElementNotFoundException, KeyUsedException {
+        boolean wasChanged = false;
+        if(!textCity.getText().equals(provider.getCity().toString())) {
+            final ICity city = Factory.city(textCity.getText());
+            Controller.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
+            wasChanged = true;
+        }
+        if(!textNeighborhood.getText().equals(provider.getNeighborhood().toString())) {
+            final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+            Controller.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(), neighborhood);
+            wasChanged = true;
+        }
+        if(!textStreet.getText().equals(provider.getStreet().toString())) {
+            final IStreet street = Factory.street(textStreet.getText());
+            Controller.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
+            wasChanged = true;
+        }
+        if(!textName.getText().equals(provider.toString())) {
+            Controller.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(), textName.getText());
+            wasChanged = true;
+        }
+        if(wasChanged) {
+            ViewControl.saveRecord();
+            ProviderManager.updateWindow();
+        }
+        dispose();
+    }
+
     /**
      * Método responsável por exibir a janela de adição de fornecedores.
      */
     public static void showModal() {
-        instance = new AddProvider(null, true);
+        instance = new AddOrEditProvider(null, true);
+        instance.setVisible(true);
+    }
+    
+    /**
+     * Método responsável por exibir a janela de edição de fornecedores.
+     * @param provider Refere-se ao fornecedor editável.
+     */
+    public static void showModal(final IProvider provider) {
+        instance = new AddOrEditProvider(null, true);
+        instance.btnConfirm.setText("Aplicar");
+        instance.setTitle("Editar Fornecedor");
+        instance.provider = provider;
+        instance.textCity.setText(provider.getCity().toString());
+        instance.textNeighborhood.setText(provider.getNeighborhood().toString());
+        instance.textStreet.setText(provider.getStreet().toString());
+        instance.textName.setText(provider.toString());
         instance.setVisible(true);
     }
 
@@ -67,7 +124,7 @@ public class AddProvider extends javax.swing.JDialog {
      * @param parent Refere-se ao invocador da janela.
      * @param modal  Refere-se ao modo de exibição.
      */
-    private AddProvider(java.awt.Frame parent, boolean modal) {
+    private AddOrEditProvider(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -89,7 +146,7 @@ public class AddProvider extends javax.swing.JDialog {
         textStreet = new javax.swing.JTextField();
         labelName = new javax.swing.JLabel();
         textName = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
+        btnConfirm = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -112,10 +169,10 @@ public class AddProvider extends javax.swing.JDialog {
 
         textName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        btnAdd.setText("Adicionar");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirm.setText("Adicionar");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
@@ -144,7 +201,7 @@ public class AddProvider extends javax.swing.JDialog {
                     .addComponent(textStreet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
@@ -171,7 +228,7 @@ public class AddProvider extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btnAdd))
+                    .addComponent(btnConfirm))
                 .addGap(20, 20, 20))
         );
 
@@ -183,17 +240,27 @@ public class AddProvider extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try {
-            addProvider();
-            ProviderManager.updateWindow();
-            dispose();
-        } catch (NullObjectException ex) {
-            Show.warningMessage("Todos os campos devem ser preenchidos.");
-        } catch (KeyUsedException ex) {
-            Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if(provider == null) {
+            try {
+                addProvider();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem ser preenchidos.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+            }
+        } else {
+            try {
+                editProvider();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem estar preenchidos.");
+            } catch (ElementNotFoundException ex) {
+                Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+            }
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,15 +279,18 @@ public class AddProvider extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddOrEditProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            AddProvider dialog = new AddProvider(new javax.swing.JFrame(), true);
+            AddOrEditProvider dialog = new AddOrEditProvider(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -232,8 +302,8 @@ public class AddProvider extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JLabel labelCity;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelNeighborhood;

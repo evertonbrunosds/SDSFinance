@@ -208,10 +208,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void acquisitionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquisitionTableMouseReleased
         if(evt.isMetaDown() && acquisitionTable.getSelectedRow() != -1) {
-            System.out.println("true");
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
-        } else {
-            System.out.println("false");
         }
     }//GEN-LAST:event_acquisitionTableMouseReleased
 
