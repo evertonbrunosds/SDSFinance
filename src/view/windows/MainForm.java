@@ -37,6 +37,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        ViewControl.loadRecord();
         ViewControl.alignTo(acquisitionTable, SwingConstants.CENTER);
     }
 

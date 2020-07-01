@@ -28,6 +28,7 @@ import model.territories.INeighborhood;
 import model.territories.IStreet;
 import util.Factory;
 import view.managers.Show;
+import view.managers.ViewControl;
 
 /**
  * Classe responsável por comportar-se como janela de adição de fornecedores.
@@ -50,6 +51,7 @@ public class AddProvider extends javax.swing.JDialog {
         final IStreet street = Factory.street(textStreet.getText());
         final IProvider provider = Factory.provider(textName.getText(), street, neighborhood, city);
         Controller.getInstance().getProviderCollection().insert(provider);
+        ViewControl.saveRecord();
     }
     
     /**

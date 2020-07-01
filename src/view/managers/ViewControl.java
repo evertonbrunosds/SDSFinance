@@ -115,12 +115,26 @@ public abstract class ViewControl {
         }
     }
     
+    /**
+     * Método responsável por gravar registros no dispositivo.
+     */
     public static void saveRecord() {
-        
+        try {
+            Controller.getInstance().saveFromFile();
+        } catch (IOException ex) {
+            Show.errorMessage("Não foi possível gravar as alterações.");
+        }
     }
     
+    /**
+     * Método resmponsável carregar registros do dispositivo.
+     */
     public static void loadRecord() {
-        
+        try {
+            Controller.getInstance().loadFromFile();
+        } catch (IOException ex) {
+            Show.errorMessage("Não foi possível carregar as alterações.");
+        }
     }
     
 }

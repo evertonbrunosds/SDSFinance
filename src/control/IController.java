@@ -95,9 +95,8 @@ public interface IController extends Serializable {
     /**
      * Método responsável por carregar dados de arquivo para o controlador.
      * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
-     * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
      */
-    public void loadFromFile() throws IOException, ClassNotFoundException;
+    public void loadFromFile() throws IOException;
 
     /**
      * Método responsável por gravar dados do controlador em arquivo.

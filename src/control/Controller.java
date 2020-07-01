@@ -232,13 +232,12 @@ public class Controller implements IController {
     /**
      * Método responsável por carregar dados de arquivo para o controlador.
      * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
-     * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
      */
     @Override
-    public void loadFromFile() throws IOException, ClassNotFoundException {
+    public void loadFromFile() throws IOException {
         try {
             fileInternalLoader(pathFile + "/history.sdsf");
-        } catch (FileNotFoundException | IncompatibleTypeException ex) {
+        } catch (FileNotFoundException | ClassNotFoundException | IncompatibleTypeException ex) {
             saveFromFile();
         }
     }
