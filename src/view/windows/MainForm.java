@@ -17,9 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package view;
+package view.windows;
 
 import javax.swing.SwingConstants;
+import view.managers.ViewControl;
 
 /**
  * Classe responsável por comportar-se como janela principal da aplicação.
@@ -82,10 +83,7 @@ public class MainForm extends javax.swing.JFrame {
 
         acquisitionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data"
@@ -142,8 +140,18 @@ public class MainForm extends javax.swing.JFrame {
         toolBar.add(optRecorder);
 
         optTools.setText("Ferramentas");
+        optTools.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optToolsItemStateChanged(evt);
+            }
+        });
 
         optProvider.setText("Fornecedores");
+        optProvider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optProviderActionPerformed(evt);
+            }
+        });
         optTools.add(optProvider);
 
         optBudgeting.setText("Orçamentos");
@@ -189,9 +197,26 @@ public class MainForm extends javax.swing.JFrame {
 
     private void acquisitionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquisitionTableMouseReleased
         if(evt.isMetaDown() && acquisitionTable.getSelectedRow() != -1) {
+            System.out.println("true");
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+        } else {
+            System.out.println("false");
         }
     }//GEN-LAST:event_acquisitionTableMouseReleased
+
+    private void optProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optProviderActionPerformed
+        ProviderManager.showModal();
+    }//GEN-LAST:event_optProviderActionPerformed
+
+    private void optToolsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optToolsItemStateChanged
+        if(acquisitionTable.getRowCount() == 0) {
+            optBudgeting.setEnabled(false);
+            optShows.setEnabled(false);
+        } else {
+            optBudgeting.setEnabled(true);
+            optShows.setEnabled(true);            
+        }
+    }//GEN-LAST:event_optToolsItemStateChanged
 
     /**
      * @param args the command line arguments
