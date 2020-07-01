@@ -20,6 +20,7 @@
 package view.managers;
 
 import control.Controller;
+import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.io.IOException;
 import javax.swing.JTable;
@@ -71,7 +72,7 @@ public abstract class ViewControl {
     
     
     /**
-     * Método responsável por exportar o registro.
+     * Método responsável por exportar registros.
      */
     public static void exportRecord() {
         final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
@@ -89,8 +90,29 @@ public abstract class ViewControl {
         }
     }
     
+    /**
+     * Método responsável por importar registros.
+     */
     public static void importRecord() {
-        
+        if(Show.questionMessage("Se bem sucedida esta ação irá sobrescrever seus registros atuais, deseja prosseguir?")) {
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
+            final String textAproveButton = "Importar";
+            final String title = "Importar Registro";
+            final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
+            if(fileDialog.exceute()) {
+                try {
+                    Controller.getInstance().loadFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
+                } catch (NullObjectException ex) {
+                    Show.warningMessage("Você deve especificar um nome de arquivo.");
+                } catch (IOException ex) {
+                    Show.errorMessage("Não foi possível importar o arquivo para do local especificado.");
+                } catch (ClassNotFoundException ex) {
+                    Show.errorMessage("Não foi possível importar, o arquivo está corrompido.");
+                } catch (IncompatibleTypeException ex) {
+                    Show.warningMessage("Este registro pertence a uma versão do SDS Finance diferente da atual.");
+                }
+            }
+        }
     }
     
     public static void saveRecord() {

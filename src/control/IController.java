@@ -21,7 +21,6 @@ package control;
 
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import model.business.IAcquisition;
@@ -78,12 +77,11 @@ public interface IController extends Serializable {
      * Método responsável por carregar dados de arquivo para o controlador.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
-     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
-    public void loadFromFile(String fileName) throws NullObjectException, FileNotFoundException, IOException,
+    public void loadFromFile(String fileName) throws NullObjectException, IOException,
             ClassNotFoundException, IncompatibleTypeException;
 
     /**

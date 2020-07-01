@@ -168,13 +168,12 @@ public class Controller implements IController {
      * Método responsável por carregar dados de arquivo para o controlador.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
-     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
     @Override
-    public void loadFromFile(final String fileName) throws NullObjectException, FileNotFoundException, IOException,
+    public void loadFromFile(final String fileName) throws NullObjectException, IOException,
             ClassNotFoundException, IncompatibleTypeException {
         Filter.nullObject(fileName);
         fileInternalLoader(fileName);
@@ -183,13 +182,12 @@ public class Controller implements IController {
     /**
      * Método responsável por carregar dados de arquivo para o controlador.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws FileNotFoundException     Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
     private void fileInternalLoader(final String fileName)
-            throws FileNotFoundException, IOException, ClassNotFoundException, IncompatibleTypeException {
+            throws IOException, ClassNotFoundException, IncompatibleTypeException {
         final FileStream fileStream = new FileStream();
         fileStream.loadFromFile(fileName);
         if (fileStream.getObject() instanceof Controller) {

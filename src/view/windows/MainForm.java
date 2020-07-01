@@ -132,6 +132,11 @@ public class MainForm extends javax.swing.JFrame {
         optRecorder.add(optRemove);
 
         optImport.setText("Importar");
+        optImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optImportActionPerformed(evt);
+            }
+        });
         optRecorder.add(optImport);
 
         optExport.setText("Exportar");
@@ -226,6 +231,10 @@ public class MainForm extends javax.swing.JFrame {
     private void optExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExportActionPerformed
         ViewControl.exportRecord();
     }//GEN-LAST:event_optExportActionPerformed
+
+    private void optImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optImportActionPerformed
+        ViewControl.importRecord();
+    }//GEN-LAST:event_optImportActionPerformed
 
     /**
      * @param args the command line arguments
