@@ -19,6 +19,16 @@
  */
 package view.windows;
 
+import control.Controller;
+import exceptions.KeyUsedException;
+import exceptions.NullObjectException;
+import model.organizations.IProvider;
+import model.territories.ICity;
+import model.territories.INeighborhood;
+import model.territories.IStreet;
+import util.Factory;
+import view.managers.Show;
+
 /**
  * Classe responsável por comportar-se como janela de adição de fornecedores.
  * @author Everton Bruno Silva dos Santos.
@@ -30,12 +40,23 @@ public class AddProvider extends javax.swing.JDialog {
     private static AddProvider instance;
     
     /**
+     * Método responsável por adicionar um fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws KeyUsedException Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
+     */
+    private void addProvider() throws NullObjectException, KeyUsedException {
+        final ICity city = Factory.city(textCity.getText());
+        final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+        final IStreet street = Factory.street(textStreet.getText());
+        final IProvider provider = Factory.provider(textName.getText(), street, neighborhood, city);
+        Controller.getInstance().getProviderCollection().insert(provider);
+    }
+    
+    /**
      * Método responsável por exibir a janela de adição de fornecedores.
      */
     public static void showModal() {
-        if(instance == null) {
-            instance = new AddProvider(null, true);
-        }
+        instance = new AddProvider(null, true);
         instance.setVisible(true);
     }
 
@@ -90,6 +111,11 @@ public class AddProvider extends javax.swing.JDialog {
         textName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +180,18 @@ public class AddProvider extends javax.swing.JDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        try {
+            addProvider();
+            ProviderManager.updateWindow();
+            dispose();
+        } catch (NullObjectException ex) {
+            Show.warningMessage("Todos os campos devem ser preenchidos.");
+        } catch (KeyUsedException ex) {
+            Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments

@@ -23,6 +23,7 @@ import exceptions.DoubleValueInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
 import java.text.DecimalFormat;
+import model.organizations.IProvider;
 
 /**
  * Classe responsável por comportar-se como um conversor.
@@ -134,6 +135,15 @@ public abstract class Converter {
             }
         }
         return pathFile;
+    }
+    
+    /**
+     * Método responsável por converter um dado fornecedor em vetor de objetos.
+     * @param provider Refere-se ao fornecedor.
+     * @return Retorna vetor de objetos.
+     */
+    public static Object[] toVector(final IProvider provider) {
+        return new Object[]{provider, provider.getStreet(), provider.getNeighborhood(), provider.getCity()};
     }
 
 }

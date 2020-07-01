@@ -19,7 +19,10 @@
  */
 package view.windows;
 
+import control.Controller;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import util.Converter;
 import view.managers.ViewControl;
 
 /**
@@ -33,13 +36,25 @@ public class ProviderManager extends javax.swing.JDialog {
     private static ProviderManager instance;
     
     /**
+     * Método responsável por atualizar a janela de fornecedores.
+     */
+    public static void updateWindow() {
+        if(instance != null) {
+            ViewControl.clear(instance.providerTable);
+            final DefaultTableModel model = (DefaultTableModel) instance.providerTable.getModel();
+            Controller.getInstance().getProviderCollection().forEach((provider) -> {
+                model.addRow(Converter.toVector(provider));
+            });
+        }
+    }
+    
+    /**
      * Método responsável por exibir a janela de fornecedores.
      */
     public static void showModal() {
-        if(instance == null) {
-            instance = new ProviderManager(null, true);
-        }
+        instance = new ProviderManager(null, true);
         ViewControl.alignTo(instance.providerTable, SwingConstants.CENTER);
+        updateWindow();
         instance.setVisible(true);
     }
 

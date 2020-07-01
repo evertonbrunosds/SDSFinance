@@ -21,6 +21,7 @@ package view.managers;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Classe responsável por comportar-se como centro de controle da interface.
@@ -49,6 +50,18 @@ public abstract class ViewControl {
         final DefaultTableCellRenderer align = new DefaultTableCellRenderer();
         align.setHorizontalAlignment(alignment);
         return align;
+    }
+    
+    /**
+     * Método responsável por esvaziar uma tabela.
+     * @param table Refere-se a tabela.
+     */
+    public static void clear(final JTable table) {
+        final DefaultTableModel model = (DefaultTableModel) table.getModel();
+        final int rowCount = model.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            model.removeRow(0);
+        }        
     }
     
 }
