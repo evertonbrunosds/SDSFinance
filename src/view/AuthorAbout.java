@@ -35,10 +35,9 @@ public class AuthorAbout extends javax.swing.JDialog {
     
     /**
      * Método responsável por exibir janela de autoria.
-     * @param parent Refere-se ao invocador da janela.
      */
-    public static void showModal(final java.awt.Frame parent) {
-        instance = new AuthorAbout(parent, true);
+    public static void showModal() {
+        instance = new AuthorAbout(null, true);
         instance.setVisible(true);
     }
     

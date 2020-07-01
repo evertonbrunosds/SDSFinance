@@ -26,13 +26,17 @@ import javax.swing.SwingConstants;
  * @author Everton Bruno Silva dos Santos.
  */
 public class MainForm extends javax.swing.JFrame {
+    /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 3549108067875363853L;
 
     /**
      * Construtor responsável por inicializar a janela principal da aplicação.
      */
     public MainForm() {
         initComponents();
-        ControlCenter.alignTo(acquisitionTable, SwingConstants.CENTER);
+        ViewControl.alignTo(acquisitionTable, SwingConstants.CENTER);
     }
 
     /**
@@ -180,7 +184,7 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void optAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAuthorActionPerformed
-        AuthorAbout.showModal(this);
+        AuthorAbout.showModal();
     }//GEN-LAST:event_optAuthorActionPerformed
 
     private void acquisitionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquisitionTableMouseReleased

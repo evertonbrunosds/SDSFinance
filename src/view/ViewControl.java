@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Classe responsável por comportar-se como centro de controle da interface.
  * @author Everton Bruno Silva dos Santos.
  */
-public abstract class ControlCenter {
+public abstract class ViewControl {
     
     /**
      * Método responsável por alinhar as linhas e colunas de uma tabela.
