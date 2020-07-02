@@ -19,7 +19,10 @@
  */
 package view.windows;
 
+import control.Controller;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import util.Converter;
 import view.managers.ViewControl;
 
 /**
@@ -27,6 +30,7 @@ import view.managers.ViewControl;
  * @author Everton Bruno Silva dos Santos.
  */
 public class MainForm extends javax.swing.JFrame {
+    private static MainForm instance;
     /**
      * Refere-se ao número de série da classe.
      */
@@ -36,9 +40,22 @@ public class MainForm extends javax.swing.JFrame {
      * Construtor responsável por inicializar a janela principal da aplicação.
      */
     public MainForm() {
+        instance = this;
         initComponents();
         ViewControl.loadRecord();
         ViewControl.alignTo(table, SwingConstants.CENTER);
+        updateWindow();
+    }
+    
+    /**
+     * Método responsável por atualizar a jenala principal.
+     */
+    public static void updateWindow() {
+        ViewControl.clear(instance.table);
+        final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
+        Controller.getInstance().getAcquisitionCollection().forEachInReverseOrder((acquisition) -> {
+            model.addRow(Converter.toVector(acquisition));
+        });
     }
 
     /**
@@ -90,16 +107,9 @@ public class MainForm extends javax.swing.JFrame {
                 "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];

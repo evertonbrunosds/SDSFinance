@@ -45,6 +45,8 @@ public class OfferWindow extends javax.swing.JDialog {
     public static void showModal(final IProvider provider) {
         instance = new OfferWindow(null, true);
         instance.provider = provider;
+        instance.setTitle("Ofertas disponíveis em " + provider.toString());
+        updateWindow();
         instance.setVisible(true);
     }
     
@@ -85,20 +87,41 @@ public class OfferWindow extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenuExpense = new javax.swing.JPopupMenu();
+        optAcquireExpense = new javax.swing.JMenuItem();
+        optAddExpense = new javax.swing.JMenuItem();
+        optRemoveExpense = new javax.swing.JMenuItem();
+        optEditExpense = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         scrollPaneExpense = new javax.swing.JScrollPane();
         tableExpense = new javax.swing.JTable();
         scrollPaneIncome = new javax.swing.JScrollPane();
         tableIncome = new javax.swing.JTable();
 
+        optAcquireExpense.setText("Adiquirir");
+        popupMenuExpense.add(optAcquireExpense);
+
+        optAddExpense.setText("Adicionar");
+        popupMenuExpense.add(optAddExpense);
+
+        optRemoveExpense.setText("Excluir");
+        popupMenuExpense.add(optRemoveExpense);
+
+        optEditExpense.setText("Editar");
+        popupMenuExpense.add(optEditExpense);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+
+        scrollPaneExpense.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                scrollPaneExpenseMouseReleased(evt);
+            }
+        });
 
         tableExpense.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome da Oferta", "Valor da Oferta"
@@ -120,6 +143,11 @@ public class OfferWindow extends javax.swing.JDialog {
             }
         });
         tableExpense.getTableHeader().setReorderingAllowed(false);
+        tableExpense.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableExpenseMouseReleased(evt);
+            }
+        });
         scrollPaneExpense.setViewportView(tableExpense);
         if (tableExpense.getColumnModel().getColumnCount() > 0) {
             tableExpense.getColumnModel().getColumn(0).setMinWidth(120);
@@ -130,10 +158,7 @@ public class OfferWindow extends javax.swing.JDialog {
 
         tableIncome.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome da Oferta", "Valor da Oferta"
@@ -175,7 +200,20 @@ public class OfferWindow extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void scrollPaneExpenseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneExpenseMouseReleased
+        if(evt.isMetaDown()) {
+            
+        }
+    }//GEN-LAST:event_scrollPaneExpenseMouseReleased
+
+    private void tableExpenseMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableExpenseMouseReleased
+        if(evt.isMetaDown()) {
+            
+        }
+    }//GEN-LAST:event_tableExpenseMouseReleased
 
     /**
      * @param args the command line arguments
@@ -216,6 +254,11 @@ public class OfferWindow extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem optAcquireExpense;
+    private javax.swing.JMenuItem optAddExpense;
+    private javax.swing.JMenuItem optEditExpense;
+    private javax.swing.JMenuItem optRemoveExpense;
+    private javax.swing.JPopupMenu popupMenuExpense;
     private javax.swing.JScrollPane scrollPaneExpense;
     private javax.swing.JScrollPane scrollPaneIncome;
     private javax.swing.JTabbedPane tabbedPane;

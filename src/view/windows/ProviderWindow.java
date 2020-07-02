@@ -127,6 +127,11 @@ public class ProviderWindow extends javax.swing.JDialog {
         table = new javax.swing.JTable();
 
         optAcess.setText("Acessar");
+        optAcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAcessActionPerformed(evt);
+            }
+        });
         popupMenu.add(optAcess);
 
         optAdd.setText("Adicionar");
@@ -230,6 +235,10 @@ public class ProviderWindow extends javax.swing.JDialog {
             Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
         }
     }//GEN-LAST:event_optRemoveActionPerformed
+
+    private void optAcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcessActionPerformed
+        OfferWindow.showModal((IProvider) table.getModel().getValueAt(table.getSelectedRow(), 0));
+    }//GEN-LAST:event_optAcessActionPerformed
 
     /**
      * @param args the command line arguments

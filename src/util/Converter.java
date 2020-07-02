@@ -23,6 +23,7 @@ import exceptions.DoubleValueInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
 import java.text.DecimalFormat;
+import model.business.IBusinessVisible;
 import model.offers.IOfferVisible;
 import model.organizations.IOrganizationVisible;
 
@@ -140,11 +141,16 @@ public abstract class Converter {
     
     /**
      * Método responsável por converter uma dada organização em vetor de objetos.
-     * @param org Refere-se a organização.
+     * @param organization Refere-se a organização.
      * @return Retorna vetor de objetos.
      */
-    public static Object[] toVector(final IOrganizationVisible org) {
-        return new Object[]{org, org.getStreet(), org.getNeighborhood(), org.getCity()};
+    public static Object[] toVector(final IOrganizationVisible organization) {
+        final Object[] vector = new Object[4];
+        vector[0] = organization;
+        vector[1] = organization.getStreet();
+        vector[2] = organization.getNeighborhood();
+        vector[3] = organization.getCity();
+        return vector;
     }
     
     /**
@@ -153,7 +159,26 @@ public abstract class Converter {
      * @return Retorna vetor de objetos.
      */
     public static Object[] toVector(final IOfferVisible offer) {
-        return new Object[]{offer, Converter.toString(offer.getValue())};
+        final Object[] vector = new Object[2];
+        vector[0] = offer;
+        vector[1] = Converter.toString(offer.getValue());
+        return vector;
+    }
+    
+    /**
+     * Método responsável por converter um dado negócio em vetor de objetos.
+     * @param business Refere-se ao negócio.
+     * @return Retorna vetor de objetos.
+     */
+    public static Object[] toVector(final IBusinessVisible business) {
+        final Object[] vector = new Object[6];
+        vector[0] = business;
+        vector[1] = business.getProvider();
+        vector[2] = business.getAmount();
+        vector[3] = Converter.toString(business.getOffer().getValue());
+        vector[4] = Converter.toString(business.getTotalValue());
+        vector[5] = business.getDate();        
+        return vector;
     }
 
 }
