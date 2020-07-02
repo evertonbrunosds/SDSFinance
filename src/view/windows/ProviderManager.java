@@ -47,7 +47,7 @@ public class ProviderManager extends javax.swing.JDialog {
         if(instance != null) {
             ViewControl.clear(instance.providerTable);
             final DefaultTableModel model = (DefaultTableModel) instance.providerTable.getModel();
-            Controller.getInstance().getProviderCollection().forEach((provider) -> {
+            Controller.getInstance().getProviderCollection().forEachInReverseOrder((provider) -> {
                 model.addRow(Converter.toVector(provider));
             });
         }

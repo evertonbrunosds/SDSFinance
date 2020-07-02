@@ -243,7 +243,7 @@ public class TreeTest {
      */
     @Test
     public void ForEachInNullTree() {
-        tree.forEach((element) -> {
+        tree.forEachInReverseOrder((element) -> {
             fail("O forEach foi executado com a árvore vazia.");
         });
     }
@@ -260,7 +260,7 @@ public class TreeTest {
                 fail("Exceção de chave usada inesperada");
             }
         }
-        tree.forEach((element) -> {
+        tree.forEachInReverseOrder((element) -> {
             assertEquals("Os elementos divergem", vector[vector.length-1-counter], element);
             counter++;
         });

@@ -80,9 +80,9 @@ public interface ITree<K, E> extends Serializable {
     public void insert(Comparable<K> key, E element) throws KeyUsedException;
 
     /**
-     * Método responsável por percorrer por todos os elementos contidos na árvore.
+     * Método responsável por percorrer por todos os elementos contidos na árvore em ordem reversa.
      * @param element Refere-se aos elementos contidos na árvore.
      */
-    public void forEach(Consumer<? super E> element);
+    public void forEachInReverseOrder(Consumer<? super E> element);
 
 }

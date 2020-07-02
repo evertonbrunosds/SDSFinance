@@ -144,7 +144,7 @@ public class CollectionTest {
      */
     @Test
     public void incorrectForEach() {
-        collection.forEach((element) -> {
+        collection.forEachInReverseOrder((element) -> {
             fail("ForEach usado mesmo com coleção vazia");
         });
         assertTrue(true);
@@ -158,7 +158,7 @@ public class CollectionTest {
     @Test
     public void correctForEach() throws NullObjectException, KeyUsedException {
         collection.insert(new Expense("Algo",50));
-        collection.forEach((element) -> {
+        collection.forEachInReverseOrder((element) -> {
             assertEquals("Algo", element.toString());
         });
     }

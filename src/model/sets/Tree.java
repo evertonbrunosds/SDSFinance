@@ -227,20 +227,20 @@ public class Tree<K, E> implements ITree<K, E> {
      * @param element Refere-se aos elementos contidos na árvore.
      */
     @Override
-    public void forEach(final Consumer<? super E> element) {
-        forEach(element, root);
+    public void forEachInReverseOrder(final Consumer<? super E> element) {
+        forEachInReverseOrder(element, root);
     }
 
     /**
-     * Método responsável por percorrer por todos os elementos contidos na árvore.
+     * Método responsável por percorrer por todos os elementos contidos na árvore em ordem reversa.
      * @param element     Refere-se aos elementos contidos na árvore.
      * @param currentNode Refere-se ao nó atual da recursão.
      */
-    private void forEach(final Consumer<? super E> element, final Node currentNode) {
+    private void forEachInReverseOrder(final Consumer<? super E> element, final Node currentNode) {
         if (currentNode != null) {
-            forEach(element, currentNode.sonOnTheRight);
+            forEachInReverseOrder(element, currentNode.sonOnTheRight);
             element.accept(currentNode.element);
-            forEach(element, currentNode.sonOnTheLeft);
+            forEachInReverseOrder(element, currentNode.sonOnTheLeft);
         }
     }
 

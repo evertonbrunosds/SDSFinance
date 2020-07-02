@@ -96,12 +96,12 @@ public class Collection<K, E> implements ICollection<K, E> {
     }
 
     /**
-     * Método responsável por percorrer por todos os elementos contidos na coleção.
+     * Método responsável por percorrer por todos os elementos contidos na coleção em ordem reversa.
      * @param element Refere-se aos elementos contidos na coleção.
      */
     @Override
-    public void forEach(final Consumer<? super E> element) {
-        tree.forEach((e) -> {
+    public void forEachInReverseOrder(final Consumer<? super E> element) {
+        tree.forEachInReverseOrder((e) -> {
             element.accept((E) e);
         });
     }
