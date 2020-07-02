@@ -45,8 +45,8 @@ public class ProviderWindow extends javax.swing.JDialog {
      */
     public static void updateWindow() {
         if(instance != null) {
-            ViewControl.clear(instance.providerTable);
-            final DefaultTableModel model = (DefaultTableModel) instance.providerTable.getModel();
+            ViewControl.clear(instance.table);
+            final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
             Controller.getInstance().getProviderCollection().forEachInOrder((provider) -> {
                 model.addRow(Converter.toVector(provider));
             });
@@ -58,7 +58,7 @@ public class ProviderWindow extends javax.swing.JDialog {
      */
     public static void showModal() {
         instance = new ProviderWindow(null, true);
-        ViewControl.alignTo(instance.providerTable, SwingConstants.CENTER);
+        ViewControl.alignTo(instance.table, SwingConstants.CENTER);
         updateWindow();
         instance.setVisible(true);
     }
@@ -89,7 +89,7 @@ public class ProviderWindow extends javax.swing.JDialog {
         optRemove = new javax.swing.JMenuItem();
         optEdit = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
-        providerTable = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         optAcess.setText("Acessar");
         popupMenu.add(optAcess);
@@ -125,7 +125,7 @@ public class ProviderWindow extends javax.swing.JDialog {
             }
         });
 
-        providerTable.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -141,13 +141,13 @@ public class ProviderWindow extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        providerTable.getTableHeader().setReorderingAllowed(false);
-        providerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        table.getTableHeader().setReorderingAllowed(false);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                providerTableMouseReleased(evt);
+                tableMouseReleased(evt);
             }
         });
-        scrollPane.setViewportView(providerTable);
+        scrollPane.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,14 +169,14 @@ public class ProviderWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_optAddActionPerformed
 
     private void optEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditActionPerformed
-        ProviderManager.showModal((IProvider) providerTable.getModel().getValueAt(providerTable.getSelectedRow(), 0));
+        ProviderManager.showModal((IProvider) table.getModel().getValueAt(table.getSelectedRow(), 0));
     }//GEN-LAST:event_optEditActionPerformed
 
-    private void providerTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerTableMouseReleased
+    private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
         if(evt.isMetaDown()) {
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
-    }//GEN-LAST:event_providerTableMouseReleased
+    }//GEN-LAST:event_tableMouseReleased
 
     private void scrollPaneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMouseReleased
         if(evt.isMetaDown()) {
@@ -230,7 +230,7 @@ public class ProviderWindow extends javax.swing.JDialog {
     private javax.swing.JMenuItem optRemove;
     private javax.swing.JMenuItem optSearch;
     private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JTable providerTable;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,7 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         ViewControl.loadRecord();
-        ViewControl.alignTo(acquisitionTable, SwingConstants.CENTER);
+        ViewControl.alignTo(table, SwingConstants.CENTER);
     }
 
     /**
@@ -55,7 +55,7 @@ public class MainForm extends javax.swing.JFrame {
         opoEdit = new javax.swing.JMenuItem();
         popShow = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
-        acquisitionTable = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
         optRecorder = new javax.swing.JMenu();
         optImport = new javax.swing.JMenuItem();
@@ -82,7 +82,7 @@ public class MainForm extends javax.swing.JFrame {
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png"))
         );
 
-        acquisitionTable.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -105,26 +105,26 @@ public class MainForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        acquisitionTable.getTableHeader().setReorderingAllowed(false);
-        acquisitionTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        table.getTableHeader().setReorderingAllowed(false);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                acquisitionTableMouseReleased(evt);
+                tableMouseReleased(evt);
             }
         });
-        scrollPane.setViewportView(acquisitionTable);
-        if (acquisitionTable.getColumnModel().getColumnCount() > 0) {
-            acquisitionTable.getColumnModel().getColumn(2).setMinWidth(90);
-            acquisitionTable.getColumnModel().getColumn(2).setPreferredWidth(90);
-            acquisitionTable.getColumnModel().getColumn(2).setMaxWidth(90);
-            acquisitionTable.getColumnModel().getColumn(3).setMinWidth(110);
-            acquisitionTable.getColumnModel().getColumn(3).setPreferredWidth(110);
-            acquisitionTable.getColumnModel().getColumn(3).setMaxWidth(110);
-            acquisitionTable.getColumnModel().getColumn(4).setMinWidth(110);
-            acquisitionTable.getColumnModel().getColumn(4).setPreferredWidth(110);
-            acquisitionTable.getColumnModel().getColumn(4).setMaxWidth(110);
-            acquisitionTable.getColumnModel().getColumn(5).setMinWidth(90);
-            acquisitionTable.getColumnModel().getColumn(5).setPreferredWidth(90);
-            acquisitionTable.getColumnModel().getColumn(5).setMaxWidth(90);
+        scrollPane.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(2).setMinWidth(90);
+            table.getColumnModel().getColumn(2).setPreferredWidth(90);
+            table.getColumnModel().getColumn(2).setMaxWidth(90);
+            table.getColumnModel().getColumn(3).setMinWidth(110);
+            table.getColumnModel().getColumn(3).setPreferredWidth(110);
+            table.getColumnModel().getColumn(3).setMaxWidth(110);
+            table.getColumnModel().getColumn(4).setMinWidth(110);
+            table.getColumnModel().getColumn(4).setPreferredWidth(110);
+            table.getColumnModel().getColumn(4).setMaxWidth(110);
+            table.getColumnModel().getColumn(5).setMinWidth(90);
+            table.getColumnModel().getColumn(5).setPreferredWidth(90);
+            table.getColumnModel().getColumn(5).setMaxWidth(90);
         }
 
         optRecorder.setText("Registro");
@@ -206,18 +206,18 @@ public class MainForm extends javax.swing.JFrame {
         AuthorAbout.showModal();
     }//GEN-LAST:event_optAuthorActionPerformed
 
-    private void acquisitionTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquisitionTableMouseReleased
-        if(evt.isMetaDown() && acquisitionTable.getSelectedRow() != -1) {
+    private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
+        if(evt.isMetaDown() && table.getSelectedRow() != -1) {
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
-    }//GEN-LAST:event_acquisitionTableMouseReleased
+    }//GEN-LAST:event_tableMouseReleased
 
     private void optProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optProviderActionPerformed
         ProviderWindow.showModal();
     }//GEN-LAST:event_optProviderActionPerformed
 
     private void optShowItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optShowItemStateChanged
-        if(acquisitionTable.getRowCount() == 0) {
+        if(table.getRowCount() == 0) {
             optBudgeting.setEnabled(false);
             optExtracts.setEnabled(false);
         } else {
@@ -266,7 +266,6 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable acquisitionTable;
     private javax.swing.JMenuItem opoEdit;
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAuthor;
@@ -282,6 +281,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem popShow;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable table;
     private javax.swing.JMenuBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,7 +23,8 @@ import exceptions.DoubleValueInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
 import java.text.DecimalFormat;
-import model.organizations.IProvider;
+import model.offers.IOfferVisible;
+import model.organizations.IOrganizationVisible;
 
 /**
  * Classe responsável por comportar-se como um conversor.
@@ -138,12 +139,21 @@ public abstract class Converter {
     }
     
     /**
-     * Método responsável por converter um dado fornecedor em vetor de objetos.
-     * @param provider Refere-se ao fornecedor.
+     * Método responsável por converter uma dada organização em vetor de objetos.
+     * @param org Refere-se a organização.
      * @return Retorna vetor de objetos.
      */
-    public static Object[] toVector(final IProvider provider) {
-        return new Object[]{provider, provider.getStreet(), provider.getNeighborhood(), provider.getCity()};
+    public static Object[] toVector(final IOrganizationVisible org) {
+        return new Object[]{org, org.getStreet(), org.getNeighborhood(), org.getCity()};
+    }
+    
+    /**
+     * Método responsável por converter uma dada oferta em vetor de objetos.
+     * @param offer Refere-se a oferta.
+     * @return Retorna vetor de objetos.
+     */
+    public static Object[] toVector(final IOfferVisible offer) {
+        return new Object[]{offer, Converter.toString(offer.getValue())};
     }
 
 }
