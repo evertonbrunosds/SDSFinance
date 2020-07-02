@@ -213,7 +213,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_acquisitionTableMouseReleased
 
     private void optProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optProviderActionPerformed
-        ProviderManager.showModal();
+        ProviderWindow.showModal();
     }//GEN-LAST:event_optProviderActionPerformed
 
     private void optShowItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optShowItemStateChanged

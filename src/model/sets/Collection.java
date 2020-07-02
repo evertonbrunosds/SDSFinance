@@ -105,6 +105,17 @@ public class Collection<K, E> implements ICollection<K, E> {
             element.accept((E) e);
         });
     }
+    
+    /**
+     * Método responsável por percorrer por todos os elementos contidos na coleção em ordem.
+     * @param element Refere-se aos elementos contidos na coleção.
+     */
+    @Override
+    public void forEachInOrder(final Consumer<? super E> element) {
+        tree.forEachInOrder((e) -> {
+            element.accept((E) e);
+        });
+    }
 
     /**
      * Método responsável por buscar dado elemento que está contido na coleção.

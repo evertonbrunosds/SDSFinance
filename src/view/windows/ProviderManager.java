@@ -20,51 +20,107 @@
 package view.windows;
 
 import control.Controller;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+import exceptions.ElementNotFoundException;
+import exceptions.KeyUsedException;
+import exceptions.NullObjectException;
 import model.organizations.IProvider;
-import util.Converter;
+import model.territories.ICity;
+import model.territories.INeighborhood;
+import model.territories.IStreet;
+import util.Factory;
+import view.managers.Show;
 import view.managers.ViewControl;
 
 /**
- * Classe responsável por comportar-se como janela de fornecedores.
+ * Classe responsável por comportar-se como janela de adição ou edição de fornecedores.
  * @author Everton Bruno Silva dos Santos.
  */
 public class ProviderManager extends javax.swing.JDialog {
     /**
-     * Refere-se a instância da janela de fornecedores.
+     * Refere-se a instância da janela de adição ou edição de fornecedores.
      */
     private static ProviderManager instance;
-    
-    /*
-        CRIAR FILTRO DE ATIVAÇÃO
-    */
+    /**
+     * Refere-se ao fornecedor contido na classe.
+     */
+    private IProvider provider;
     
     /**
-     * Método responsável por atualizar a janela de fornecedores.
+     * Método responsável por adicionar um fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws KeyUsedException Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
-    public static void updateWindow() {
-        if(instance != null) {
-            ViewControl.clear(instance.providerTable);
-            final DefaultTableModel model = (DefaultTableModel) instance.providerTable.getModel();
-            Controller.getInstance().getProviderCollection().forEachInReverseOrder((provider) -> {
-                model.addRow(Converter.toVector(provider));
-            });
-        }
+    private void addProvider() throws NullObjectException, KeyUsedException {
+        final ICity city = Factory.city(textCity.getText());
+        final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+        final IStreet street = Factory.street(textStreet.getText());
+        provider = Factory.provider(textName.getText(), street, neighborhood, city);
+        Controller.getInstance().getProviderCollection().insert(provider);
+        ViewControl.saveRecord();
+        ProviderWindow.updateWindow();
+        dispose();
     }
     
     /**
-     * Método responsável por exibir a janela de fornecedores.
+     * Método responsável por editar um fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
+     * @throws KeyUsedException Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
+     */
+    private void editProvider() throws NullObjectException, ElementNotFoundException, KeyUsedException {
+        boolean wasChanged = false;
+        if(!textCity.getText().equals(provider.getCity().toString())) {
+            final ICity city = Factory.city(textCity.getText());
+            Controller.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
+            wasChanged = true;
+        }
+        if(!textNeighborhood.getText().equals(provider.getNeighborhood().toString())) {
+            final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+            Controller.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(), neighborhood);
+            wasChanged = true;
+        }
+        if(!textStreet.getText().equals(provider.getStreet().toString())) {
+            final IStreet street = Factory.street(textStreet.getText());
+            Controller.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
+            wasChanged = true;
+        }
+        if(!textName.getText().equals(provider.toString())) {
+            Controller.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(), textName.getText());
+            wasChanged = true;
+        }
+        if(wasChanged) {
+            ViewControl.saveRecord();
+            ProviderWindow.updateWindow();
+        }
+        dispose();
+    }
+
+    /**
+     * Método responsável por exibir a janela de adição de fornecedores.
      */
     public static void showModal() {
         instance = new ProviderManager(null, true);
-        ViewControl.alignTo(instance.providerTable, SwingConstants.CENTER);
-        updateWindow();
+        instance.setVisible(true);
+    }
+    
+    /**
+     * Método responsável por exibir a janela de edição de fornecedores.
+     * @param provider Refere-se ao fornecedor editável.
+     */
+    public static void showModal(final IProvider provider) {
+        instance = new ProviderManager(null, true);
+        instance.btnConfirm.setText("Aplicar");
+        instance.setTitle("Editar Fornecedor");
+        instance.provider = provider;
+        instance.textCity.setText(provider.getCity().toString());
+        instance.textNeighborhood.setText(provider.getNeighborhood().toString());
+        instance.textStreet.setText(provider.getStreet().toString());
+        instance.textName.setText(provider.toString());
         instance.setVisible(true);
     }
 
     /**
-     * Construtor responsável pelo instanciamento da janela de fornecedores.
+     * Construtor responsável pelo instanciamento da janela de adição de fornecedores.
      * @param parent Refere-se ao invocador da janela.
      * @param modal  Refere-se ao modo de exibição.
      */
@@ -82,107 +138,129 @@ public class ProviderManager extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupMenu = new javax.swing.JPopupMenu();
-        optAcess = new javax.swing.JMenuItem();
-        optAdd = new javax.swing.JMenuItem();
-        optSearch = new javax.swing.JMenuItem();
-        optRemove = new javax.swing.JMenuItem();
-        optEdit = new javax.swing.JMenuItem();
-        scrollPane = new javax.swing.JScrollPane();
-        providerTable = new javax.swing.JTable();
-
-        optAcess.setText("Acessar");
-        popupMenu.add(optAcess);
-
-        optAdd.setText("Adicionar");
-        optAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optAddActionPerformed(evt);
-            }
-        });
-        popupMenu.add(optAdd);
-
-        optSearch.setText("Buscar");
-        popupMenu.add(optSearch);
-
-        optRemove.setText("Excluir");
-        popupMenu.add(optRemove);
-
-        optEdit.setText("Editar");
-        optEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optEditActionPerformed(evt);
-            }
-        });
-        popupMenu.add(optEdit);
+        labelCity = new javax.swing.JLabel();
+        textCity = new javax.swing.JTextField();
+        labelNeighborhood = new javax.swing.JLabel();
+        textNeighborhood = new javax.swing.JTextField();
+        labelStreet = new javax.swing.JLabel();
+        textStreet = new javax.swing.JTextField();
+        labelName = new javax.swing.JLabel();
+        textName = new javax.swing.JTextField();
+        btnConfirm = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Fornecedores");
+        setTitle("Adicionar Fornecedor");
+        setResizable(false);
 
-        scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                scrollPaneMouseReleased(evt);
+        labelCity.setText("Cidade:");
+
+        textCity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        labelNeighborhood.setText("Bairro:");
+
+        textNeighborhood.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        labelStreet.setText("Rua:");
+
+        textStreet.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        labelName.setText("Nome:");
+
+        textName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        btnConfirm.setText("Adicionar");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
             }
         });
 
-        providerTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Fornecedor", "Rua", "Bairro", "Cidade"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
             }
         });
-        providerTable.getTableHeader().setReorderingAllowed(false);
-        providerTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                providerTableMouseReleased(evt);
-            }
-        });
-        scrollPane.setViewportView(providerTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelCity)
+                    .addComponent(labelNeighborhood)
+                    .addComponent(labelStreet)
+                    .addComponent(labelName))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textCity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textNeighborhood, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textStreet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCity))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textNeighborhood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNeighborhood))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelStreet))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(textName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelName))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnConfirm))
+                .addGap(20, 20, 20))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void optAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddActionPerformed
-        AddOrEditProvider.showModal();
-    }//GEN-LAST:event_optAddActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void optEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditActionPerformed
-        AddOrEditProvider.showModal((IProvider) providerTable.getModel().getValueAt(providerTable.getSelectedRow(), 0));
-    }//GEN-LAST:event_optEditActionPerformed
-
-    private void providerTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerTableMouseReleased
-        if(evt.isMetaDown()) {
-            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if(provider == null) {
+            try {
+                addProvider();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem ser preenchidos.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+            }
+        } else {
+            try {
+                editProvider();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem estar preenchidos.");
+            } catch (ElementNotFoundException ex) {
+                Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+            }
         }
-    }//GEN-LAST:event_providerTableMouseReleased
-
-    private void scrollPaneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMouseReleased
-        if(evt.isMetaDown()) {
-            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
-        }
-    }//GEN-LAST:event_scrollPaneMouseReleased
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +283,12 @@ public class ProviderManager extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         
         //</editor-fold>
 
@@ -222,13 +306,15 @@ public class ProviderManager extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem optAcess;
-    private javax.swing.JMenuItem optAdd;
-    private javax.swing.JMenuItem optEdit;
-    private javax.swing.JMenuItem optRemove;
-    private javax.swing.JMenuItem optSearch;
-    private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JTable providerTable;
-    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnConfirm;
+    private javax.swing.JLabel labelCity;
+    private javax.swing.JLabel labelName;
+    private javax.swing.JLabel labelNeighborhood;
+    private javax.swing.JLabel labelStreet;
+    private javax.swing.JTextField textCity;
+    private javax.swing.JTextField textName;
+    private javax.swing.JTextField textNeighborhood;
+    private javax.swing.JTextField textStreet;
     // End of variables declaration//GEN-END:variables
 }

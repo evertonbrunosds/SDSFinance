@@ -84,5 +84,11 @@ public interface ITree<K, E> extends Serializable {
      * @param element Refere-se aos elementos contidos na árvore.
      */
     public void forEachInReverseOrder(Consumer<? super E> element);
+    
+    /**
+     * Método responsável por percorrer por todos os elementos contidos na árvore em ordem.
+     * @param element Refere-se aos elementos contidos na árvore.
+     */
+    public void forEachInOrder(Consumer<? super E> element);
 
 }
