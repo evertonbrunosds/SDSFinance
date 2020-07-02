@@ -20,10 +20,12 @@
 package view.windows;
 
 import control.Controller;
+import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.organizations.IProvider;
 import util.Converter;
+import view.managers.Show;
 import view.managers.ViewControl;
 
 /**
@@ -51,6 +53,26 @@ public class ProviderWindow extends javax.swing.JDialog {
         } else {
             optAcess.setEnabled(true);
             optEdit.setEnabled(true);
+        }
+    }
+    
+    /**
+     * Método responsável por excluir uma lista de fornecedores.
+     * @throws ElementNotFoundException Exceção lançada no caso dos fornecedores não terem sido encontrados.
+     */
+    private void removeProviders() throws ElementNotFoundException {
+        final int[] selectedRows = table.getSelectedRows();
+        if(selectedRows.length > 0) {
+            if(Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n"
+                    + "também todas as suas ofertas e aquisições atribuidas a eles, deseja prosseguir?")) {
+                IProvider provider;
+                for(int row : selectedRows) {
+                    provider = (IProvider)table.getModel().getValueAt(row,0);
+                    Controller.getInstance().getProviderCollection().remove(provider.getKey());
+                }
+                ViewControl.saveRecord();
+                updateWindow();
+            }
         }
     }
     
@@ -116,6 +138,11 @@ public class ProviderWindow extends javax.swing.JDialog {
         popupMenu.add(optAdd);
 
         optRemove.setText("Excluir");
+        optRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optRemoveActionPerformed(evt);
+            }
+        });
         popupMenu.add(optRemove);
 
         optEdit.setText("Editar");
@@ -195,6 +222,14 @@ public class ProviderWindow extends javax.swing.JDialog {
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_scrollPaneMouseReleased
+
+    private void optRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveActionPerformed
+        try {
+            removeProviders();
+        } catch (ElementNotFoundException ex) {
+            Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+        }
+    }//GEN-LAST:event_optRemoveActionPerformed
 
     /**
      * @param args the command line arguments
