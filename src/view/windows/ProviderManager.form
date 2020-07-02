@@ -8,60 +8,45 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="optShowOffers">
+        <MenuItem class="javax.swing.JMenuItem" name="optAcess">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Exibir Ofertas"/>
+            <Property name="text" type="java.lang.String" value="Acessar"/>
           </Properties>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="optEditProvider">
+        <MenuItem class="javax.swing.JMenuItem" name="optAdd">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar Fornecedor"/>
+            <Property name="text" type="java.lang.String" value="Adicionar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optEditProviderActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optAddActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="optSearch">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="optRemove">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excluir"/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="optEdit">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Editar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optEditActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
     </Container>
-    <Menu class="javax.swing.JMenuBar" name="toolBar">
-      <SubComponents>
-        <Menu class="javax.swing.JMenu" name="optTools">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ferramentas"/>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="optToolsItemStateChanged"/>
-          </Events>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="optAdd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Adicionar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optAddActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optSearch">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optRemove">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-      </SubComponents>
-    </Menu>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Fornecedores"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="toolBar"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
@@ -85,12 +70,15 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="scrollPane" alignment="1" pref="379" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="1" pref="400" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="scrollPane">
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="scrollPaneMouseReleased"/>
+      </Events>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -136,7 +124,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="providerTableMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="providerTableMouseReleased"/>
           </Events>
         </Component>
       </SubComponents>

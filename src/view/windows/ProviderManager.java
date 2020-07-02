@@ -36,6 +36,10 @@ public class ProviderManager extends javax.swing.JDialog {
      */
     private static ProviderManager instance;
     
+    /*
+        CRIAR FILTRO DE ATIVAÇÃO
+    */
+    
     /**
      * Método responsável por atualizar a janela de fornecedores.
      */
@@ -79,29 +83,47 @@ public class ProviderManager extends javax.swing.JDialog {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        optShowOffers = new javax.swing.JMenuItem();
-        optEditProvider = new javax.swing.JMenuItem();
-        scrollPane = new javax.swing.JScrollPane();
-        providerTable = new javax.swing.JTable();
-        toolBar = new javax.swing.JMenuBar();
-        optTools = new javax.swing.JMenu();
+        optAcess = new javax.swing.JMenuItem();
         optAdd = new javax.swing.JMenuItem();
         optSearch = new javax.swing.JMenuItem();
         optRemove = new javax.swing.JMenuItem();
+        optEdit = new javax.swing.JMenuItem();
+        scrollPane = new javax.swing.JScrollPane();
+        providerTable = new javax.swing.JTable();
 
-        optShowOffers.setText("Exibir Ofertas");
-        popupMenu.add(optShowOffers);
+        optAcess.setText("Acessar");
+        popupMenu.add(optAcess);
 
-        optEditProvider.setText("Editar Fornecedor");
-        optEditProvider.addActionListener(new java.awt.event.ActionListener() {
+        optAdd.setText("Adicionar");
+        optAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optEditProviderActionPerformed(evt);
+                optAddActionPerformed(evt);
             }
         });
-        popupMenu.add(optEditProvider);
+        popupMenu.add(optAdd);
+
+        optSearch.setText("Buscar");
+        popupMenu.add(optSearch);
+
+        optRemove.setText("Excluir");
+        popupMenu.add(optRemove);
+
+        optEdit.setText("Editar");
+        optEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optEditActionPerformed(evt);
+            }
+        });
+        popupMenu.add(optEdit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
+
+        scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                scrollPaneMouseReleased(evt);
+            }
+        });
 
         providerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,36 +143,11 @@ public class ProviderManager extends javax.swing.JDialog {
         });
         providerTable.getTableHeader().setReorderingAllowed(false);
         providerTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                providerTableMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                providerTableMouseReleased(evt);
             }
         });
         scrollPane.setViewportView(providerTable);
-
-        optTools.setText("Ferramentas");
-        optTools.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optToolsItemStateChanged(evt);
-            }
-        });
-
-        optAdd.setText("Adicionar");
-        optAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optAddActionPerformed(evt);
-            }
-        });
-        optTools.add(optAdd);
-
-        optSearch.setText("Buscar");
-        optTools.add(optSearch);
-
-        optRemove.setText("Excluir");
-        optTools.add(optRemove);
-
-        toolBar.add(optTools);
-
-        setJMenuBar(toolBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,40 +157,32 @@ public class ProviderManager extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void optToolsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optToolsItemStateChanged
-        if(providerTable.getRowCount() == 0) {
-            optRemove.setEnabled(false);
-            optSearch.setEnabled(false);
-        } else {
-            optSearch.setEnabled(true);
-            if(this.providerTable.getSelectedRow() == -1) {
-                optRemove.setEnabled(false);
-            } else {
-                optRemove.setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_optToolsItemStateChanged
-
     private void optAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddActionPerformed
         AddOrEditProvider.showModal();
     }//GEN-LAST:event_optAddActionPerformed
 
-    private void providerTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerTableMousePressed
-        if(evt.isMetaDown() && providerTable.getSelectedRow() != -1) {
+    private void optEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditActionPerformed
+        AddOrEditProvider.showModal((IProvider) providerTable.getModel().getValueAt(providerTable.getSelectedRow(), 0));
+    }//GEN-LAST:event_optEditActionPerformed
+
+    private void providerTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_providerTableMouseReleased
+        if(evt.isMetaDown()) {
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
-    }//GEN-LAST:event_providerTableMousePressed
+    }//GEN-LAST:event_providerTableMouseReleased
 
-    private void optEditProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditProviderActionPerformed
-        AddOrEditProvider.showModal((IProvider) providerTable.getModel().getValueAt(providerTable.getSelectedRow(), 0));
-    }//GEN-LAST:event_optEditProviderActionPerformed
+    private void scrollPaneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMouseReleased
+        if(evt.isMetaDown()) {
+            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+        }
+    }//GEN-LAST:event_scrollPaneMouseReleased
 
     /**
      * @param args the command line arguments
@@ -233,15 +222,13 @@ public class ProviderManager extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem optAcess;
     private javax.swing.JMenuItem optAdd;
-    private javax.swing.JMenuItem optEditProvider;
+    private javax.swing.JMenuItem optEdit;
     private javax.swing.JMenuItem optRemove;
     private javax.swing.JMenuItem optSearch;
-    private javax.swing.JMenuItem optShowOffers;
-    private javax.swing.JMenu optTools;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTable providerTable;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JMenuBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

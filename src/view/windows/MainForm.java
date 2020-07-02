@@ -58,13 +58,13 @@ public class MainForm extends javax.swing.JFrame {
         acquisitionTable = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
         optRecorder = new javax.swing.JMenu();
-        optRemove = new javax.swing.JMenuItem();
         optImport = new javax.swing.JMenuItem();
         optExport = new javax.swing.JMenuItem();
-        optTools = new javax.swing.JMenu();
+        optRemove = new javax.swing.JMenuItem();
+        optShow = new javax.swing.JMenu();
         optProvider = new javax.swing.JMenuItem();
         optBudgeting = new javax.swing.JMenuItem();
-        optShows = new javax.swing.JMenuItem();
+        optExtracts = new javax.swing.JMenuItem();
         optAbout = new javax.swing.JMenu();
         optAuthor = new javax.swing.JMenuItem();
 
@@ -129,9 +129,6 @@ public class MainForm extends javax.swing.JFrame {
 
         optRecorder.setText("Registro");
 
-        optRemove.setText("Excluir");
-        optRecorder.add(optRemove);
-
         optImport.setText("Importar");
         optImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,12 +145,15 @@ public class MainForm extends javax.swing.JFrame {
         });
         optRecorder.add(optExport);
 
+        optRemove.setText("Excluir");
+        optRecorder.add(optRemove);
+
         toolBar.add(optRecorder);
 
-        optTools.setText("Ferramentas");
-        optTools.addItemListener(new java.awt.event.ItemListener() {
+        optShow.setText("Exibir");
+        optShow.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optToolsItemStateChanged(evt);
+                optShowItemStateChanged(evt);
             }
         });
 
@@ -163,15 +163,15 @@ public class MainForm extends javax.swing.JFrame {
                 optProviderActionPerformed(evt);
             }
         });
-        optTools.add(optProvider);
+        optShow.add(optProvider);
 
         optBudgeting.setText("Orçamentos");
-        optTools.add(optBudgeting);
+        optShow.add(optBudgeting);
 
-        optShows.setText("Exibições");
-        optTools.add(optShows);
+        optExtracts.setText("Extratos");
+        optShow.add(optExtracts);
 
-        toolBar.add(optTools);
+        toolBar.add(optShow);
 
         optAbout.setText("Sobre");
 
@@ -216,15 +216,15 @@ public class MainForm extends javax.swing.JFrame {
         ProviderManager.showModal();
     }//GEN-LAST:event_optProviderActionPerformed
 
-    private void optToolsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optToolsItemStateChanged
+    private void optShowItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optShowItemStateChanged
         if(acquisitionTable.getRowCount() == 0) {
             optBudgeting.setEnabled(false);
-            optShows.setEnabled(false);
+            optExtracts.setEnabled(false);
         } else {
             optBudgeting.setEnabled(true);
-            optShows.setEnabled(true);            
+            optExtracts.setEnabled(true);            
         }
-    }//GEN-LAST:event_optToolsItemStateChanged
+    }//GEN-LAST:event_optShowItemStateChanged
 
     private void optExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExportActionPerformed
         ViewControl.exportRecord();
@@ -272,12 +272,12 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optAuthor;
     private javax.swing.JMenuItem optBudgeting;
     private javax.swing.JMenuItem optExport;
+    private javax.swing.JMenuItem optExtracts;
     private javax.swing.JMenuItem optImport;
     private javax.swing.JMenuItem optProvider;
     private javax.swing.JMenu optRecorder;
     private javax.swing.JMenuItem optRemove;
-    private javax.swing.JMenuItem optShows;
-    private javax.swing.JMenu optTools;
+    private javax.swing.JMenu optShow;
     private javax.swing.JMenuItem popRemove;
     private javax.swing.JMenuItem popShow;
     private javax.swing.JPopupMenu popupMenu;

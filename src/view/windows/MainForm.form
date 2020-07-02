@@ -32,11 +32,6 @@
             <Property name="text" type="java.lang.String" value="Registro"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="optRemove">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optImport">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importar"/>
@@ -53,14 +48,19 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optExportActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="optRemove">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Excluir"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="optTools">
+        <Menu class="javax.swing.JMenu" name="optShow">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ferramentas"/>
+            <Property name="text" type="java.lang.String" value="Exibir"/>
           </Properties>
           <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="optToolsItemStateChanged"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="optShowItemStateChanged"/>
           </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="optProvider">
@@ -76,9 +76,9 @@
                 <Property name="text" type="java.lang.String" value="Or&#xe7;amentos"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optShows">
+            <MenuItem class="javax.swing.JMenuItem" name="optExtracts">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exibi&#xe7;&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Extratos"/>
               </Properties>
             </MenuItem>
           </SubComponents>
