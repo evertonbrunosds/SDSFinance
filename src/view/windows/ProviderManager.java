@@ -120,7 +120,7 @@ public class ProviderManager extends javax.swing.JDialog {
     }
 
     /**
-     * Construtor responsável pelo instanciamento da janela de adição de fornecedores.
+     * Construtor responsável pelo instanciamento da janela de adição ou edição de fornecedores.
      * @param parent Refere-se ao invocador da janela.
      * @param modal  Refere-se ao modo de exibição.
      */
