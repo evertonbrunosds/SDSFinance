@@ -54,8 +54,8 @@ public class ProviderManager extends javax.swing.JDialog {
         final ICity city = Factory.city(textCity.getText());
         final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
         final IStreet street = Factory.street(textStreet.getText());
-        provider = Factory.provider(textName.getText(), street, neighborhood, city);
-        Controller.getInstance().getProviderCollection().insert(provider);
+        final IProvider tmpProvider = Factory.provider(textName.getText(), street, neighborhood, city);
+        Controller.getInstance().getProviderCollection().insert(tmpProvider);
         ViewControl.saveRecord();
         ProviderWindow.updateWindow();
         dispose();

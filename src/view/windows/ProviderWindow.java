@@ -35,10 +35,24 @@ public class ProviderWindow extends javax.swing.JDialog {
      * Refere-se a instância da janela de fornecedores.
      */
     private static ProviderWindow instance;
-    
-    /*
-        CRIAR FILTRO DE ATIVAÇÃO
-    */
+
+    /**
+     * Método responsável por atualizar as opções.
+     */
+    private void updateOptions() {
+        if(table.getRowCount() == 0 || table.getSelectedRow() == -1) {
+            optRemove.setEnabled(false);
+        } else {
+            optRemove.setEnabled(true);
+        }
+        if(table.getRowCount() == 0 || table.getSelectedRow() == -1 || table.getSelectedRows().length > 1) {
+            optAcess.setEnabled(false);
+            optEdit.setEnabled(false);
+        } else {
+            optAcess.setEnabled(true);
+            optEdit.setEnabled(true);
+        }
+    }
     
     /**
      * Método responsável por atualizar a janela de fornecedores.
@@ -85,7 +99,6 @@ public class ProviderWindow extends javax.swing.JDialog {
         popupMenu = new javax.swing.JPopupMenu();
         optAcess = new javax.swing.JMenuItem();
         optAdd = new javax.swing.JMenuItem();
-        optSearch = new javax.swing.JMenuItem();
         optRemove = new javax.swing.JMenuItem();
         optEdit = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
@@ -101,9 +114,6 @@ public class ProviderWindow extends javax.swing.JDialog {
             }
         });
         popupMenu.add(optAdd);
-
-        optSearch.setText("Buscar");
-        popupMenu.add(optSearch);
 
         optRemove.setText("Excluir");
         popupMenu.add(optRemove);
@@ -174,12 +184,14 @@ public class ProviderWindow extends javax.swing.JDialog {
 
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
         if(evt.isMetaDown()) {
+            updateOptions();
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_tableMouseReleased
 
     private void scrollPaneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMouseReleased
         if(evt.isMetaDown()) {
+            updateOptions();
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_scrollPaneMouseReleased
@@ -228,7 +240,6 @@ public class ProviderWindow extends javax.swing.JDialog {
     private javax.swing.JMenuItem optAdd;
     private javax.swing.JMenuItem optEdit;
     private javax.swing.JMenuItem optRemove;
-    private javax.swing.JMenuItem optSearch;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTable table;

@@ -133,7 +133,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      */
     @Override
     public Comparable<String> getKey() {
-        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
 
@@ -146,7 +146,7 @@ public class Provider implements IProvider, IOrganizationEditable {
     @Override
     public Comparable<String> previewKey(String key) throws NullObjectException {
         Filter.nullObject(key);
-        key = city.toString() + neighborhood.toString() + street.toString() + key;
+        key = key + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
 
@@ -157,7 +157,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      */
     @Override
     public Comparable<String> previewKey(final IStreet street) {
-        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
 
@@ -168,7 +168,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      */
     @Override
     public Comparable<String> previewKey(final INeighborhood neighborhood) {
-        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
 
@@ -179,7 +179,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      */
     @Override
     public Comparable<String> previewKey(final ICity city) {
-        final String key = city.toString() + neighborhood.toString() + street.toString() + name;
+        final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
 
