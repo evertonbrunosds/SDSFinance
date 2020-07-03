@@ -43,15 +43,15 @@ public class OfferWindow extends javax.swing.JDialog {
      */
     private void updateExpenseOptions() {
         if(tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1) {
-            optAcquireExpense.setEnabled(false);
             optRemoveExpense.setEnabled(false);
         } else {
-            optAcquireExpense.setEnabled(true);
             optRemoveExpense.setEnabled(true);
         }
         if(tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1 || tableExpense.getSelectedRows().length > 1) {
+            optAcquireExpense.setEnabled(false);
             optEditExpense.setEnabled(false);
         } else {
+            optAcquireExpense.setEnabled(true);
             optEditExpense.setEnabled(true);
         }
     }
@@ -61,15 +61,15 @@ public class OfferWindow extends javax.swing.JDialog {
      */
     private void updateIncomeOptions() {
         if(tableIncome.getRowCount() == 0 || tableIncome.getSelectedRow() == -1) {
-            optAcquireIncome.setEnabled(false);
             optRemoveIncome.setEnabled(false);
         } else {
-            optAcquireIncome.setEnabled(true);
             optRemoveIncome.setEnabled(true);
         }
         if(tableIncome.getRowCount() == 0 || tableIncome.getSelectedRow() == -1 || tableIncome.getSelectedRows().length > 1) {
+            optAcquireIncome.setEnabled(false);
             optEditIncome.setEnabled(false);
         } else {
+            optAcquireIncome.setEnabled(true);
             optEditIncome.setEnabled(true);
         }
     }
@@ -81,7 +81,7 @@ public class OfferWindow extends javax.swing.JDialog {
     public static void showModal(final IProvider provider) {
         instance = new OfferWindow(null, true);
         instance.provider = provider;
-        instance.setTitle("Ofertas disponíveis em " + provider.toString());
+        instance.setTitle(provider.toString());
         updateWindow();
         instance.setVisible(true);
     }
@@ -143,6 +143,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuExpense.add(optAcquireExpense);
 
         optAddExpense.setText("Adicionar");
+        optAddExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAddExpenseActionPerformed(evt);
+            }
+        });
         popupMenuExpense.add(optAddExpense);
 
         optRemoveExpense.setText("Excluir");
@@ -155,6 +160,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuIncome.add(optAcquireIncome);
 
         optAddIncome.setText("Adicionar");
+        optAddIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAddIncomeActionPerformed(evt);
+            }
+        });
         popupMenuIncome.add(optAddIncome);
 
         optRemoveIncome.setText("Excluir");
@@ -294,6 +304,14 @@ public class OfferWindow extends javax.swing.JDialog {
             popupMenuIncome.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_tableIncomeMouseReleased
+
+    private void optAddExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddExpenseActionPerformed
+        OfferManager.showModal(provider, true);
+    }//GEN-LAST:event_optAddExpenseActionPerformed
+
+    private void optAddIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddIncomeActionPerformed
+        OfferManager.showModal(provider, false);
+    }//GEN-LAST:event_optAddIncomeActionPerformed
 
     /**
      * @param args the command line arguments

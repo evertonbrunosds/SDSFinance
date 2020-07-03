@@ -19,8 +19,17 @@
  */
 package view.windows;
 
+import exceptions.DoubleValueInvalidException;
+import exceptions.KeyUsedException;
+import exceptions.NullObjectException;
+import model.offers.IExpense;
+import model.offers.IIncome;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
+import util.Converter;
+import util.Factory;
+import view.managers.Show;
+import view.managers.ViewControl;
 
 /**
  * Classe responsável por comportar-se como janela de adição ou edição de ofertas.
@@ -39,14 +48,40 @@ public class OfferManager extends javax.swing.JDialog {
      * Refere-se a oferta contida na classe.
      */
     private IOfferVisible offer;
+    /**
+     * Refere-se a informação boleana que indica se a oferta é uma despesa.
+     */
+    private boolean isExpense;
+    
+    /**
+     * Método responsável por adicionar uma oferta a dado fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haverem dados de entrada nulos.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws KeyUsedException Exceção lançada no caso de haver uma outra oferta de mesmo nome.
+     */
+    private void addOffer() throws NullObjectException, DoubleValueInvalidException, KeyUsedException {
+        if(isExpense) {
+            final IExpense expense = Factory.expense(textName.getText(), Converter.toDouble(textValue.getText()));
+            provider.getExpenseCollection().insert(expense);
+        } else {
+            final IIncome income = Factory.income(textName.getText(), Converter.toDouble(textValue.getText()));
+            provider.getIncomeCollection().insert(income);
+        }
+        ViewControl.saveRecord();
+        OfferWindow.updateWindow();
+        dispose();
+    }
     
     /**
      * Método responsável por exibir a janela de adição de ofertas a dado fornecedor.
      * @param provider Refere-se ao fornecedor.
+     * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
      */
-    public static void showModal(final IProvider provider) {
+    public static void showModal(final IProvider provider, final boolean isExpense) {
         instance = new OfferManager(null, true);
         instance.provider = provider;
+        instance.isExpense = isExpense;
+        instance.setVisible(true);
     }
 
     /**
@@ -88,8 +123,18 @@ public class OfferManager extends javax.swing.JDialog {
         textValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnConfirm.setText("Adicionar");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,6 +176,22 @@ public class OfferManager extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        try {
+            addOffer();
+        } catch (NullObjectException ex) {
+            Show.warningMessage("Todos os campos devem ser preenchidos.");
+        } catch (DoubleValueInvalidException ex) {
+            Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
+        } catch (KeyUsedException ex) {
+            Show.warningMessage("Outra oferta já faz uso do nome \"" + ex.getElement().toString() + "\".");
+        }
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     /**
      * @param args the command line arguments

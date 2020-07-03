@@ -247,7 +247,8 @@ public class ProviderManager extends javax.swing.JDialog {
             } catch (NullObjectException ex) {
                 Show.warningMessage("Todos os campos devem ser preenchidos.");
             } catch (KeyUsedException ex) {
-                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+                Show.warningMessage("Outro fornecedor já faz uso do nome \"" + ex.getElement().toString() 
+                        + "\" na mesma rua, bairro e cidade indicada.");
             }
         } else {
             try {
@@ -257,7 +258,8 @@ public class ProviderManager extends javax.swing.JDialog {
             } catch (ElementNotFoundException ex) {
                 Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
             } catch (KeyUsedException ex) {
-                Show.warningMessage("Um outro fornecedor de mesmo nome já foi registrado no mesmo local.");
+                Show.warningMessage("Outro fornecedor já faz uso do nome \"" + ex.getElement().toString() 
+                        + "\" na mesma rua, bairro e cidade indicada.");
             }
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
