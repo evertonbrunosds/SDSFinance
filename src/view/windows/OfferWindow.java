@@ -208,6 +208,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuExpense.add(optRemoveExpense);
 
         optEditExpense.setText("Editar");
+        optEditExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optEditExpenseActionPerformed(evt);
+            }
+        });
         popupMenuExpense.add(optEditExpense);
 
         optAcquireIncome.setText("Adiquirir");
@@ -230,6 +235,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuIncome.add(optRemoveIncome);
 
         optEditIncome.setText("Editar");
+        optEditIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optEditIncomeActionPerformed(evt);
+            }
+        });
         popupMenuIncome.add(optEditIncome);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -387,6 +397,14 @@ public class OfferWindow extends javax.swing.JDialog {
             Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
         }
     }//GEN-LAST:event_optRemoveIncomeActionPerformed
+
+    private void optEditExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditExpenseActionPerformed
+        OfferManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0), true);
+    }//GEN-LAST:event_optEditExpenseActionPerformed
+
+    private void optEditIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditIncomeActionPerformed
+        OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0), false);
+    }//GEN-LAST:event_optEditIncomeActionPerformed
 
     /**
      * @param args the command line arguments

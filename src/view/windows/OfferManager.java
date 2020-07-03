@@ -89,6 +89,30 @@ public class OfferManager extends javax.swing.JDialog {
         instance.isExpense = isExpense;
         instance.setVisible(true);
     }
+    
+    /**
+     * Método responsável por exibir a janela de edição de ofertas de dado fornecedor.
+     * @param provider Refere-se ao fornecedor.
+     * @param offer Refere-se a oferta.
+     * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
+     */
+    public static void showModal(final IProvider provider, final IOfferVisible offer, final boolean isExpense) {
+        instance = new OfferManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
+        instance.provider = provider;
+        instance.offer = offer;
+        instance.isExpense = isExpense;
+        instance.textName.setText(offer.toString());
+        instance.textValue.setText(Double.toString(offer.getValue()));
+        instance.btnConfirm.setText("Aplicar");
+        instance.setTitle("Editar Fornecedor");
+        instance.setVisible(true);
+    }
 
     /**
      * Construtor responsável pelo instanciamento da janela de adição ou edição de ofertas.

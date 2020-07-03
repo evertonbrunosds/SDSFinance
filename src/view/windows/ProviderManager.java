@@ -114,7 +114,13 @@ public class ProviderManager extends javax.swing.JDialog {
      * @param provider Refere-se ao fornecedor editável.
      */
     public static void showModal(final IProvider provider) {
-        instance = new ProviderManager(null, true);
+        instance = new ProviderManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
         instance.btnConfirm.setText("Aplicar");
         instance.setTitle("Editar Fornecedor");
         instance.provider = provider;
