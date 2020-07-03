@@ -19,11 +19,21 @@
  */
 package model.sets;
 
+import exceptions.ElementNotFoundException;
+
 /**
  * Interface responsável por fornecer os métodos de uma coleção de ofertas.
  * @author Everton Bruno Silva dos Santos.
  * @param <T> Refere-se ao tipo de oferta 
  */
 public interface IOfferCollection<T> extends ICollection<String,T> {
+    
+    /**
+     * Método responsável por alterar o valor de uma oferta.
+     * @param key   Refere-se a chave da oferta.
+     * @param value Refere-se ao novo valor da oferta.
+     * @throws ElementNotFoundException Exceção lançada no caso da oferta não ser encontrada.
+     */
+    public void setValue(final Comparable<String> key, final double value) throws ElementNotFoundException;
     
 }

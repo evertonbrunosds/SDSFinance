@@ -39,7 +39,8 @@ public class OfferCollection<T> extends Collection<String, T> implements IOfferC
      * @param value Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso da oferta não ser encontrada.
      */
-    public void serValue(final String key, final double value) throws ElementNotFoundException {
+    @Override
+    public void setValue(final Comparable<String> key, final double value) throws ElementNotFoundException {
         ((IOfferEditable) super.search(key)).setValue(value);
     }
 

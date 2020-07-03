@@ -189,6 +189,11 @@ public class OfferWindow extends javax.swing.JDialog {
         tableIncome = new javax.swing.JTable();
 
         optAcquireExpense.setText("Adiquirir");
+        optAcquireExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAcquireExpenseActionPerformed(evt);
+            }
+        });
         popupMenuExpense.add(optAcquireExpense);
 
         optAddExpense.setText("Adicionar");
@@ -216,6 +221,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuExpense.add(optEditExpense);
 
         optAcquireIncome.setText("Adiquirir");
+        optAcquireIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAcquireIncomeActionPerformed(evt);
+            }
+        });
         popupMenuIncome.add(optAcquireIncome);
 
         optAddIncome.setText("Adicionar");
@@ -405,6 +415,14 @@ public class OfferWindow extends javax.swing.JDialog {
     private void optEditIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditIncomeActionPerformed
         OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0), false);
     }//GEN-LAST:event_optEditIncomeActionPerformed
+
+    private void optAcquireExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireExpenseActionPerformed
+        //..
+    }//GEN-LAST:event_optAcquireExpenseActionPerformed
+
+    private void optAcquireIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireIncomeActionPerformed
+        //AcquisitionManager.showModal((IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0));
+    }//GEN-LAST:event_optAcquireIncomeActionPerformed
 
     /**
      * @param args the command line arguments

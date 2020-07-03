@@ -20,6 +20,7 @@
 package view.windows;
 
 import exceptions.DoubleValueInvalidException;
+import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import model.offers.IExpense;
@@ -71,6 +72,23 @@ public class OfferManager extends javax.swing.JDialog {
         OfferWindow.updateWindow();
         dispose();
     }
+
+    /**
+     * Método responsável por editar uma oferta de dado fornecedor.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws ElementNotFoundException Exceção lançada no caso da oferta não ser encontrada.
+     */
+    private void editOffer() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException {
+        if(isExpense) {
+            provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+        } else {
+            provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+        }
+        ViewControl.saveRecord();
+        OfferWindow.updateWindow();
+        dispose();
+    }
     
     /**
      * Método responsável por exibir a janela de adição de ofertas a dado fornecedor.
@@ -110,7 +128,7 @@ public class OfferManager extends javax.swing.JDialog {
         instance.textName.setText(offer.toString());
         instance.textValue.setText(Double.toString(offer.getValue()));
         instance.btnConfirm.setText("Aplicar");
-        instance.setTitle("Editar Fornecedor");
+        instance.setTitle("Editar Oferta");
         instance.setVisible(true);
     }
 
@@ -212,14 +230,26 @@ public class OfferManager extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        try {
-            addOffer();
-        } catch (NullObjectException ex) {
-            Show.warningMessage("Todos os campos devem ser preenchidos.");
-        } catch (DoubleValueInvalidException ex) {
-            Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
-        } catch (KeyUsedException ex) {
-            Show.warningMessage("Outra oferta já faz uso do nome \"" + ex.getElement().toString() + "\".");
+        if(offer == null) {
+            try {
+                addOffer();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem ser preenchidos.");
+            } catch (DoubleValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Outra oferta já faz uso do nome \"" + ex.getElement().toString() + "\".");
+            }
+        } else {
+            try {
+                editOffer();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem estar preenchidos.");
+            } catch (DoubleValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
+            } catch (ElementNotFoundException ex) {
+                Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            }
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
