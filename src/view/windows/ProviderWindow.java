@@ -93,7 +93,13 @@ public class ProviderWindow extends javax.swing.JDialog {
      * Método responsável por exibir a janela de fornecedores.
      */
     public static void showModal() {
-        instance = new ProviderWindow(null, true);
+        instance = new ProviderWindow(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
         ViewControl.alignTo(instance.table, SwingConstants.CENTER);
         updateWindow();
         instance.setVisible(true);

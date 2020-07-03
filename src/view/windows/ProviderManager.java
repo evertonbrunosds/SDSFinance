@@ -99,7 +99,13 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por exibir a janela de adição de fornecedores.
      */
     public static void showModal() {
-        instance = new ProviderManager(null, true);
+        instance = new ProviderManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
         instance.setVisible(true);
     }
     

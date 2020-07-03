@@ -78,7 +78,13 @@ public class OfferManager extends javax.swing.JDialog {
      * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
      */
     public static void showModal(final IProvider provider, final boolean isExpense) {
-        instance = new OfferManager(null, true);
+        instance = new OfferManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
         instance.provider = provider;
         instance.isExpense = isExpense;
         instance.setVisible(true);

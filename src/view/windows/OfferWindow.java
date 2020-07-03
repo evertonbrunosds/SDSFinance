@@ -19,9 +19,12 @@
  */
 package view.windows;
 
+import exceptions.ElementNotFoundException;
 import javax.swing.table.DefaultTableModel;
+import model.offers.IOfferVisible;
 import model.organizations.IProvider;
 import util.Converter;
+import view.managers.Show;
 import view.managers.ViewControl;
 
 /**
@@ -39,6 +42,24 @@ public class OfferWindow extends javax.swing.JDialog {
     private IProvider provider;
     
     /**
+     * Método responsável por atualizar a jenala de ofertas.
+     */
+    public static void updateWindow() {
+        if(instance != null) {
+            ViewControl.clear(instance.tableExpense);
+            final DefaultTableModel modelExpense = (DefaultTableModel) instance.tableExpense.getModel();
+            instance.provider.getExpenseCollection().forEachInOrder((expense) -> {
+                modelExpense.addRow(Converter.toVector(expense));
+            });
+            ViewControl.clear(instance.tableIncome);
+            final DefaultTableModel modelIncome = (DefaultTableModel) instance.tableIncome.getModel();
+            instance.provider.getIncomeCollection().forEachInOrder((income) -> {
+                modelIncome.addRow(Converter.toVector(income));
+            });
+        }
+    }
+    
+    /**
      * Método responsável por atualizar as opções de despesa.
      */
     private void updateExpenseOptions() {
@@ -53,6 +74,46 @@ public class OfferWindow extends javax.swing.JDialog {
         } else {
             optAcquireExpense.setEnabled(true);
             optEditExpense.setEnabled(true);
+        }
+    }
+    
+    /**
+     * Método responsável por excluir uma lista de despesas de dado fornecedor.
+     * @throws ElementNotFoundException Exceção lançada no caso das despesas não terem sido encontradas.
+     */
+    private void removeExpense() throws ElementNotFoundException {
+        final int[] selectedRows = tableExpense.getSelectedRows();
+        if(selectedRows.length > 0) {
+            if(Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n" 
+                    + "mas também todas as aquisições atribuidas a elas, deseja prosseguir?")) {
+                IOfferVisible expense;
+                for(int row : selectedRows) {
+                    expense = (IOfferVisible) tableExpense.getModel().getValueAt(row,0);
+                    provider.getExpenseCollection().remove(expense.getKey());
+                }
+                ViewControl.saveRecord();
+                updateWindow();
+            }
+        }
+    }
+    
+    /**
+     * Método responsável por excluir uma lista de rendas de dado fornecedor.
+     * @throws ElementNotFoundException Exceção lançada no caso das rendas não terem sido encontradas.
+     */
+    private void removeIncome() throws ElementNotFoundException {
+        final int[] selectedRows = tableIncome.getSelectedRows();
+        if(selectedRows.length > 0) {
+            if(Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n" 
+                    + "mas também todas as aquisições atribuidas a elas, deseja prosseguir?")) {
+                IOfferVisible income;
+                for(int row : selectedRows) {
+                    income = (IOfferVisible) tableIncome.getModel().getValueAt(row, 0);
+                    provider.getIncomeCollection().remove(income.getKey());
+                }
+                ViewControl.saveRecord();
+                updateWindow();
+            }
         }
     }
     
@@ -79,31 +140,19 @@ public class OfferWindow extends javax.swing.JDialog {
      * @param provider Refere-se ao fornecedor das ofertas.
      */
     public static void showModal(final IProvider provider) {
-        instance = new OfferWindow(null, true);
+        instance = new OfferWindow(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
         instance.provider = provider;
         instance.setTitle(provider.toString());
         updateWindow();
         instance.setVisible(true);
     }
     
-    /**
-     * Método responsável por atualizar a jenala de ofertas.
-     */
-    public static void updateWindow() {
-        if(instance != null) {
-            ViewControl.clear(instance.tableExpense);
-            final DefaultTableModel modelExpense = (DefaultTableModel) instance.tableExpense.getModel();
-            instance.provider.getExpenseCollection().forEachInOrder((expense) -> {
-                modelExpense.addRow(Converter.toVector(expense));
-            });
-            ViewControl.clear(instance.tableIncome);
-            final DefaultTableModel modelIncome = (DefaultTableModel) instance.tableIncome.getModel();
-            instance.provider.getIncomeCollection().forEachInOrder((income) -> {
-                modelIncome.addRow(Converter.toVector(income));
-            });
-        }
-    }
-
     /**
      * Construtor responsável pelo instanciamento da janela de ofertas.
      * @param parent Refere-se ao invocador da janela.
@@ -151,6 +200,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuExpense.add(optAddExpense);
 
         optRemoveExpense.setText("Excluir");
+        optRemoveExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optRemoveExpenseActionPerformed(evt);
+            }
+        });
         popupMenuExpense.add(optRemoveExpense);
 
         optEditExpense.setText("Editar");
@@ -168,6 +222,11 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuIncome.add(optAddIncome);
 
         optRemoveIncome.setText("Excluir");
+        optRemoveIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optRemoveIncomeActionPerformed(evt);
+            }
+        });
         popupMenuIncome.add(optRemoveIncome);
 
         optEditIncome.setText("Editar");
@@ -312,6 +371,22 @@ public class OfferWindow extends javax.swing.JDialog {
     private void optAddIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAddIncomeActionPerformed
         OfferManager.showModal(provider, false);
     }//GEN-LAST:event_optAddIncomeActionPerformed
+
+    private void optRemoveExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveExpenseActionPerformed
+        try {
+            removeExpense();
+        } catch (ElementNotFoundException ex) {
+            Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+        }
+    }//GEN-LAST:event_optRemoveExpenseActionPerformed
+
+    private void optRemoveIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveIncomeActionPerformed
+        try {
+            removeIncome();
+        } catch (ElementNotFoundException ex) {
+            Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+        }
+    }//GEN-LAST:event_optRemoveIncomeActionPerformed
 
     /**
      * @param args the command line arguments
