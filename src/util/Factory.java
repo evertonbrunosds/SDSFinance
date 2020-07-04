@@ -124,5 +124,13 @@ public abstract class Factory {
     public static IIncome income(final String name, final double value) throws NullObjectException {
         return new Income(name, value);
     }
+    
+    /**
+     * Método responsável por gerar instância da data atual.
+     * @return Retorna instância de data.
+     */
+    public static Date date() {
+        return new Date();
+    }
 
 }
