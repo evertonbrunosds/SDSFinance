@@ -129,7 +129,7 @@ public abstract class Factory {
     public static IIncome income(final String name, final double value) throws NullObjectException {
         return new Income(name, value);
     }
-    
+
     /**
      * Método responsável por gerar instância da data atual.
      * @return Retorna instância de data.
@@ -137,29 +137,30 @@ public abstract class Factory {
     public static Date date() {
         return new Date();
     }
-    
+
     /**
      * Método responsável por gerar instância de data especificada.
      * @param date Refere-se a data especificada.
      * @return Retorna instância de data.
-     * @throws NullObjectException Exceção lançada no caso da data não ser especificada.
+     * @throws NullObjectException  Exceção lançada no caso da data não ser especificada.
      * @throws DateInvalidException Exceção lançada no caso da data especificada ser inválida.
      */
     public static Date date(final String date) throws NullObjectException, DateInvalidException {
         return new Date(date);
     }
-    
+
     /**
      * Método responsável por gerar instância de aquisição.
      * @param provider Refere-se ao fornecedor da oferta.
-     * @param offer Refere-se a oferta adiquirida.
-     * @param amount Refere-se a quantidade em que foi adiquirida.
-     * @param date Refere-se a data em que foi adiquirida.
+     * @param offer    Refere-se a oferta adiquirida.
+     * @param amount   Refere-se a quantidade em que foi adiquirida.
+     * @param date     Refere-se a data em que foi adiquirida.
      * @return Retorna instância de aquisição.
-     * @throws NullObjectException Exceção lançada no caso de haver o uso de strings nulas.
+     * @throws NullObjectException          Exceção lançada no caso de haver o uso de strings nulas.
      * @throws IntegerValueInvalidException Exceção lançada no caso do valor quantitativo ser inválido.
      */
-    public static IAcquisition acquisition(final IProvider provider, IOfferVisible offer, String amount, Date date) throws NullObjectException, IntegerValueInvalidException {
+    public static IAcquisition acquisition(final IProvider provider, final IOfferVisible offer, final String amount,
+            final Date date) throws NullObjectException, IntegerValueInvalidException {
         return new Acquisition(provider, offer, Converter.toInteger(amount), date);
     }
 

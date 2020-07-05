@@ -258,20 +258,20 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
         businessInCurrentState.setDate(date);
         super.insert((T) businessInCurrentState);
     }
-    
+
     /**
      * Método responsável por insetir dado negócio na coleção.
      * @param newElement Refere-se ao elemento.
      */
     @Override
-    public void insert(T newElement) {
+    public void insert(final T newElement) {
         try {
             super.insert(newElement);
-        } catch (KeyUsedException ex) {
+        } catch (final KeyUsedException ex) {
             final IBusinessEditable myElement = (IBusinessEditable) ex.getElement();
-            myElement.setAmount(myElement.getAmount() + ((IBusinessEditable)newElement).getAmount());
-            
+            myElement.setAmount(myElement.getAmount() + ((IBusinessEditable) newElement).getAmount());
+
         }
     }
-    
+
 }

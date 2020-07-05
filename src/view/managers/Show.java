@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class Show {
-    
+
     /**
      * Método responsável por exibir mensagens de erro.
      * @param msg Refere-se ao conteúdo da mensagem.
@@ -53,5 +53,5 @@ public abstract class Show {
         return 0 != JOptionPane.showOptionDialog(null, msg, "Mensagem de Confirmação", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }
-    
+
 }

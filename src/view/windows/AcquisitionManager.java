@@ -42,6 +42,10 @@ import view.managers.ViewControl;
  */
 public class AcquisitionManager extends javax.swing.JDialog {
     /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 6458904358912143126L;
+    /**
      * Refere-se a instância da janela de aquisição.
      */
     private static AcquisitionManager instance;

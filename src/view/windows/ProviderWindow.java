@@ -34,6 +34,10 @@ import view.managers.ViewControl;
  */
 public class ProviderWindow extends javax.swing.JDialog {
     /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = -1909188430346199723L;
+    /**
      * Refere-se a instância da janela de fornecedores.
      */
     private static ProviderWindow instance;

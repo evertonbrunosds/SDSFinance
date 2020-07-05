@@ -33,6 +33,10 @@ import view.managers.ViewControl;
  */
 public class OfferWindow extends javax.swing.JDialog {
     /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = 7541515669080496994L;
+    /**
      * Refere-se a instância da janela de ofertas.
      */
     private static OfferWindow instance;

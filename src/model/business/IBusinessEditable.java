@@ -37,7 +37,7 @@ public interface IBusinessEditable extends IBusinessVisible, IElement<String> {
      * @return Retorna pré-visualização de nova chave.
      */
     public Comparable<String> previewKey(IProvider provider);
-    
+
     /**
      * Método responsável por pré-visualizar chave do negócio pós-alterações.
      * @param offer Refere-se a nova oferta.

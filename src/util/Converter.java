@@ -138,7 +138,7 @@ public abstract class Converter {
         }
         return pathFile;
     }
-    
+
     /**
      * Método responsável por converter uma dada organização em vetor de objetos.
      * @param organization Refere-se a organização.
@@ -152,7 +152,7 @@ public abstract class Converter {
         vector[3] = organization.getCity();
         return vector;
     }
-    
+
     /**
      * Método responsável por converter uma dada oferta em vetor de objetos.
      * @param offer Refere-se a oferta.
@@ -164,7 +164,7 @@ public abstract class Converter {
         vector[1] = Converter.toString(offer.getValue());
         return vector;
     }
-    
+
     /**
      * Método responsável por converter um dado negócio em vetor de objetos.
      * @param business Refere-se ao negócio.
@@ -177,7 +177,7 @@ public abstract class Converter {
         vector[2] = business.getAmount();
         vector[3] = Converter.toString(business.getOffer().getValue());
         vector[4] = Converter.toString(business.getTotalValue());
-        vector[5] = business.getDate();        
+        vector[5] = business.getDate();
         return vector;
     }
 

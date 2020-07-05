@@ -30,11 +30,14 @@ import view.managers.ViewControl;
  * @author Everton Bruno Silva dos Santos.
  */
 public class MainForm extends javax.swing.JFrame {
-    private static MainForm instance;
     /**
      * Refere-se ao número de série da classe.
      */
     private static final long serialVersionUID = 3549108067875363853L;
+    /**
+     * Refere-se a instância da janela principal.
+     */
+    private static MainForm instance;
 
     /**
      * Construtor responsável por inicializar a janela principal da aplicação.

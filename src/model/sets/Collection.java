@@ -105,7 +105,7 @@ public class Collection<K, E> implements ICollection<K, E> {
             element.accept((E) e);
         });
     }
-    
+
     /**
      * Método responsável por percorrer por todos os elementos contidos na coleção em ordem.
      * @param element Refere-se aos elementos contidos na coleção.

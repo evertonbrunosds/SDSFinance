@@ -75,7 +75,7 @@ public interface IOrganizationVisible extends Serializable {
      * @return Retorna chave comparável.
      */
     public Comparable<String> getKey();
-    
+
     /**
      * Método responsável por esvaziar as ofertas contidas na organização.
      */

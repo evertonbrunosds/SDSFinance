@@ -24,5 +24,5 @@ package model.business;
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IAcquisition extends IBusinessVisible {
-    
+
 }

@@ -55,8 +55,7 @@ public class FileStream implements Serializable {
      * @throws IOException            Exceção lançada em caso de problemas no acesso ao arquivo.
      * @throws ClassNotFoundException Exceção lançada em caso de não haver uma classe contida no arquivo.
      */
-    public void loadFromFile(final String fileName)
-            throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void loadFromFile(final String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
         try (ObjectInputStream fileStream = new ObjectInputStream(new FileInputStream(fileName))) {
             this.object = fileStream.readObject();
             fileStream.close();

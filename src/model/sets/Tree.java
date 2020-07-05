@@ -243,7 +243,7 @@ public class Tree<K, E> implements ITree<K, E> {
             forEachInReverseOrder(element, currentNode.sonOnTheLeft);
         }
     }
-    
+
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore.
      * @param element Refere-se aos elementos contidos na árvore.
@@ -252,7 +252,7 @@ public class Tree<K, E> implements ITree<K, E> {
     public void forEachInOrder(final Consumer<? super E> element) {
         forEachInOrder(element, root);
     }
-    
+
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore em ordem.
      * @param element     Refere-se aos elementos contidos na árvore.
@@ -364,6 +364,7 @@ public class Tree<K, E> implements ITree<K, E> {
 
     /**
      * Classe responsável por comportar-se como nó de árvore.
+     * @author Everton Bruno Silva dos Santos.
      */
     private class Node implements Serializable {
         /**

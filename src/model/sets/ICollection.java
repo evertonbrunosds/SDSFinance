@@ -69,7 +69,7 @@ public interface ICollection<K, E> extends Serializable {
      * @param element Refere-se aos elementos contidos na coleção.
      */
     public void forEachInReverseOrder(final Consumer<? super E> element);
-    
+
     /**
      * Método responsável por percorrer por todos os elementos contidos na coleção em ordem.
      * @param element Refere-se aos elementos contidos na coleção.

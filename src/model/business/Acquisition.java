@@ -135,7 +135,7 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
         final String key = dateString + provider.getKey() + offer.toString() + offer.getValue();
         return key.toLowerCase();
     }
-    
+
     /**
      * Método responsável por pré-visualizar chave da aquisição pós-alterações.
      * @param offer Refere-se a nova oferta.
@@ -245,8 +245,7 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
     }
 
     /**
-     * Método responsável por converter para string de dois caracteres, números que
-     * expressam dia e mês.
+     * Método responsável por converter para string de dois caracteres, números que expressam dia e mês.
      * @param number Refere-se ao número que será convertido.
      * @return Retorna string de dois caracteres que expressam dia e mês.
      */
