@@ -223,12 +223,17 @@ public class Tree<K, E> implements ITree<K, E> {
     }
 
     /**
-     * Método responsável por percorrer por todos os elementos contidos na árvore em ordem reversa.
+     * Método responsável por percorrer por todos os elementos contidos na árvore.
+     * @param reverse Refere-se a indicativo de que deve-se percorrer em ordem reversa.
      * @param element Refere-se aos elementos contidos na árvore.
      */
     @Override
-    public void forEachInReverseOrder(final Consumer<? super E> element) {
-        forEachInReverseOrder(element, root);
+    public void forEach(final boolean reverse, final Consumer<? super E> element) {
+        if(reverse) {
+            forEachInReverseTrue(element, root);
+        } else {
+            forEachInReverseFalse(element, root);
+        }
     }
 
     /**
@@ -236,21 +241,12 @@ public class Tree<K, E> implements ITree<K, E> {
      * @param element     Refere-se aos elementos contidos na árvore.
      * @param currentNode Refere-se ao nó atual da recursão.
      */
-    private void forEachInReverseOrder(final Consumer<? super E> element, final Node currentNode) {
+    private void forEachInReverseTrue(final Consumer<? super E> element, final Node currentNode) {
         if (currentNode != null) {
-            forEachInReverseOrder(element, currentNode.sonOnTheRight);
+            forEachInReverseTrue(element, currentNode.sonOnTheRight);
             element.accept(currentNode.element);
-            forEachInReverseOrder(element, currentNode.sonOnTheLeft);
+            forEachInReverseTrue(element, currentNode.sonOnTheLeft);
         }
-    }
-
-    /**
-     * Método responsável por percorrer por todos os elementos contidos na árvore.
-     * @param element Refere-se aos elementos contidos na árvore.
-     */
-    @Override
-    public void forEachInOrder(final Consumer<? super E> element) {
-        forEachInOrder(element, root);
     }
 
     /**
@@ -258,11 +254,11 @@ public class Tree<K, E> implements ITree<K, E> {
      * @param element     Refere-se aos elementos contidos na árvore.
      * @param currentNode Refere-se ao nó atual da recursão.
      */
-    private void forEachInOrder(final Consumer<? super E> element, final Node currentNode) {
+    private void forEachInReverseFalse(final Consumer<? super E> element, final Node currentNode) {
         if (currentNode != null) {
-            forEachInReverseOrder(element, currentNode.sonOnTheLeft);
+            forEachInReverseFalse(element, currentNode.sonOnTheLeft);
             element.accept(currentNode.element);
-            forEachInReverseOrder(element, currentNode.sonOnTheRight);
+            forEachInReverseFalse(element, currentNode.sonOnTheRight);
         }
     }
 

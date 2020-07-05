@@ -65,16 +65,11 @@ public interface ICollection<K, E> extends Serializable {
     public void insert(E element) throws KeyUsedException;
 
     /**
-     * Método responsável por percorrer por todos os elementos contidos na coleção em ordem reversa.
+     * Método responsável por percorrer por todos os elementos contidos na coleção.
+     * @param reverse Refere-se a indicativo de que deve-se percorrer em ordem reversa.
      * @param element Refere-se aos elementos contidos na coleção.
      */
-    public void forEachInReverseOrder(final Consumer<? super E> element);
-
-    /**
-     * Método responsável por percorrer por todos os elementos contidos na coleção em ordem.
-     * @param element Refere-se aos elementos contidos na coleção.
-     */
-    public void forEachInOrder(final Consumer<? super E> element);
+    public void forEach(boolean reverse, Consumer<? super E> element);
 
     /**
      * Método responsável por buscar dado elemento que está contido na coleção.

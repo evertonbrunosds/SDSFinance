@@ -56,7 +56,7 @@ public class MainForm extends javax.swing.JFrame {
     public static void updateWindow() {
         ViewControl.clear(instance.table);
         final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
-        Controller.getInstance().getAcquisitionCollection().forEachInReverseOrder((acquisition) -> {
+        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
             model.addRow(Converter.toVector(acquisition));
         });
     }

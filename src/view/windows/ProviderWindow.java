@@ -100,7 +100,7 @@ public class ProviderWindow extends javax.swing.JDialog {
         if(instance != null) {
             ViewControl.clear(instance.table);
             final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
-            Controller.getInstance().getProviderCollection().forEachInOrder((provider) -> {
+            Controller.getInstance().getProviderCollection().forEach(false, provider -> {
                 model.addRow(Converter.toVector(provider));
             });
         }

@@ -65,12 +65,12 @@ public class OfferWindow extends javax.swing.JDialog {
         if(instance != null) {
             ViewControl.clear(instance.tableExpense);
             final DefaultTableModel modelExpense = (DefaultTableModel) instance.tableExpense.getModel();
-            instance.provider.getExpenseCollection().forEachInOrder((expense) -> {
+            instance.provider.getExpenseCollection().forEach(false, expense -> {
                 modelExpense.addRow(Converter.toVector(expense));
             });
             ViewControl.clear(instance.tableIncome);
             final DefaultTableModel modelIncome = (DefaultTableModel) instance.tableIncome.getModel();
-            instance.provider.getIncomeCollection().forEachInOrder((income) -> {
+            instance.provider.getIncomeCollection().forEach(false, income -> {
                 modelIncome.addRow(Converter.toVector(income));
             });
         }
