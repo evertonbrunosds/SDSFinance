@@ -50,8 +50,7 @@ public abstract class Filter {
      * Método responsável por realizar a flitragem de valores decimais válidos.
      * @param value Refere-se ao valor possívelmente válido.
      * @throws NullObjectException         Exceção lançada em caso de string nula.
-     * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal
-     *                                     inválido.
+     * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal inválido.
      */
     public static void invalidValueDouble(final String value) throws NullObjectException, DoubleValueInvalidException {
         nullObject(value);
@@ -66,8 +65,7 @@ public abstract class Filter {
      * Método responsável por realizar a flitragem de valores inteiros válidos.
      * @param value Refere-se ao valor possívelmente válido.
      * @throws NullObjectException          Exceção lançada em caso de string nula.
-     * @throws IntegerValueInvalidException Exceção lançada em caso de valor inteiro
-     *                                      inválido.
+     * @throws IntegerValueInvalidException Exceção lançada em caso de valor inteiro inválido.
      */
     public static void invalidValueInteger(final String value)
             throws NullObjectException, IntegerValueInvalidException {

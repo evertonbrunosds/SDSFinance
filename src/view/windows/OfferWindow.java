@@ -46,6 +46,19 @@ public class OfferWindow extends javax.swing.JDialog {
     private IProvider provider;
     
     /**
+     * Método responsável por gerar instância da janela.
+     */
+    private static void createInstance() {
+        instance = new OfferWindow(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
+    }
+    
+    /**
      * Método responsável por atualizar a jenala de ofertas.
      */
     public static void updateWindow() {
@@ -144,13 +157,7 @@ public class OfferWindow extends javax.swing.JDialog {
      * @param provider Refere-se ao fornecedor das ofertas.
      */
     public static void showModal(final IProvider provider) {
-        instance = new OfferWindow(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         instance.provider = provider;
         instance.setTitle(provider.toString());
         updateWindow();
@@ -162,7 +169,7 @@ public class OfferWindow extends javax.swing.JDialog {
      * @param parent Refere-se ao invocador da janela.
      * @param modal  Refere-se ao modo de exibição.
      */
-    public OfferWindow(java.awt.Frame parent, boolean modal) {
+    private OfferWindow(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -425,13 +432,13 @@ public class OfferWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_optAcquireExpenseActionPerformed
 
     private void optAcquireIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireIncomeActionPerformed
-        //AcquisitionManager.showModal((IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0));
+        AcquisitionManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0));
     }//GEN-LAST:event_optAcquireIncomeActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

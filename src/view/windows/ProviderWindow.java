@@ -41,6 +41,19 @@ public class ProviderWindow extends javax.swing.JDialog {
      * Refere-se a instância da janela de fornecedores.
      */
     private static ProviderWindow instance;
+    
+    /**
+     * Método responsável por gerar instância da janela.
+     */
+    private static void createInstance() {
+        instance = new ProviderWindow(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
+    }
 
     /**
      * Método responsável por atualizar as opções.
@@ -97,13 +110,7 @@ public class ProviderWindow extends javax.swing.JDialog {
      * Método responsável por exibir a janela de fornecedores.
      */
     public static void showModal() {
-        instance = new ProviderWindow(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         ViewControl.alignTo(instance.table, SwingConstants.CENTER);
         updateWindow();
         instance.setVisible(true);
@@ -253,7 +260,7 @@ public class ProviderWindow extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

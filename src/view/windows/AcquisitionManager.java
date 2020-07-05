@@ -94,6 +94,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
             } else {
                 provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
             }
+            OfferWindow.updateWindow();
         }
         ViewControl.saveRecord();
         MainForm.updateWindow();
@@ -260,7 +261,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

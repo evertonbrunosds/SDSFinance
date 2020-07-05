@@ -34,9 +34,9 @@ public class AuthorAbout extends javax.swing.JDialog {
     private static AuthorAbout instance;
     
     /**
-     * Método responsável por exibir janela de autoria.
+     * Método responsável por gerar instância da janela.
      */
-    public static void showModal() {
+    private static void createInstance() {
         instance = new AuthorAbout(null, true) {
             @Override
             public void dispose() {
@@ -44,6 +44,13 @@ public class AuthorAbout extends javax.swing.JDialog {
                 super.dispose();
             }
         };
+    }
+    
+    /**
+     * Método responsável por exibir janela de autoria.
+     */
+    public static void showModal() {
+        createInstance();
         instance.setVisible(true);
     }
     
@@ -137,7 +144,7 @@ public class AuthorAbout extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(final String args[]) {
+    private static void main(final String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

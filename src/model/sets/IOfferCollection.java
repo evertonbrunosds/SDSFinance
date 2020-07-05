@@ -24,7 +24,7 @@ import exceptions.ElementNotFoundException;
 /**
  * Interface responsável por fornecer os métodos de uma coleção de ofertas.
  * @author Everton Bruno Silva dos Santos.
- * @param <T> Refere-se ao tipo de oferta
+ * @param <T> Refere-se ao tipo de oferta.
  */
 public interface IOfferCollection<T> extends ICollection<String, T> {
 

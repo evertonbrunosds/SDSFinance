@@ -59,6 +59,19 @@ public class OfferManager extends javax.swing.JDialog {
     private boolean isExpense;
     
     /**
+     * Método responsável por gerar instância da janela.
+     */
+    private static void createInstance() {
+        instance = new OfferManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
+    }
+    
+    /**
      * Método responsável por adicionar uma oferta a dado fornecedor.
      * @throws NullObjectException Exceção lançada no caso de haverem dados de entrada nulos.
      * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
@@ -100,13 +113,7 @@ public class OfferManager extends javax.swing.JDialog {
      * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
      */
     public static void showModal(final IProvider provider, final boolean isExpense) {
-        instance = new OfferManager(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         instance.provider = provider;
         instance.isExpense = isExpense;
         instance.setVisible(true);
@@ -119,13 +126,7 @@ public class OfferManager extends javax.swing.JDialog {
      * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
      */
     public static void showModal(final IProvider provider, final IOfferVisible offer, final boolean isExpense) {
-        instance = new OfferManager(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         instance.provider = provider;
         instance.offer = offer;
         instance.isExpense = isExpense;
@@ -260,7 +261,7 @@ public class OfferManager extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

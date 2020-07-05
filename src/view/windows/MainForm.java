@@ -42,7 +42,7 @@ public class MainForm extends javax.swing.JFrame {
     /**
      * Construtor responsável por inicializar a janela principal da aplicação.
      */
-    public MainForm() {
+    private MainForm() {
         instance = this;
         initComponents();
         ViewControl.loadRecord();

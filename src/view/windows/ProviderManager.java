@@ -50,6 +50,19 @@ public class ProviderManager extends javax.swing.JDialog {
     private IProvider provider;
     
     /**
+     * Método responsável por gerar instância da janela.
+     */
+    private static void createInstance() {
+        instance = new ProviderManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
+        };
+    }
+    
+    /**
      * Método responsável por adicionar um fornecedor.
      * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
      * @throws KeyUsedException Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
@@ -103,13 +116,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por exibir a janela de adição de fornecedores.
      */
     public static void showModal() {
-        instance = new ProviderManager(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         instance.setVisible(true);
     }
     
@@ -118,13 +125,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * @param provider Refere-se ao fornecedor editável.
      */
     public static void showModal(final IProvider provider) {
-        instance = new ProviderManager(null, true) {
-            @Override
-            public void dispose() {
-                instance = null;
-                super.dispose();
-            }
-        };
+        createInstance();
         instance.btnConfirm.setText("Aplicar");
         instance.setTitle("Editar Fornecedor");
         instance.provider = provider;
@@ -283,7 +284,7 @@ public class ProviderManager extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
