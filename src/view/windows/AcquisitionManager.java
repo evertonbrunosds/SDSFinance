@@ -19,52 +19,118 @@
  */
 package view.windows;
 
+import control.Controller;
+import exceptions.DateInvalidException;
+import exceptions.DoubleValueInvalidException;
+import exceptions.ElementNotFoundException;
+import exceptions.IntegerValueInvalidException;
+import exceptions.NullObjectException;
 import model.business.IAcquisition;
+import model.offers.IExpense;
+import model.offers.IOfferEditable;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
+import util.Converter;
+import util.Date;
 import util.Factory;
+import view.managers.Show;
+import view.managers.ViewControl;
 
 /**
  * Classe responsável por comportar-se como janela de adição ou edição de aquisições.
  * @author Everton Bruno Silva dos Santos.
  */
-public class AcquireManager extends javax.swing.JDialog {
-    private static AcquireManager instance;
+public class AcquisitionManager extends javax.swing.JDialog {
+    /**
+     * Refere-se a instância da janela de aquisição.
+     */
+    private static AcquisitionManager instance;
+    /**
+     * Refere-se ao fornecedor da oferta.
+     */
     private IProvider provider;
+    /**
+     * Refere-se a oferta;
+     */
     private IOfferVisible offer;
+    /**
+     * Refere-se a aquisição.
+     */
     private IAcquisition acquisition;
     
+    /**
+     * Método responsável por gerar instância da janela.
+     */
     private static void createInstance() {
-        instance = new AcquireManager(null, true) {
-          @Override
-          public void dispose() {
-              instance = null;
-              super.dispose();
-          }
+        instance = new AcquisitionManager(null, true) {
+            @Override
+            public void dispose() {
+                instance = null;
+                super.dispose();
+            }
         };
     }
     
+    /**
+     * Método responsável por adicionar uma aquisição.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws DateInvalidException Exceção lançada no caso de uma data inválida.
+     * @throws IntegerValueInvalidException Exceção lançada no caso de um valor inteiro ser inválido.
+     * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ter sido encontrado.
+     */
+    private void addAcquisition() throws NullObjectException, DoubleValueInvalidException, DateInvalidException, IntegerValueInvalidException, ElementNotFoundException {
+        IOfferEditable tmpOffer = (IOfferEditable) offer.duplicate();
+        tmpOffer.setValue(Converter.toDouble(textValue.getText()));
+        Date date = Factory.date(textDate.getText());
+        Controller.getInstance().getAcquisitionCollection().insert(Factory.acquisition(provider, tmpOffer, textAmount.getText(), date));
+        if(!textValue.getText().equals(Double.toString(offer.getValue()))) {
+            if(offer instanceof IExpense) {
+                provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            } else {
+                provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            }
+        }
+        ViewControl.saveRecord();
+        MainForm.updateWindow();
+        dispose();
+    }
+    
+    /**
+     * Método responsável por exibir a janela de adição de aquisições.
+     * @param provider Refere-se ao fornecedor.
+     * @param offer Refere-se a oferta adquirida.
+     */
     public static void showModal(final IProvider provider, final IOfferVisible offer) {
         createInstance();
         instance.provider = provider;
         instance.offer = offer;
-        instance.textValue.setText(Double.toString(offer.getValue()));
         instance.textDate.setText(Factory.date().toString());
+        instance.textValue.setText(Double.toString(offer.getValue()));
         instance.setTitle(offer.toString());
         instance.setVisible(true);
     }
     
+    /**
+     * Método responsável por exibir a janela de edição de aquisições.
+     * @param acquisition Refere-se a aquisição.
+     */
     public static void showModal(final IAcquisition acquisition) {
         createInstance();
         instance.acquisition = acquisition;
         instance.textDate.setText(acquisition.getDate().toString());
         instance.textValue.setText(Double.toString(acquisition.getOffer().getValue()));
         instance.textAmount.setText(Integer.toString(acquisition.getAmount()));
+        instance.setTitle(acquisition.toString());
         instance.setVisible(true);
     }
     
-
-    private AcquireManager(java.awt.Frame parent, boolean modal) {
+    /**
+     * Construtor responsável pelo instanciamento da janela de adição ou edição de aquisições.
+     * @param parent Refere-se ao invocador da janela.
+     * @param modal  Refere-se ao modo de exibição.
+     */
+    private AcquisitionManager(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -103,6 +169,11 @@ public class AcquireManager extends javax.swing.JDialog {
         textDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnConfirm.setText("Adiquirir");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +233,26 @@ public class AcquireManager extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if(acquisition == null) {
+            try {
+                addAcquisition();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem estar preenchidos.");
+            } catch (DoubleValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
+            } catch (DateInvalidException ex) {
+                Show.questionMessage("\"" + ex.getInvalidDate() + "\" não é uma data válida de aquisição.");
+            } catch (IntegerValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getIntegerValueInvalid() + "\" não é um valor inteiro válido.");
+            } catch (ElementNotFoundException ex) {
+                Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            }
+        } else {
+            //CHAMADA DO MÉTODO DE EDIÇÃO
+        }
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,8 +270,10 @@ public class AcquireManager extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AcquireManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AcquisitionManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         
@@ -188,7 +281,7 @@ public class AcquireManager extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            AcquireManager dialog = new AcquireManager(new javax.swing.JFrame(), true);
+            AcquisitionManager dialog = new AcquisitionManager(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

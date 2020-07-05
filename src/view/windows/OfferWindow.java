@@ -417,7 +417,7 @@ public class OfferWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_optEditIncomeActionPerformed
 
     private void optAcquireExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireExpenseActionPerformed
-        AcquireManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
+        AcquisitionManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
     }//GEN-LAST:event_optAcquireExpenseActionPerformed
 
     private void optAcquireIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireIncomeActionPerformed

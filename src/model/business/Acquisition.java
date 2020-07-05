@@ -63,7 +63,7 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
      */
     public Acquisition(final IProvider provider, final IOfferVisible offer, final int amount, final Date date) {
         this.provider = provider;
-        this.offer = (IOfferEditable) offer;
+        this.offer = (IOfferEditable) offer.duplicate();
         this.amount = Converter.toPositive(amount);
         this.date = date;
     }
@@ -203,7 +203,7 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
      */
     @Override
     public void setOffer(final IOfferVisible offer) {
-        this.offer = (IOfferEditable) offer;
+        this.offer = (IOfferEditable) offer.duplicate();
     }
 
     /**
