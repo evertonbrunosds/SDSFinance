@@ -53,6 +53,7 @@ public class ProviderWindow extends javax.swing.JDialog {
                 super.dispose();
             }
         };
+        ViewControl.alignTo(instance.table, SwingConstants.CENTER);
     }
 
     /**
@@ -111,7 +112,6 @@ public class ProviderWindow extends javax.swing.JDialog {
      */
     public static void showModal() {
         createInstance();
-        ViewControl.alignTo(instance.table, SwingConstants.CENTER);
         updateWindow();
         instance.setVisible(true);
     }

@@ -20,6 +20,7 @@
 package view.windows;
 
 import exceptions.ElementNotFoundException;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
@@ -56,6 +57,8 @@ public class OfferWindow extends javax.swing.JDialog {
                 super.dispose();
             }
         };
+        ViewControl.alignTo(instance.tableExpense, SwingConstants.CENTER);
+        ViewControl.alignTo(instance.tableIncome, SwingConstants.CENTER);
     }
     
     /**

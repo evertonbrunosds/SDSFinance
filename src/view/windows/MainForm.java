@@ -182,6 +182,11 @@ public class MainForm extends javax.swing.JFrame {
         optShow.add(optBudgeting);
 
         optExtracts.setText("Extratos");
+        optExtracts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optExtractsActionPerformed(evt);
+            }
+        });
         optShow.add(optExtracts);
 
         toolBar.add(optShow);
@@ -246,6 +251,10 @@ public class MainForm extends javax.swing.JFrame {
     private void optImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optImportActionPerformed
         ViewControl.importRecord();
     }//GEN-LAST:event_optImportActionPerformed
+
+    private void optExtractsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExtractsActionPerformed
+        ExtractsWindow.showModal();
+    }//GEN-LAST:event_optExtractsActionPerformed
 
     /**
      * @param args the command line arguments
