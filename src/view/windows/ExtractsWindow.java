@@ -19,9 +19,14 @@
  */
 package view.windows;
 
+import control.Controller;
+import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import model.business.IAcquisition;
+import model.sets.ITree;
+import model.sets.Tree;
 import util.Converter;
 import util.IElement;
 import view.managers.ViewControl;
@@ -32,6 +37,10 @@ import view.managers.ViewControl;
  */
 public class ExtractsWindow extends javax.swing.JDialog {
     /**
+     * Refere-se ao número de série da classe.
+     */
+    private static final long serialVersionUID = -7291401217690085300L;
+    /**
      * Refere-se a instância da janela de extratos.
      */
     private static ExtractsWindow instance;
@@ -41,6 +50,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
      */
     private static void createInstance() {
         instance = new ExtractsWindow(null, true) {
+            private static final long serialVersionUID = -4073298386776028161L;
             @Override
             public void dispose() {
                 instance = null;
@@ -50,8 +60,67 @@ public class ExtractsWindow extends javax.swing.JDialog {
         ViewControl.alignTo(instance.table, SwingConstants.CENTER);
     }
     
-    private static void updateWindow() {
-        
+    /**
+     * Método responsável por atualizar a janela de extratos com árvore de extratos.
+     * @param tree Refere-se a árvore de extratos.
+     */
+    private void updateWindow(final ITree<String, Extract> tree) {
+        ViewControl.clear(instance.table);
+        final DefaultTableModel model = (DefaultTableModel) table.getModel();
+        tree.forEach(true, extract -> {
+            model.addRow(new Object[]{extract.period, extract.getPositiveValue(), extract.getNegativeValue(), extract.getTotalValue()});
+        });
+    }
+    
+    /**
+     * Método responsável por preencher árvore de extratos por dia.
+     * @param tree Refere-se a árvore.
+     * @return Retorna árvore preenchida.
+     */
+    private ITree<String, Extract> forDay(ITree<String, Extract> tree) {
+        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+            Extract extract = new DailyExtract(acquisition);
+            try {
+                tree.insert(extract.key, extract);
+            } catch (KeyUsedException ex) {
+                ((Extract)ex.getElement()).add(acquisition);
+            }
+        });
+        return tree;
+    }
+    
+    /**
+     * Método responsável por preencher árvore de extratos por mês.
+     * @param tree Refere-se a árvore.
+     * @return Retorna árvore preenchida.
+     */
+    private ITree<String, Extract> forMonth(ITree<String, Extract> tree) {
+        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+            Extract extract = new MonthlyExtract(acquisition);
+            try {
+                tree.insert(extract.key, extract);
+            } catch (KeyUsedException ex) {
+                ((Extract)ex.getElement()).add(acquisition);
+            }
+        });
+        return tree;
+    }
+    
+    /**
+     * Método responsável por preencher árvore de extratos por ano.
+     * @param tree Refere-se a árvore.
+     * @return Retorna árvore preenchida.
+     */
+    private ITree<String, Extract> forYear(ITree<String, Extract> tree) {
+        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+            Extract extract = new AnnualExtract(acquisition);
+            try {
+                tree.insert(extract.key, extract);
+            } catch (KeyUsedException ex) {
+                ((Extract)ex.getElement()).add(acquisition);
+            }
+        });
+        return tree;
     }
     
     /**
@@ -59,6 +128,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
      */
     public static void showModal() {
         createInstance();
+        instance.updateWindow(instance.forMonth(new Tree<>()));
         instance.setVisible(true);
     }
 
@@ -91,15 +161,30 @@ public class ExtractsWindow extends javax.swing.JDialog {
 
         buttonGroup.add(rBtnOptForDay);
         rBtnOptForDay.setText("Exibir por dia");
+        rBtnOptForDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnOptForDayActionPerformed(evt);
+            }
+        });
         popupMenu.add(rBtnOptForDay);
 
         buttonGroup.add(rBtnOptForMonth);
         rBtnOptForMonth.setSelected(true);
         rBtnOptForMonth.setText("Exibir por mês");
+        rBtnOptForMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnOptForMonthActionPerformed(evt);
+            }
+        });
         popupMenu.add(rBtnOptForMonth);
 
         buttonGroup.add(rBtnOptForYear);
         rBtnOptForYear.setText("Exibir por ano");
+        rBtnOptForYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnOptForYearActionPerformed(evt);
+            }
+        });
         popupMenu.add(rBtnOptForYear);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -117,11 +202,11 @@ public class ExtractsWindow extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Período", "Saldo"
+                "Período", "Renda", "Despesa", "Saldo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -136,17 +221,17 @@ public class ExtractsWindow extends javax.swing.JDialog {
         });
         scrollPane.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setMinWidth(120);
-            table.getColumnModel().getColumn(0).setPreferredWidth(120);
-            table.getColumnModel().getColumn(0).setMaxWidth(120);
+            table.getColumnModel().getColumn(0).setPreferredWidth(100);
             table.getColumnModel().getColumn(1).setResizable(false);
+            table.getColumnModel().getColumn(2).setResizable(false);
+            table.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,47 +254,27 @@ public class ExtractsWindow extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tableMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    private static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExtractsWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
+    private void rBtnOptForDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnOptForDayActionPerformed
+        updateWindow(forDay(new Tree<>()));
+    }//GEN-LAST:event_rBtnOptForDayActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            ExtractsWindow dialog = new ExtractsWindow(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
-        });
-    }
+    private void rBtnOptForMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnOptForMonthActionPerformed
+        updateWindow(forMonth(new Tree<>()));
+    }//GEN-LAST:event_rBtnOptForMonthActionPerformed
+
+    private void rBtnOptForYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnOptForYearActionPerformed
+        updateWindow(forYear(new Tree<>()));
+    }//GEN-LAST:event_rBtnOptForYearActionPerformed
     
     /**
      * Classe responsável por comportar-se como extrato.
      * @author Everton Bruno Silva dos Santos.
      */
     private abstract class Extract implements IElement<String> {
+        /**
+         * Refere-se ao número de série da classe.
+         */
+        private static final long serialVersionUID = -5641931943828987451L;
         /**
          * Refere-se ao valor positivo contido no extrato.
          */
@@ -293,30 +358,26 @@ public class ExtractsWindow extends javax.swing.JDialog {
          * Método responsável por retornar o valor positivo contido no extrato.
          * @return Retorna valor positivo contido no extrato.
          */
-        private double getPositiveValue() {
-            return positiveValue;
+        private String getPositiveValue() {
+            return Converter.toString(positiveValue);
         }
         
         /**
          * Método responsável por retornar o valor negativo contido no extrato.
          * @return Retorna valor negativo contido no extrato.
          */
-        private double getNegativeValue() {
-            return positiveNegative;
+        private String getNegativeValue() {
+            return Converter.toString(positiveNegative);
         }
         
         /**
          * Método responsável por retornar o valor total contido no extrato.
          * @return Retorna valor total contido no extrato.
          */
-        private double getTotalValue() {
-            return positiveNegative + positiveValue;
+        private String getTotalValue() {
+            return Converter.toString(positiveNegative + positiveValue);
         }
 
-        public String getPeriod() {
-            return period;
-        }
-        
         /**
          * Método responsável por retornar a chave do extrato.
          * @return Retorna chave do extrato.
@@ -368,9 +429,14 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @author Everton Bruno Silva dos Santos.
      */
     private class DailyExtract extends Extract {
-        
+        /**
+         * Refere-se ao número de série da classe.
+         */
+        private static final long serialVersionUID = 3461139864061616895L;
+
         /**
          * Construtor responsável pelo instanciamento do extrato diário.
+         * 
          * @param acquisition Refere-se a aquisição.
          */
         public DailyExtract(IAcquisition acquisition) {
@@ -384,9 +450,14 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @author Everton Bruno Silva dos Santos.
      */
     private class MonthlyExtract extends Extract {
-        
+        /**
+         * Refere-se ao número de série da classe.
+         */
+        private static final long serialVersionUID = -26880991967078194L;
+
         /**
          * Construtor responsável pelo instanciamento do extrato mensal.
+         * 
          * @param acquisition Refere-se a aquisição.
          */
         public MonthlyExtract(IAcquisition acquisition) {
@@ -400,9 +471,14 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @author Everton Bruno Silva dos Santos.
      */
     private class AnnualExtract extends Extract {
-        
+        /**
+         * Refere-se ao número de série da classe.
+         */
+        private static final long serialVersionUID = -7838158343627928326L;
+
         /**
          * Construtor responsável pelo instanciamento do extrato anual.
+         * 
          * @param acquisition Refere-se a aquisição.
          */
         public AnnualExtract(IAcquisition acquisition) {
