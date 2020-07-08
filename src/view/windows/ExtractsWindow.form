@@ -62,7 +62,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="scrollPane" alignment="0" pref="350" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="0" pref="300" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -92,7 +92,7 @@
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="120" minWidth="120" prefWidth="120" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

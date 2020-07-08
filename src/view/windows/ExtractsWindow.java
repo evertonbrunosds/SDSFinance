@@ -19,7 +19,11 @@
  */
 package view.windows;
 
+import exceptions.NullObjectException;
 import javax.swing.SwingConstants;
+import model.business.IAcquisition;
+import util.Converter;
+import util.IElement;
 import view.managers.ViewControl;
 
 /**
@@ -44,6 +48,10 @@ public class ExtractsWindow extends javax.swing.JDialog {
             }
         };
         ViewControl.alignTo(instance.table, SwingConstants.CENTER);
+    }
+    
+    private static void updateWindow() {
+        
     }
     
     /**
@@ -128,7 +136,9 @@ public class ExtractsWindow extends javax.swing.JDialog {
         });
         scrollPane.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setResizable(false);
+            table.getColumnModel().getColumn(0).setMinWidth(120);
+            table.getColumnModel().getColumn(0).setPreferredWidth(120);
+            table.getColumnModel().getColumn(0).setMaxWidth(120);
             table.getColumnModel().getColumn(1).setResizable(false);
         }
 
@@ -136,7 +146,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +204,216 @@ public class ExtractsWindow extends javax.swing.JDialog {
             dialog.setVisible(true);
         });
     }
+    
+    /**
+     * Classe responsável por comportar-se como extrato.
+     * @author Everton Bruno Silva dos Santos.
+     */
+    private abstract class Extract implements IElement<String> {
+        /**
+         * Refere-se ao valor positivo contido no extrato.
+         */
+        private double positiveValue;
+        /**
+         * Refere-se ao valor negativo contido no extrato.
+         */
+        private double positiveNegative;
+        /**
+         * Refere-se a chave do extrato.
+         */
+        private final String key;
+        /**
+         * Refere-se ao período do extrato.
+         */
+        private final String period;
+        
+        /**
+         * Construtor responsável pelo instnaciamento do extrato num contexto diário.
+         * @param value Refere-se ao valor do extrato.
+         * @param day Refere-se ao dia do extrato.
+         * @param month Refere-se ao mês do extrato.
+         * @param year Refere-se ao ano do extrato.
+         */
+        private Extract(double value, int day, int month, int year) {
+            positiveValue = 0;
+            positiveNegative = 0;
+            key = toString(year) + toString(month) + toString(day);
+            period =  toString(day) + "/" + toString(month) + "/" + toString(year);
+            add(value);
+        }
+        
+        /**
+         * Construtor responsável pelo instnaciamento do extrato num contexto mensal.
+         * @param value Refere-se ao valor do extrato.
+         * @param month Refere-se ao mês do extrato.
+         * @param year Refere-se ao ano do extrato.
+         */
+        private Extract(double value, int month, int year) {
+            positiveValue = 0;
+            positiveNegative = 0;
+            key = toString(year) + toString(month);
+            period =  toString(month) + "/" + toString(year);
+            add(value);
+        }
+        
+        /**
+         * Construtor responsável pelo instnaciamento do extrato num contexto anual.
+         * @param value Refere-se ao valor do extrato.
+         * @param year Refere-se ao ano do extrato.
+         */
+        private Extract(double value, int year) {
+            positiveValue = 0;
+            positiveNegative = 0;
+            key = toString(year);
+            period =  toString(year);
+            add(value);
+        }
+        
+        /**
+         * Método responsável por adicionar novos valores ao extrato.
+         * @param value Refere-se ao novo valor.
+         */
+        private void add(double value) {
+            if(value > 0) {
+                positiveValue += value;
+            } else {
+                positiveNegative += value;
+            }
+        }
+        
+        /**
+         * Método responsável por adicionar novos valores ao extrato.
+         * @param acquisition Refere-se a aquisição que contém em sí o novo valor.
+         */
+        private void add(IAcquisition acquisition) {
+            add(acquisition.getTotalValue());
+        }
+        
+        /**
+         * Método responsável por retornar o valor positivo contido no extrato.
+         * @return Retorna valor positivo contido no extrato.
+         */
+        private double getPositiveValue() {
+            return positiveValue;
+        }
+        
+        /**
+         * Método responsável por retornar o valor negativo contido no extrato.
+         * @return Retorna valor negativo contido no extrato.
+         */
+        private double getNegativeValue() {
+            return positiveNegative;
+        }
+        
+        /**
+         * Método responsável por retornar o valor total contido no extrato.
+         * @return Retorna valor total contido no extrato.
+         */
+        private double getTotalValue() {
+            return positiveNegative + positiveValue;
+        }
 
+        public String getPeriod() {
+            return period;
+        }
+        
+        /**
+         * Método responsável por retornar a chave do extrato.
+         * @return Retorna chave do extrato.
+         */
+        @Override
+        public Comparable<String> getKey() {
+            return key;
+        }
+        
+        /**
+         * Método responsável por alterar a chave do extrato.
+         * @param key Refere-se a nova chave.
+         * @throws NullObjectException Exceção lançada no caso da chave ser nula.
+         */
+        @Override
+        public void setKey(String key) throws NullObjectException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        
+        /**
+         * Método responsável por pré-visualizar a chave do extrato.
+         * @param key Refere-se a nova chave.
+         * @return Retorna pré-visualização do extrato.
+         * @throws NullObjectException Exceção lançada no caso da chave ser nula.
+         */
+        @Override
+        public Comparable<String> previewKey(String key) throws NullObjectException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        
+        /**
+         * Método responsável por converter em string números inteiros contidos em datas.
+         * @param n Refere-se ao número inteiro.
+         * @return Retorna número inteiro com dois ou mais caracteres em string.
+         */
+        private String toString(int n) {
+            final String numberStr = Converter.toString(n);
+            if (numberStr.length() < 2) {
+                return "0" + numberStr;
+            } else {
+                return numberStr;
+            }
+        }
+        
+    }
+    
+    /**
+     * Classe responsável por comportar-se como um extrato diário.
+     * @author Everton Bruno Silva dos Santos.
+     */
+    private class DailyExtract extends Extract {
+        
+        /**
+         * Construtor responsável pelo instanciamento do extrato diário.
+         * @param acquisition Refere-se a aquisição.
+         */
+        public DailyExtract(IAcquisition acquisition) {
+            super(acquisition.getTotalValue(), acquisition.getDate().getDay(), acquisition.getDate().getMonth(), acquisition.getDate().getYear());
+        }
+        
+    }
+    
+    /**
+     * Classe responsável por comportar-se como um extrato mensal.
+     * @author Everton Bruno Silva dos Santos.
+     */
+    private class MonthlyExtract extends Extract {
+        
+        /**
+         * Construtor responsável pelo instanciamento do extrato mensal.
+         * @param acquisition Refere-se a aquisição.
+         */
+        public MonthlyExtract(IAcquisition acquisition) {
+            super(acquisition.getTotalValue(), acquisition.getDate().getMonth(), acquisition.getDate().getYear());
+        }
+        
+    }
+    
+    /**
+     * Classe responsável por comportar-se como um extrato anual.
+     * @author Everton Bruno Silva dos Santos.
+     */
+    private class AnnualExtract extends Extract {
+        
+        /**
+         * Construtor responsável pelo instanciamento do extrato anual.
+         * @param acquisition Refere-se a aquisição.
+         */
+        public AnnualExtract(IAcquisition acquisition) {
+            super(acquisition.getTotalValue(), acquisition.getDate().getYear());
+        }
+        
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPopupMenu popupMenu;
