@@ -22,12 +22,14 @@ package view.managers;
 import control.Controller;
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
+import java.awt.Color;
 import java.io.IOException;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import util.Converter;
+import view.windows.MainForm;
 
 /**
  * Classe responsável por comportar-se como centro de controle da interface.
@@ -55,6 +57,7 @@ public abstract class ViewControl {
     private static DefaultTableCellRenderer cellRenderer(final int alignment) {
         final DefaultTableCellRenderer align = new DefaultTableCellRenderer();
         align.setHorizontalAlignment(alignment);
+        align.setBackground(Color.decode("#d6d9df"));
         return align;
     }
 
@@ -102,6 +105,7 @@ public abstract class ViewControl {
                 try {
                     Controller.getInstance().loadFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
                     saveRecord();
+                    MainForm.updateWindow();
                 } catch (final NullObjectException ex) {
                     Show.warningMessage("Você deve especificar um nome de arquivo.");
                 } catch (final IOException ex) {
