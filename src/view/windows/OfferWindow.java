@@ -396,18 +396,15 @@ public class OfferWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_optRemoveIncomeActionPerformed
 
     private void optEditExpenseActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditExpenseActionPerformed
-        OfferManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0),
-                true);
+        OfferManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0), true);
     }//GEN-LAST:event_optEditExpenseActionPerformed
 
     private void optEditIncomeActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditIncomeActionPerformed
-        OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0),
-                false);
+        OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0), false);
     }//GEN-LAST:event_optEditIncomeActionPerformed
 
     private void optAcquireExpenseActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireExpenseActionPerformed
-        AcquisitionManager.showModal(provider,
-                (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
+        AcquisitionManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
     }//GEN-LAST:event_optAcquireExpenseActionPerformed
 
     private void optAcquireIncomeActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireIncomeActionPerformed

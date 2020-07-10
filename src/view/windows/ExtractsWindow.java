@@ -51,7 +51,6 @@ public class ExtractsWindow extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new ExtractsWindow(null, true) {
             private static final long serialVersionUID = -4073298386776028161L;
-
             @Override
             public void dispose() {
                 instance = null;

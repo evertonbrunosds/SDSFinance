@@ -74,8 +74,8 @@ public class MainForm extends javax.swing.JFrame {
     private void removeAcquisitions() throws ElementNotFoundException {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
-            if (Show.questionMessage(
-                    "Essa ação excluirá permanentemente todas as\n" + "aquisições selecionadas, deseja prosseguir?")) {
+            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n"
+                    + "aquisições selecionadas, deseja prosseguir?")) {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
