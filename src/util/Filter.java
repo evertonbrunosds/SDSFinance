@@ -106,6 +106,9 @@ public abstract class Filter {
      */
     private static void verifyDate(String date) throws DateInvalidException {
         date = date.replace('-', '0');
+        if(date.split("/")[2].length() != 4) {
+            throw new DateInvalidException(date);
+        }
         final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
         try {

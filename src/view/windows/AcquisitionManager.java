@@ -104,8 +104,36 @@ public class AcquisitionManager extends javax.swing.JDialog {
         dispose();
     }
     
-    private void editAcquisition() {
-        
+    /**
+     * Método responsável por editar uma aquisição.
+     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ter sido encontrado.
+     * @throws IntegerValueInvalidException Exceção lançada no caso de um valor inteiro ser inválido.
+     * @throws DateInvalidException Exceção lançada no caso de uma data inválida.
+     */
+    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, IntegerValueInvalidException, DateInvalidException {
+        boolean wasChanged = false;
+        if(!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
+            double value = Converter.toDouble(textValue.getText());
+            Controller.getInstance().getAcquisitionCollection().setUnitaryValue((String) acquisition.getKey(), value);
+            wasChanged = true;
+        }
+        if(!textAmount.getText().equals(Integer.toString(acquisition.getAmount()))) {
+            int amount = Converter.toInteger(textAmount.getText());
+            Controller.getInstance().getAcquisitionCollection().setAmount((String) acquisition.getKey(), amount);
+            wasChanged = true;
+        }
+        if(!textDate.getText().equals(acquisition.getDate().toString())) {
+            Controller.getInstance().getAcquisitionCollection().setDate((String) acquisition.getKey(), Factory.date(textDate.getText()));
+            wasChanged = true;
+        }
+        if(wasChanged) {
+            
+            ViewControl.saveRecord();
+            MainForm.updateWindow();
+        }
+        dispose();
     }
 
     /**
@@ -245,14 +273,26 @@ public class AcquisitionManager extends javax.swing.JDialog {
             } catch (final DoubleValueInvalidException ex) {
                 Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
             } catch (final DateInvalidException ex) {
-                Show.questionMessage("\"" + ex.getInvalidDate() + "\" não é uma data válida de aquisição.");
+                Show.warningMessage("\"" + ex.getInvalidDate() + "\" não é uma data válida de aquisição.");
             } catch (final IntegerValueInvalidException ex) {
                 Show.warningMessage("\"" + ex.getIntegerValueInvalid() + "\" não é um valor inteiro válido.");
             } catch (final ElementNotFoundException ex) {
                 Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
             }
         } else {
-            // CHAMADA DO MÉTODO DE EDIÇÃO
+            try {
+                editAcquisition();
+            } catch (NullObjectException ex) {
+                Show.warningMessage("Todos os campos devem estar preenchidos.");
+            } catch (DoubleValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
+            } catch (ElementNotFoundException ex) {
+                Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            } catch (IntegerValueInvalidException ex) {
+                Show.warningMessage("\"" + ex.getIntegerValueInvalid() + "\" não é um valor inteiro válido.");
+            } catch (DateInvalidException ex) {
+                Show.warningMessage("\"" + ex.getInvalidDate() + "\" não é uma data válida de aquisição.");
+            }
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 

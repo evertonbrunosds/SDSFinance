@@ -57,11 +57,13 @@ public class MainForm extends javax.swing.JFrame {
      * Método responsável por atualizar a jenala principal.
      */
     public static void updateWindow() {
-        ViewControl.clear(instance.table);
-        final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
-        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
-            model.addRow(Converter.toVector(acquisition));
-        });
+        if(instance != null) {
+            ViewControl.clear(instance.table);
+            final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
+            Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+                model.addRow(Converter.toVector(acquisition));
+            });
+        }
     }
     
     /**

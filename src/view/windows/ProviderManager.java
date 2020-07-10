@@ -55,7 +55,6 @@ public class ProviderManager extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new ProviderManager(null, true) {
             private static final long serialVersionUID = 1722644153201452996L;
-
             @Override
             public void dispose() {
                 instance = null;
