@@ -80,7 +80,7 @@ public class MainForm extends javax.swing.JFrame {
         optRecorder = new javax.swing.JMenu();
         optImport = new javax.swing.JMenuItem();
         optExport = new javax.swing.JMenuItem();
-        optRemove = new javax.swing.JMenuItem();
+        optRestart = new javax.swing.JMenuItem();
         optShow = new javax.swing.JMenu();
         optProvider = new javax.swing.JMenuItem();
         optBudgeting = new javax.swing.JMenuItem();
@@ -158,8 +158,13 @@ public class MainForm extends javax.swing.JFrame {
         });
         optRecorder.add(optExport);
 
-        optRemove.setText("Excluir");
-        optRecorder.add(optRemove);
+        optRestart.setText("Reiniciar");
+        optRestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optRestartActionPerformed(evt);
+            }
+        });
+        optRecorder.add(optRestart);
 
         toolBar.add(optRecorder);
 
@@ -256,6 +261,10 @@ public class MainForm extends javax.swing.JFrame {
         ExtractsWindow.showModal();
     }//GEN-LAST:event_optExtractsActionPerformed
 
+    private void optRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRestartActionPerformed
+        ViewControl.restartRecord();
+    }//GEN-LAST:event_optRestartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -297,7 +306,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optImport;
     private javax.swing.JMenuItem optProvider;
     private javax.swing.JMenu optRecorder;
-    private javax.swing.JMenuItem optRemove;
+    private javax.swing.JMenuItem optRestart;
     private javax.swing.JMenu optShow;
     private javax.swing.JMenuItem popRemove;
     private javax.swing.JMenuItem popShow;
