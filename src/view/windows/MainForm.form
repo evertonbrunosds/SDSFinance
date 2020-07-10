@@ -8,20 +8,28 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="optEdit">
+        <MenuItem class="javax.swing.JMenuItem" name="optAcessProvider">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar"/>
+            <Property name="text" type="java.lang.String" value="Acessar Fornecedor"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optEditActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optAcessProviderActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="optRemove">
+        <MenuItem class="javax.swing.JMenuItem" name="optEditAcquisition">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="text" type="java.lang.String" value="Editar Aquisi&#xe7;&#xe3;o"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optRemoveActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optEditAcquisitionActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="optRemoveAcquisition">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excluir Aquisi&#xe7;&#xf5;es"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optRemoveAcquisitionActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>

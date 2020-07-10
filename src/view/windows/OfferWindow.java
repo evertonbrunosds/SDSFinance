@@ -278,13 +278,8 @@ public class OfferWindow extends javax.swing.JDialog {
             /**
              * Refere-se ao número de série da classe.
              */
-            private static final long serialVersionUID = -6599044970641409275L;
-            Class[] types = new Class[] { java.lang.Object.class, java.lang.String.class };
+            private static final long serialVersionUID = -5731350268881283750L;
             boolean[] canEdit = new boolean[] { false, false };
-
-            public Class getColumnClass(final int columnIndex) {
-                return types[columnIndex];
-            }
 
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
@@ -316,13 +311,8 @@ public class OfferWindow extends javax.swing.JDialog {
             /**
              * Refere-se ao número de série da classe.
              */
-            private static final long serialVersionUID = -2999635507808668290L;
-            Class[] types = new Class[] { java.lang.Object.class, java.lang.String.class };
+            private static final long serialVersionUID = 5900503163077045550L;
             boolean[] canEdit = new boolean[] { false, false };
-
-            public Class getColumnClass(final int columnIndex) {
-                return types[columnIndex];
-            }
 
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
@@ -406,15 +396,18 @@ public class OfferWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_optRemoveIncomeActionPerformed
 
     private void optEditExpenseActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditExpenseActionPerformed
-        OfferManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0), true);
+        OfferManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0),
+                true);
     }//GEN-LAST:event_optEditExpenseActionPerformed
 
     private void optEditIncomeActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditIncomeActionPerformed
-        OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0), false);
+        OfferManager.showModal(provider, (IOfferVisible) tableIncome.getValueAt(tableIncome.getSelectedRow(), 0),
+                false);
     }//GEN-LAST:event_optEditIncomeActionPerformed
 
     private void optAcquireExpenseActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireExpenseActionPerformed
-        AcquisitionManager.showModal(provider, (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
+        AcquisitionManager.showModal(provider,
+                (IOfferVisible) tableExpense.getValueAt(tableExpense.getSelectedRow(), 0));
     }//GEN-LAST:event_optAcquireExpenseActionPerformed
 
     private void optAcquireIncomeActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcquireIncomeActionPerformed

@@ -51,6 +51,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new ExtractsWindow(null, true) {
             private static final long serialVersionUID = -4073298386776028161L;
+
             @Override
             public void dispose() {
                 instance = null;
@@ -196,7 +197,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
 
         }, new String[] { "Período", "Renda", "Despesa", "Saldo" }) {
             /**
-             * Refere-se ap número de série da classe.
+             * Refere-se ao número de série da classe.
              */
             private static final long serialVersionUID = -9172262059319079266L;
             boolean[] canEdit = new boolean[] { false, false, false, false };
@@ -213,7 +214,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         });
         scrollPane.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(100);
+            table.getColumnModel().getColumn(0).setResizable(false);
             table.getColumnModel().getColumn(1).setResizable(false);
             table.getColumnModel().getColumn(2).setResizable(false);
             table.getColumnModel().getColumn(3).setResizable(false);
