@@ -112,6 +112,7 @@ public class ProviderManager extends javax.swing.JDialog {
         if (wasChanged) {
             ViewControl.saveRecord();
             ProviderWindow.updateWindow();
+            MainForm.updateWindow();
         }
         dispose();
     }

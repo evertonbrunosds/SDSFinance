@@ -20,9 +20,12 @@
 package view.windows;
 
 import control.Controller;
+import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import model.business.IAcquisition;
 import util.Converter;
+import view.managers.Show;
 import view.managers.ViewControl;
 
 /**
@@ -60,6 +63,42 @@ public class MainForm extends javax.swing.JFrame {
             model.addRow(Converter.toVector(acquisition));
         });
     }
+    
+    /**
+     * Método responsável por excluir uma lista de aquisições.
+     * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
+     */
+    private void removeAcquisitions() throws ElementNotFoundException {
+        final int[] selectedRows = table.getSelectedRows();
+        if (selectedRows.length > 0) {
+            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n"
+                    + "aquisições selecionadas, deseja prosseguir?")) {
+                IAcquisition acquisition;
+                for (final int row : selectedRows) {
+                    acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
+                    Controller.getInstance().getAcquisitionCollection().remove(acquisition.getKey());
+                }
+                ViewControl.saveRecord();
+                updateWindow();
+            }
+        }
+    }
+    
+    /**
+     * Método responsável por atualizar as opções.
+     */
+    private void updateOptions() {
+        if (table.getRowCount() == 0 || table.getSelectedRow() == -1) {
+            optRemove.setEnabled(false);
+        } else {
+            optRemove.setEnabled(true);
+        }
+        if (table.getRowCount() == 0 || table.getSelectedRow() == -1 || table.getSelectedRows().length > 1) {
+            optEdit.setEnabled(false);
+        } else {
+            optEdit.setEnabled(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,9 +110,8 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        popRemove = new javax.swing.JMenuItem();
-        opoEdit = new javax.swing.JMenuItem();
-        popShow = new javax.swing.JMenuItem();
+        optEdit = new javax.swing.JMenuItem();
+        optRemove = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
@@ -88,19 +126,27 @@ public class MainForm extends javax.swing.JFrame {
         optAbout = new javax.swing.JMenu();
         optAuthor = new javax.swing.JMenuItem();
 
-        popRemove.setText("Excluir");
-        popupMenu.add(popRemove);
+        optEdit.setText("Editar");
+        popupMenu.add(optEdit);
 
-        opoEdit.setText("Editar");
-        popupMenu.add(opoEdit);
-
-        popShow.setText("Exibir");
-        popupMenu.add(popShow);
+        optRemove.setText("Excluir");
+        optRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optRemoveActionPerformed(evt);
+            }
+        });
+        popupMenu.add(optRemove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SDS Finance");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png"))
         );
+
+        scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                scrollPaneMouseReleased(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,7 +276,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optAuthorActionPerformed
 
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
-        if(evt.isMetaDown() && table.getSelectedRow() != -1) {
+        if(evt.isMetaDown()) {
+            updateOptions();
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_tableMouseReleased
@@ -265,6 +312,21 @@ public class MainForm extends javax.swing.JFrame {
         ViewControl.restartRecord();
     }//GEN-LAST:event_optRestartActionPerformed
 
+    private void optRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveActionPerformed
+        try {
+            removeAcquisitions();
+        } catch (ElementNotFoundException ex) {
+            Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+        }
+    }//GEN-LAST:event_optRemoveActionPerformed
+
+    private void scrollPaneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollPaneMouseReleased
+        if(evt.isMetaDown()) {
+            updateOptions();
+            popupMenu.show(this, getMousePosition().x, getMousePosition().y);
+        }
+    }//GEN-LAST:event_scrollPaneMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -297,19 +359,18 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem opoEdit;
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAuthor;
     private javax.swing.JMenuItem optBudgeting;
+    private javax.swing.JMenuItem optEdit;
     private javax.swing.JMenuItem optExport;
     private javax.swing.JMenuItem optExtracts;
     private javax.swing.JMenuItem optImport;
     private javax.swing.JMenuItem optProvider;
     private javax.swing.JMenu optRecorder;
+    private javax.swing.JMenuItem optRemove;
     private javax.swing.JMenuItem optRestart;
     private javax.swing.JMenu optShow;
-    private javax.swing.JMenuItem popRemove;
-    private javax.swing.JMenuItem popShow;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTable table;
