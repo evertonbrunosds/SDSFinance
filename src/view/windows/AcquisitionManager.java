@@ -68,7 +68,6 @@ public class AcquisitionManager extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new AcquisitionManager(null, true) {
             private static final long serialVersionUID = 3313230953225368382L;
-
             @Override
             public void dispose() {
                 instance = null;

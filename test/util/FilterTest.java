@@ -212,11 +212,11 @@ public class FilterTest {
     public void validDateStringNegative() {
         try {
             Filter.invalidDate("-2/-2/-2020");
-            assertTrue(true);
+            fail("não houve desvio de fluxo ao filtrar um data inválida");
         } catch (final NullObjectException ex) {
             fail("exceção de string nula inesperada");
         } catch (final DateInvalidException ex) {
-            fail("exceção de data inválida inesperada");
+            assertTrue(true);
         }
     }
 

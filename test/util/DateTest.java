@@ -159,16 +159,16 @@ public class DateTest {
 
     /**
      * Este teste verifica a efetividade de criação de uma data com o uso de
-     * parâmetros de string contendo valores inteiros negativos, nesse caso a
-     * estrutura deve conter em si a data designada.
+     * parâmetros de string contendo valores inteiros negativos, nesse caso espera-se
+     * que seja lançada uma exceção de data inválida.
      */
     @Test
     public void newDateNegativeString() {
         try {
             final Date date = new Date("-5/-2/-2020");
-            assertEquals("data incorreta", "05/02/2020", date.toString());
+            fail("não houve desvio de fluxo ao criar uma data inválida");
         } catch (final DateInvalidException ex) {
-            fail("exceção de data inválida inesperada");
+            assertTrue(true);
         } catch (final NullObjectException ex) {
             fail("exceção string nula inesperada");
         }
@@ -227,8 +227,8 @@ public class DateTest {
 
     /**
      * Este teste verifica a efetividade de alteração da data com o uso de
-     * parâmetros de string contendo valores inteiros negativos, nesse caso a
-     * estrutura deve conter em sí a nova data informada.
+     * parâmetros de string contendo valores inteiros negativos, nesse caso deve
+     * ser lançada uma exceção de data inválida.
      */
     @Test
     public void setDayMonthYearMonoStringNegative() {
@@ -236,9 +236,9 @@ public class DateTest {
             final Date date = new Date(5, 2, 2020);
             assertEquals("data incorreta", "05/02/2020", date.toString());
             date.setDate("-1/-1/-1997");
-            assertEquals("alteração do ano incorreta", "01/01/1997", date.toString());
+            fail("não houve desvio de fluxo ao alterar uma data para uma outra inválida");
         } catch (final DateInvalidException ex) {
-            fail("exceção de data inválida inesperada");
+            assertTrue(true);
         } catch (final NullObjectException ex) {
             fail("exceção de string nula inesperada");
         }
