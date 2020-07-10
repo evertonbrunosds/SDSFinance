@@ -27,6 +27,7 @@ import util.Date;
 /**
  * Interface responsável por fornecer os métodos de uma coleção de negócios.
  * @author Everton Bruno Silva dos Santos.
+ * @param <T> Refere-se ao tipo de negócio.
  */
 public interface IBusinessCollection<T> extends ICollection<String, T> {
 
@@ -36,7 +37,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
      * @param provider Refere-se ao novo fornecedor.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
-    public void setProvider(String key, IProvider provider) throws ElementNotFoundException;
+    public void setProvider(Comparable<String> key, IProvider provider) throws ElementNotFoundException;
 
     /**
      * Método responsável por alterar a oferta negociada.
@@ -44,7 +45,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
      * @param offer Refere-se a nova oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
-    public void setOffer(String key, IOfferVisible offer) throws ElementNotFoundException;
+    public void setOffer(Comparable<String> key, IOfferVisible offer) throws ElementNotFoundException;
 
     /**
      * Método responsável por alterar o valor da oferta negociada.
@@ -52,7 +53,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
      * @param unitaryValue Refere-se ao novo valor da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
-    public void setUnitaryValue(String key, double unitaryValue) throws ElementNotFoundException;
+    public void setUnitaryValue(Comparable<String> key, double unitaryValue) throws ElementNotFoundException;
 
     /**
      * Método responsável por alterar a quantidade da oferta negociada.
@@ -60,7 +61,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
      * @param amount Refere-se a nova quantidade da oferta.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
-    public void setAmount(String key, int amount) throws ElementNotFoundException;
+    public void setAmount(Comparable<String> key, int amount) throws ElementNotFoundException;
 
     /**
      * Método responsável por alterar a data do necócio.
@@ -68,7 +69,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
-    public void setDate(String key, Date date) throws ElementNotFoundException;
+    public void setDate(Comparable<String> key, Date date) throws ElementNotFoundException;
 
     /**
      * Método responsável por insetir dado negócio na coleção.

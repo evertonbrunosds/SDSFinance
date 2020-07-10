@@ -68,6 +68,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new AcquisitionManager(null, true) {
             private static final long serialVersionUID = 3313230953225368382L;
+
             @Override
             public void dispose() {
                 instance = null;
@@ -103,33 +104,35 @@ public class AcquisitionManager extends javax.swing.JDialog {
         MainForm.updateWindow();
         dispose();
     }
-    
+
     /**
      * Método responsável por editar uma aquisição.
-     * @throws NullObjectException Exceção lançada no caso de haver uma string nula.
-     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
-     * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ter sido encontrado.
+     * @throws NullObjectException          Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException  Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws ElementNotFoundException     Exceção lançada no caso do fornecedor não ter sido encontrado.
      * @throws IntegerValueInvalidException Exceção lançada no caso de um valor inteiro ser inválido.
-     * @throws DateInvalidException Exceção lançada no caso de uma data inválida.
+     * @throws DateInvalidException         Exceção lançada no caso de uma data inválida.
      */
-    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, IntegerValueInvalidException, DateInvalidException {
+    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException,
+            IntegerValueInvalidException, DateInvalidException {
         boolean wasChanged = false;
-        if(!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
-            double value = Converter.toDouble(textValue.getText());
-            Controller.getInstance().getAcquisitionCollection().setUnitaryValue((String) acquisition.getKey(), value);
+        if (!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
+            final double value = Converter.toDouble(textValue.getText());
+            Controller.getInstance().getAcquisitionCollection().setUnitaryValue(acquisition.getKey(), value);
             wasChanged = true;
         }
-        if(!textAmount.getText().equals(Integer.toString(acquisition.getAmount()))) {
-            int amount = Converter.toInteger(textAmount.getText());
-            Controller.getInstance().getAcquisitionCollection().setAmount((String) acquisition.getKey(), amount);
+        if (!textAmount.getText().equals(Integer.toString(acquisition.getAmount()))) {
+            final int amount = Converter.toInteger(textAmount.getText());
+            Controller.getInstance().getAcquisitionCollection().setAmount(acquisition.getKey(), amount);
             wasChanged = true;
         }
-        if(!textDate.getText().equals(acquisition.getDate().toString())) {
-            Controller.getInstance().getAcquisitionCollection().setDate((String) acquisition.getKey(), Factory.date(textDate.getText()));
+        if (!textDate.getText().equals(acquisition.getDate().toString())) {
+            Controller.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(),
+                    Factory.date(textDate.getText()));
             wasChanged = true;
         }
-        if(wasChanged) {
-            
+        if (wasChanged) {
+
             ViewControl.saveRecord();
             MainForm.updateWindow();
         }
@@ -282,15 +285,15 @@ public class AcquisitionManager extends javax.swing.JDialog {
         } else {
             try {
                 editAcquisition();
-            } catch (NullObjectException ex) {
+            } catch (final NullObjectException ex) {
                 Show.warningMessage("Todos os campos devem estar preenchidos.");
-            } catch (DoubleValueInvalidException ex) {
+            } catch (final DoubleValueInvalidException ex) {
                 Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
-            } catch (ElementNotFoundException ex) {
+            } catch (final ElementNotFoundException ex) {
                 Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
-            } catch (IntegerValueInvalidException ex) {
+            } catch (final IntegerValueInvalidException ex) {
                 Show.warningMessage("\"" + ex.getIntegerValueInvalid() + "\" não é um valor inteiro válido.");
-            } catch (DateInvalidException ex) {
+            } catch (final DateInvalidException ex) {
                 Show.warningMessage("\"" + ex.getInvalidDate() + "\" não é uma data válida de aquisição.");
             }
         }

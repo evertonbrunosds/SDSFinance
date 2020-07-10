@@ -45,7 +45,7 @@ public class OrganizationCollection<T> extends Collection<String, T> implements 
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     @Override
-    public void setStreet(final String key, final IStreet newStreet) throws ElementNotFoundException, KeyUsedException {
+    public void setStreet(final Comparable<String> key, final IStreet newStreet) throws ElementNotFoundException, KeyUsedException {
         final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
             final IOrganizationEditable organizationInNewState = (IOrganizationEditable) super.search(
@@ -82,7 +82,7 @@ public class OrganizationCollection<T> extends Collection<String, T> implements 
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     @Override
-    public void setNeighborhood(final String key, final INeighborhood newNeighborhood)
+    public void setNeighborhood(final Comparable<String> key, final INeighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException {
         final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
@@ -120,7 +120,7 @@ public class OrganizationCollection<T> extends Collection<String, T> implements 
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
     @Override
-    public void setCity(final String key, final ICity newCity) throws ElementNotFoundException, KeyUsedException {
+    public void setCity(final Comparable<String> key, final ICity newCity) throws ElementNotFoundException, KeyUsedException {
         final IOrganizationEditable organizationInCurrentState = (IOrganizationEditable) super.search(key);
         try {
             final IOrganizationEditable organizationInNewState = (IOrganizationEditable) super.search(

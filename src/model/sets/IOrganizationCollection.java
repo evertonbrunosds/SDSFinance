@@ -39,7 +39,7 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setStreet(String key, IStreet newStreet) throws ElementNotFoundException, KeyUsedException;
+    public void setStreet(Comparable<String> key, IStreet newStreet) throws ElementNotFoundException, KeyUsedException;
 
     /**
      * Método responsável por alterar o bairro da organização.
@@ -48,7 +48,7 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setNeighborhood(String key, INeighborhood newNeighborhood)
+    public void setNeighborhood(Comparable<String> key, INeighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException;
 
     /**
@@ -58,6 +58,6 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setCity(String key, ICity newCity) throws ElementNotFoundException, KeyUsedException;
+    public void setCity(Comparable<String> key, ICity newCity) throws ElementNotFoundException, KeyUsedException;
 
 }

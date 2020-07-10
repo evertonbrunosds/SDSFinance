@@ -44,7 +44,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setProvider(final String key, final IProvider provider) throws ElementNotFoundException {
+    public void setProvider(final Comparable<String> key, final IProvider provider) throws ElementNotFoundException {
         try {
             this.redefineKey(key, provider);
         } catch (final KeyUsedException ex) {
@@ -60,7 +60,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(final String key, final IProvider provider)
+    private void redefineKey(final Comparable<String> key, final IProvider provider)
             throws ElementNotFoundException, KeyUsedException {
         final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
@@ -97,7 +97,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setOffer(final String key, final IOfferVisible offer) throws ElementNotFoundException {
+    public void setOffer(final Comparable<String> key, final IOfferVisible offer) throws ElementNotFoundException {
         try {
             this.redefineKey(key, offer);
         } catch (final KeyUsedException ex) {
@@ -113,7 +113,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(final String key, final IOfferVisible offer)
+    private void redefineKey(final Comparable<String> key, final IOfferVisible offer)
             throws ElementNotFoundException, KeyUsedException {
         final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
@@ -150,7 +150,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setUnitaryValue(final String key, final double unitaryValue) throws ElementNotFoundException {
+    public void setUnitaryValue(final Comparable<String> key, final double unitaryValue) throws ElementNotFoundException {
         try {
             this.redefineKey(key, unitaryValue);
         } catch (final KeyUsedException ex) {
@@ -166,7 +166,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(final String key, final double unitaryValue)
+    private void redefineKey(final Comparable<String> key, final double unitaryValue)
             throws ElementNotFoundException, KeyUsedException {
         final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
@@ -203,7 +203,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setAmount(final String key, final int amount) throws ElementNotFoundException {
+    public void setAmount(final Comparable<String> key, final int amount) throws ElementNotFoundException {
         ((IBusinessEditable) super.search(key)).setAmount(amount);
     }
 
@@ -214,7 +214,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      */
     @Override
-    public void setDate(final String key, final Date date) throws ElementNotFoundException {
+    public void setDate(final Comparable<String> key, final Date date) throws ElementNotFoundException {
         try {
             this.redefineKey(key, date);
         } catch (final KeyUsedException ex) {
@@ -230,7 +230,7 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(final String key, final Date date) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final Comparable<String> key, final Date date) throws ElementNotFoundException, KeyUsedException {
         final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
             final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(
