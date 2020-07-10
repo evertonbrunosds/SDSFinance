@@ -127,6 +127,11 @@ public class MainForm extends javax.swing.JFrame {
         optAuthor = new javax.swing.JMenuItem();
 
         optEdit.setText("Editar");
+        optEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optEditActionPerformed(evt);
+            }
+        });
         popupMenu.add(optEdit);
 
         optRemove.setText("Excluir");
@@ -326,6 +331,10 @@ public class MainForm extends javax.swing.JFrame {
             popupMenu.show(this, getMousePosition().x, getMousePosition().y);
         }
     }//GEN-LAST:event_scrollPaneMouseReleased
+
+    private void optEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optEditActionPerformed
+        AcquisitionManager.showModal((IAcquisition) table.getValueAt(table.getSelectedRow(), 0));
+    }//GEN-LAST:event_optEditActionPerformed
 
     /**
      * @param args the command line arguments

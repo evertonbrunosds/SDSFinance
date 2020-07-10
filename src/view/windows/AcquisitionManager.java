@@ -103,6 +103,10 @@ public class AcquisitionManager extends javax.swing.JDialog {
         MainForm.updateWindow();
         dispose();
     }
+    
+    private void editAcquisition() {
+        
+    }
 
     /**
      * Método responsável por exibir a janela de adição de aquisições.
@@ -129,7 +133,8 @@ public class AcquisitionManager extends javax.swing.JDialog {
         instance.textDate.setText(acquisition.getDate().toString());
         instance.textValue.setText(Double.toString(acquisition.getOffer().getValue()));
         instance.textAmount.setText(Integer.toString(acquisition.getAmount()));
-        instance.setTitle(acquisition.toString());
+        instance.btnConfirm.setText("Aplicar");
+        instance.setTitle("Editar Aquisição");
         instance.setVisible(true);
     }
 

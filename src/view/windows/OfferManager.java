@@ -97,14 +97,28 @@ public class OfferManager extends javax.swing.JDialog {
      * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
      * @throws ElementNotFoundException    Exceção lançada no caso da oferta não ser encontrada.
      */
-    private void editOffer() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException {
-        if (isExpense) {
-            provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
-        } else {
-            provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+    private void editOffer() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, KeyUsedException {
+        boolean wasChanged = false;
+        if(!textName.getText().equals(offer.toString())) {
+            if (isExpense) {
+                provider.getExpenseCollection().redefineKey(offer.getKey(), textName.getText());
+            } else {
+                provider.getIncomeCollection().redefineKey(offer.getKey(), textName.getText());
+            }
+            wasChanged = true;
         }
-        ViewControl.saveRecord();
-        OfferWindow.updateWindow();
+        if(!textValue.getText().equals(Double.toString(offer.getValue()))) {
+            if (isExpense) {
+                provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            } else {
+                provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            }
+            wasChanged = true;
+        }
+        if(wasChanged) {
+            ViewControl.saveRecord();
+            OfferWindow.updateWindow();
+        }
         dispose();
     }
 
@@ -248,6 +262,8 @@ public class OfferManager extends javax.swing.JDialog {
                 Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
             } catch (final ElementNotFoundException ex) {
                 Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
+            } catch (KeyUsedException ex) {
+                Show.warningMessage("Outra oferta já faz uso do nome \"" + ex.getElement().toString() + "\".");
             }
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
