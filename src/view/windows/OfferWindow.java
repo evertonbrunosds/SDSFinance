@@ -19,11 +19,14 @@
  */
 package view.windows;
 
+import control.Controller;
 import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import model.business.IAcquisition;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
+import model.sets.SimpleStack;
 import util.Converter;
 import view.managers.Show;
 import view.managers.ViewControl;
@@ -112,8 +115,10 @@ public class OfferWindow extends javax.swing.JDialog {
                 for (final int row : selectedRows) {
                     expense = (IOfferVisible) tableExpense.getModel().getValueAt(row, 0);
                     provider.getExpenseCollection().remove(expense.getKey());
+                    removeAcquisitions(expense);
                 }
                 ViewControl.saveRecord();
+                MainForm.updateWindow();
                 updateWindow();
             }
         }
@@ -132,10 +137,29 @@ public class OfferWindow extends javax.swing.JDialog {
                 for (final int row : selectedRows) {
                     income = (IOfferVisible) tableIncome.getModel().getValueAt(row, 0);
                     provider.getIncomeCollection().remove(income.getKey());
+                    removeAcquisitions(income);
                 }
                 ViewControl.saveRecord();
+                MainForm.updateWindow();
                 updateWindow();
             }
+        }
+    }
+    
+    /**
+     * Método responsável por excluir uma lista de aquisições ligadas as ofertas removidas.
+     * @param offer Refere-se a oferta removida.
+     * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
+     */
+    private void removeAcquisitions(final IOfferVisible offer) throws ElementNotFoundException {
+        final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
+        Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+            if(element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
+                simpleStack.push(element);
+            }
+        });
+        while(!simpleStack.isEmpty()) {
+            Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
     }
 
