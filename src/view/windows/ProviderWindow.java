@@ -21,9 +21,12 @@ package view.windows;
 
 import control.Controller;
 import exceptions.ElementNotFoundException;
+import java.util.Iterator;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import model.business.IAcquisition;
 import model.organizations.IProvider;
+import model.sets.SimpleStack;
 import util.Converter;
 import view.managers.Show;
 import view.managers.ViewControl;
@@ -74,6 +77,24 @@ public class ProviderWindow extends javax.swing.JDialog {
             optEdit.setEnabled(true);
         }
     }
+    
+    /**
+     * Método responsável por excluir uma lista de aquisições ligadas aos fornecedores removidos.
+     * @param provider Refere-se ao fornecedor removido.
+     * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
+     */
+    private void removeAcquisitions(final IProvider provider) throws ElementNotFoundException {
+        final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
+        Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+            if(element.getProvider().equals(provider)) {
+                simpleStack.push(element);
+            }
+        });
+        final Iterator<IAcquisition> iterator = simpleStack.iterator();
+        while(iterator.hasNext()) {
+            Controller.getInstance().getAcquisitionCollection().remove(iterator.next().getKey());
+        }
+    }
 
     /**
      * Método responsável por excluir uma lista de fornecedores.
@@ -88,8 +109,10 @@ public class ProviderWindow extends javax.swing.JDialog {
                 for (final int row : selectedRows) {
                     provider = (IProvider) table.getModel().getValueAt(row, 0);
                     Controller.getInstance().getProviderCollection().remove(provider.getKey());
+                    removeAcquisitions(provider);
                 }
                 ViewControl.saveRecord();
+                MainForm.updateWindow();
                 updateWindow();
             }
         }
