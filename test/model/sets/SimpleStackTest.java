@@ -19,7 +19,6 @@
  */
 package model.sets;
 
-import exceptions.ElementNotFoundException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,10 +55,9 @@ public class SimpleStackTest {
     
     /**
      * Este teste verifica a efitividade da inserção e remoção de elementos da pilha simples.
-     * @throws ElementNotFoundException Exceção lançada quando não houver mais elementos contidos na pilha.
      */
     @Test
-    public void pushTest() throws ElementNotFoundException {
+    public void pushTest() {
         simpleStack.push(3);
         simpleStack.push(5);
         simpleStack.push(7);
@@ -68,14 +66,14 @@ public class SimpleStackTest {
         assertSame(7, simpleStack.pop());
         assertSame(5, simpleStack.pop());
         assertSame(3, simpleStack.pop());
+        assertNull(simpleStack.pop());
     }
     
     /**
      * Este teste verifica a evetividade do método isEmpty que junto ao pop pode ser usado como laço.
-     * @throws ElementNotFoundException Exceção lançada quando não houver mais elementos contidos na pilha.
      */
     @Test
-    public void isEmptyTest() throws ElementNotFoundException {
+    public void isEmptyTest() {
         final int[] nVector = new int[]{11, 7, 5, 3};
         simpleStack.push(3);
         simpleStack.push(5);

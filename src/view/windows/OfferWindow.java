@@ -147,7 +147,7 @@ public class OfferWindow extends javax.swing.JDialog {
     }
     
     /**
-     * Método responsável por excluir uma lista de aquisições ligadas as ofertas removidas.
+     * Método responsável por excluir uma pilha de aquisições ligadas as ofertas removidas.
      * @param offer Refere-se a oferta removida.
      * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
      */

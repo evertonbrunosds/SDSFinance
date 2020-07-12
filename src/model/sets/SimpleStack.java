@@ -19,7 +19,6 @@
  */
 package model.sets;
 
-import exceptions.ElementNotFoundException;
 import java.io.Serializable;
 
 /**
@@ -63,22 +62,14 @@ public class SimpleStack<E> implements Serializable {
     /**
      * Método responsável por desempilhar o próximo elemento da pilha simples.
      * @return Retorna elemento da pilha simples.
-     * @throws ElementNotFoundException Exceção lançada no caso de não haverem mais elementos.
      */
-    public E pop() throws ElementNotFoundException {
-        rootNull();
-        final E element = root.element;
-        root = root.next;
-        return element;
-    }
-
-    /**
-     * Método responsável por lançar a exceção de elemento não encontrado no caso de não haverem mais elementos.
-     * @throws ElementNotFoundException Exceção lançada no caso de não haverem mais elementos.
-     */
-    private void rootNull() throws ElementNotFoundException {
-        if (root == null) {
-            throw new ElementNotFoundException();
+    public E pop() {
+        if(root != null) {
+            final E element = root.element;
+            root = root.next;
+            return element;
+        } else {
+            return null;
         }
     }
 
