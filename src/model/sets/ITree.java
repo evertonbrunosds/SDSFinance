@@ -85,5 +85,11 @@ public interface ITree<K, E> extends Serializable {
      * @param element Refere-se aos elementos contidos na árvore.
      */
     public void forEach(boolean reverse, Consumer<? super E> element);
+    
+    /**
+     * Método responsável por coletar as chaves contidas na árvore.
+     * @return Retorna pilha simples de chaves coletadas.
+     */
+    public SimpleStack<Comparable<K>> collectKeys();
 
 }
