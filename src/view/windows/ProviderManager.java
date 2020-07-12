@@ -78,7 +78,7 @@ public class ProviderManager extends javax.swing.JDialog {
         ProviderWindow.updateWindow();
         dispose();
     }
-    
+
     /**
      * Método responsável por editar um fornecedor.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.

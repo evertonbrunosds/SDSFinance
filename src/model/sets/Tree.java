@@ -221,30 +221,6 @@ public class Tree<K, E> implements ITree<K, E> {
             return adjustHeight(currentNode);
         }
     }
-    
-    /**
-     * Método responsável por coletar as chaves contidas na árvore.
-     * @return Retorna pilha simples de chaves coletadas.
-     */
-    @Override
-    public SimpleStack<Comparable<K>>collectKeys() {
-        final SimpleStack<Comparable<K>> simpleStack = new SimpleStack<>();
-        collectKeys(simpleStack, root);
-        return simpleStack;
-    }
-    
-    /**
-     * Método responsável por coletar as chaves contidas na árvore.
-     * @param simpleStack Refere-se a pilha simples que armazenará as chaves coletadas.
-     * @param currentNode Refere-se ao nó atual da recursão.
-     */
-    private void collectKeys(final SimpleStack<Comparable<K>> simpleStack, final Node currentNode) {
-        if(currentNode != null) {
-            collectKeys(simpleStack, currentNode.sonOnTheLeft);
-            simpleStack.push(currentNode.key);
-            collectKeys(simpleStack, currentNode.sonOnTheRight);
-        }
-    }
 
     /**
      * Método responsável por percorrer por todos os elementos contidos na árvore.
