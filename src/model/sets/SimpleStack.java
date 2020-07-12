@@ -21,7 +21,6 @@ package model.sets;
 
 import exceptions.ElementNotFoundException;
 import java.io.Serializable;
-import java.util.function.Consumer;
 
 /**
  * Classe responsável por comportar-se como pilha simples.
@@ -46,13 +45,6 @@ public class SimpleStack<E> implements Serializable {
     }
 
     /**
-     * Método responsável por esvaziar a pilha.
-     */
-    public void clear() {
-        root = null;
-    }
-
-    /**
      * Método responsável por retornar indicativo de que a pilha simples está vazia.
      * @return Retorna indicativo de que a pilha simples está vazia.
      */
@@ -69,16 +61,6 @@ public class SimpleStack<E> implements Serializable {
     }
 
     /**
-     * Método responsável por pré-visualizar o próximo elemento da pilha simples.
-     * @return Retorna elemento da pilha simples.
-     * @throws ElementNotFoundException Exceção lançada no caso de não haverem mais elementos.
-     */
-    public E peek() throws ElementNotFoundException {
-        rootNull();
-        return root.element;
-    }
-
-    /**
      * Método responsável por desempilhar o próximo elemento da pilha simples.
      * @return Retorna elemento da pilha simples.
      * @throws ElementNotFoundException Exceção lançada no caso de não haverem mais elementos.
@@ -88,20 +70,6 @@ public class SimpleStack<E> implements Serializable {
         final E element = root.element;
         root = root.next;
         return element;
-    }
-
-    /**
-     * Método responsável por percorrer por todos os elementos contidos na pilha simples.
-     * @param element Refere-se a cada elemento.
-     */
-    public void forEach(final Consumer<? super E> element) {
-        for (Node tmp = root; tmp != null; tmp = tmp.next) {
-            element.accept(tmp.element);
-        }
-    }
-
-    public java.util.Iterator<E> iterator() {
-        return new Iterator(root);
     }
 
     /**
@@ -141,54 +109,6 @@ public class SimpleStack<E> implements Serializable {
             this.element = element;
             this.next = next;
         }
-    }
-
-    /**
-     * Classe responsável por comportar-se como iterador da pilha simples.
-     * @author Everton Bruno Silva dos Santos.
-     */
-    private class Iterator implements java.util.Iterator<E>, Serializable {
-        /**
-         * Refere-se ao número de série da classe.
-         */
-        private static final long serialVersionUID = -4046287835605039724L;
-        /**
-         * Refere-se ao nó temporário do iterador.
-         */
-        private Node tmp;
-
-        /**
-         * Construtor responsável pelo instanciamento do iterador.
-         * @param tmp Refere-se ao nó temporário do iterador.
-         */
-        public Iterator(final Node tmp) {
-            this.tmp = tmp;
-        }
-
-        /**
-         * Método responsável por retornar indicativo de que há um próximo elemento.
-         * @return Retorna indicativo de que há um próximo elemento.
-         */
-        @Override
-        public boolean hasNext() {
-            return tmp != null;
-        }
-
-        /**
-         * Método responsável por retornar o próximo elemento.
-         * @return Retorna o próximo elemento.
-         */
-        @Override
-        public E next() {
-            if (tmp != null) {
-                final E element = tmp.element;
-                tmp = tmp.next;
-                return element;
-            } else {
-                return null;
-            }
-        }
-
     }
 
 }

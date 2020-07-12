@@ -21,7 +21,6 @@ package view.windows;
 
 import control.Controller;
 import exceptions.ElementNotFoundException;
-import java.util.Iterator;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.business.IAcquisition;
@@ -90,9 +89,8 @@ public class ProviderWindow extends javax.swing.JDialog {
                 simpleStack.push(element);
             }
         });
-        final Iterator<IAcquisition> iterator = simpleStack.iterator();
-        while(iterator.hasNext()) {
-            Controller.getInstance().getAcquisitionCollection().remove(iterator.next().getKey());
+        while(!simpleStack.isEmpty()) {
+            Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
     }
 

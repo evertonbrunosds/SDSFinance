@@ -20,7 +20,6 @@
 package model.sets;
 
 import exceptions.ElementNotFoundException;
-import java.util.Iterator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,7 +33,6 @@ import static org.junit.Assert.*;
  */
 public class SimpleStackTest {
     private SimpleStack<Integer> simpleStack;
-    private int counter;
     
     public SimpleStackTest() {
     }
@@ -50,7 +48,6 @@ public class SimpleStackTest {
     @Before
     public void setUp() {
         this.simpleStack = new SimpleStack<>();
-        counter = 0;
     }
     
     @After
@@ -59,7 +56,7 @@ public class SimpleStackTest {
     
     /**
      * Este teste verifica a efitividade da inserção e remoção de elementos da pilha simples.
-     * @throws ElementNotFoundException Refere-se a exceção lançada quando não houver mais elementos contidos na lista.
+     * @throws ElementNotFoundException Exceção lançada quando não houver mais elementos contidos na pilha.
      */
     @Test
     public void pushTest() throws ElementNotFoundException {
@@ -74,34 +71,19 @@ public class SimpleStackTest {
     }
     
     /**
-     * Este teste verifica a efetividade do forEach da pilha simples.
+     * Este teste verifica a evetividade do método isEmpty que junto ao pop pode ser usado como laço.
+     * @throws ElementNotFoundException Exceção lançada quando não houver mais elementos contidos na pilha.
      */
     @Test
-    public void forEachTest() {
-        final int[] nVector = new int[] {11, 7, 5, 3};
+    public void isEmptyTest() throws ElementNotFoundException {
+        final int[] nVector = new int[]{11, 7, 5, 3};
         simpleStack.push(3);
         simpleStack.push(5);
         simpleStack.push(7);
         simpleStack.push(11);
-        simpleStack.forEach(element -> {
-            assertSame(nVector[counter], element);
-            counter++;
-        });
-    }
-    
-    /**
-     * Este teste verifica a efetividade do iterador da pilha simples.
-     */
-    @Test
-    public void iteratorTest() {
-        final int[] nVector = new int[] {11, 7, 5, 3};
-        simpleStack.push(3);
-        simpleStack.push(5);
-        simpleStack.push(7);
-        simpleStack.push(11);
-        Iterator<Integer> iterator = simpleStack.iterator();
-        while(iterator.hasNext()) {
-            assertSame(nVector[counter], iterator.next());
+        int counter = 0;
+        while(!simpleStack.isEmpty()) {
+            assertSame(nVector[counter], simpleStack.pop());
             counter++;
         }
     }
