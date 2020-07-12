@@ -23,7 +23,9 @@ import control.Controller;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
+import model.business.IAcquisition;
 import model.organizations.IProvider;
+import model.sets.SimpleStack;
 import model.territories.ICity;
 import model.territories.INeighborhood;
 import model.territories.IStreet;
@@ -80,35 +82,56 @@ public class ProviderManager extends javax.swing.JDialog {
     }
 
     /**
+     * Método responsável por coletar alterações.
+     * @param keys Refere-se as chaves em estado pré-alteração.
+     * @param acquisitions Refere-se as aquisições afetadas.
+     */
+    private void collectChanges(final SimpleStack<Comparable<String>> keys, final SimpleStack<IAcquisition> acquisitions) {
+        if(keys.isEmpty() && acquisitions.isEmpty()) {
+            Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+                if(element.getProvider().equals(provider)) {
+                    keys.push(element.getKey());
+                    acquisitions.push(element);
+                }
+            });
+        }
+    }
+    
+    /**
      * Método responsável por editar um fornecedor.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
     private void editProvider() throws NullObjectException, ElementNotFoundException, KeyUsedException {
-        boolean wasChanged = false;
+        final SimpleStack<Comparable<String>> keys = new SimpleStack<>();
+        final SimpleStack<IAcquisition> acquisitions = new SimpleStack<>();
         if (!textCity.getText().equals(provider.getCity().toString())) {
+            collectChanges(keys, acquisitions);
             final ICity city = Factory.city(textCity.getText());
             Controller.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
-            wasChanged = true;
         }
         if (!textNeighborhood.getText().equals(provider.getNeighborhood().toString())) {
+            collectChanges(keys, acquisitions);
             final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
             Controller.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(),
                     neighborhood);
-            wasChanged = true;
         }
         if (!textStreet.getText().equals(provider.getStreet().toString())) {
+            collectChanges(keys, acquisitions);
             final IStreet street = Factory.street(textStreet.getText());
             Controller.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
-            wasChanged = true;
         }
         if (!textName.getText().equals(provider.toString())) {
+            collectChanges(keys, acquisitions);
             Controller.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(),
                     textName.getText());
-            wasChanged = true;
         }
-        if (wasChanged) {
+        if (!keys.isEmpty()) {
+            while(!keys.isEmpty()) {
+                Controller.getInstance().getAcquisitionCollection().remove(keys.pop());
+                Controller.getInstance().getAcquisitionCollection().insert(acquisitions.pop());
+            }
             ViewControl.saveRecord();
             ProviderWindow.updateWindow();
             MainForm.updateWindow();
