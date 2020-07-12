@@ -1,0 +1,109 @@
+/*
+ * This file is part of the SDSFinance Open Source Project.
+ * SDSFinance is licensed under the GNU GPLv3.
+ *
+ * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package model.sets;
+
+import exceptions.ElementNotFoundException;
+import java.util.Iterator;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * Classe responsável por testar a pilha simples.
+ * @author Everton Bruno Silva dos Santos.
+ */
+public class SimpleStackTest {
+    private SimpleStack<Integer> simpleStack;
+    private int counter;
+    
+    public SimpleStackTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+        this.simpleStack = new SimpleStack<>();
+        counter = 0;
+    }
+    
+    @After
+    public void tearDown() {
+    }
+    
+    /**
+     * Este teste verifica a efitividade da inserção e remoção de elementos da pilha simples.
+     * @throws ElementNotFoundException Refere-se a exceção lançada quando não houver mais elementos contidos na lista.
+     */
+    @Test
+    public void pushTest() throws ElementNotFoundException {
+        simpleStack.push(3);
+        simpleStack.push(5);
+        simpleStack.push(7);
+        simpleStack.push(11);
+        assertSame(11, simpleStack.pop());
+        assertSame(7, simpleStack.pop());
+        assertSame(5, simpleStack.pop());
+        assertSame(3, simpleStack.pop());
+    }
+    
+    /**
+     * Este teste verifica a efetividade do forEach da pilha simples.
+     */
+    @Test
+    public void forEachTest() {
+        final int[] nVector = new int[] {11, 7, 5, 3};
+        simpleStack.push(3);
+        simpleStack.push(5);
+        simpleStack.push(7);
+        simpleStack.push(11);
+        simpleStack.forEach(element -> {
+            assertSame(nVector[counter], element);
+            counter++;
+        });
+    }
+    
+    /**
+     * Este teste verifica a efetividade do iterador da pilha simples.
+     */
+    @Test
+    public void iteratorTest() {
+        final int[] nVector = new int[] {11, 7, 5, 3};
+        simpleStack.push(3);
+        simpleStack.push(5);
+        simpleStack.push(7);
+        simpleStack.push(11);
+        Iterator<Integer> iterator = simpleStack.iterator();
+        while(iterator.hasNext()) {
+            assertSame(nVector[counter], iterator.next());
+            counter++;
+        }
+    }
+    
+}
