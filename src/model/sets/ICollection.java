@@ -58,7 +58,7 @@ public interface ICollection<K, E> extends Serializable {
     public boolean isContains(Comparable<K> key);
 
     /**
-     * Método responsável por insetir dado elemento na coleção.
+     * Método responsável por inserir dado elemento na coleção.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave do elemento estar em uso.
      */

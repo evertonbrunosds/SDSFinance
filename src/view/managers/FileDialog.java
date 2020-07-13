@@ -36,7 +36,7 @@ public class FileDialog {
      * Construtor responsável pelo instanciamento do diálogo.
      * @param title                   Refere-se ao título do diálogo.
      * @param textAproveButton        Refere-se ao texto do botão de aprovação.
-     * @param fileNameExtensionFilter Refere-se ao filtro de extenções.
+     * @param fileNameExtensionFilter Refere-se ao filtro de extensões.
      */
     public FileDialog(final String title, final String textAproveButton,
             final FileNameExtensionFilter fileNameExtensionFilter) {
@@ -50,7 +50,7 @@ public class FileDialog {
      * Método responsável por executar a janela de dialogo.
      * @return Retorna resultado da execução.
      */
-    public boolean exceute() {
+    public boolean execute() {
         return fileChooser.showDialog(null, fileChooser.getApproveButtonText()) == JFileChooser.APPROVE_OPTION;
     }
 

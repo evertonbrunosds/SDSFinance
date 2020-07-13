@@ -29,7 +29,7 @@ import model.territories.IStreet;
 
 /**
  * Interface responsável por fornecer os métodos de organização visível.
- * @author Everton Bruno Silva dos Sanots.
+ * @author Everton Bruno Silva dos Santos.
  */
 public interface IOrganizationVisible extends Serializable {
 

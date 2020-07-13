@@ -64,7 +64,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
     public void setAmount(Comparable<String> key, int amount) throws ElementNotFoundException;
 
     /**
-     * Método responsável por alterar a data do necócio.
+     * Método responsável por alterar a data do negócio.
      * @param key  Refere-se a chave do negócio.
      * @param date Refere-se a nova data do negócio.
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
@@ -72,7 +72,7 @@ public interface IBusinessCollection<T> extends ICollection<String, T> {
     public void setDate(Comparable<String> key, Date date) throws ElementNotFoundException;
 
     /**
-     * Método responsável por insetir dado negócio na coleção.
+     * Método responsável por inserir dado negócio na coleção.
      * @param newElement Refere-se ao elemento.
      */
     @Override

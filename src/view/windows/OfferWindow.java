@@ -66,7 +66,7 @@ public class OfferWindow extends javax.swing.JDialog {
     }
 
     /**
-     * Método responsável por atualizar a jenala de ofertas.
+     * Método responsável por atualizar a janela de ofertas.
      */
     public static void updateWindow() {
         if (instance != null) {
@@ -110,7 +110,7 @@ public class OfferWindow extends javax.swing.JDialog {
         final int[] selectedRows = tableExpense.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
-                    + "mas também todas as aquisições atribuidas a elas, deseja prosseguir?")) {
+                    + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
                 IOfferVisible expense;
                 for (final int row : selectedRows) {
                     expense = (IOfferVisible) tableExpense.getModel().getValueAt(row, 0);
@@ -132,7 +132,7 @@ public class OfferWindow extends javax.swing.JDialog {
         final int[] selectedRows = tableIncome.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
-                    + "mas também todas as aquisições atribuidas a elas, deseja prosseguir?")) {
+                    + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
                 IOfferVisible income;
                 for (final int row : selectedRows) {
                     income = (IOfferVisible) tableIncome.getModel().getValueAt(row, 0);
@@ -223,7 +223,7 @@ public class OfferWindow extends javax.swing.JDialog {
         scrollPaneIncome = new javax.swing.JScrollPane();
         tableIncome = new javax.swing.JTable();
 
-        optAcquireExpense.setText("Adiquirir");
+        optAcquireExpense.setText("Adquirir");
         optAcquireExpense.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 optAcquireExpenseActionPerformed(evt);
@@ -255,7 +255,7 @@ public class OfferWindow extends javax.swing.JDialog {
         });
         popupMenuExpense.add(optEditExpense);
 
-        optAcquireIncome.setText("Adiquirir");
+        optAcquireIncome.setText("Adquirir");
         optAcquireIncome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 optAcquireIncomeActionPerformed(evt);

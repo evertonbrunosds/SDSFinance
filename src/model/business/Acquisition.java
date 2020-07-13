@@ -57,9 +57,9 @@ public class Acquisition implements IAcquisition, IBusinessEditable {
     /**
      * Construtor responsável pelo instanciamento da aquisição.
      * @param provider Refere-se ao fornecedor da aquisição.
-     * @param offer    Refere-se a oferta adiquirida.
-     * @param amount   Refere-se a quantidade em que foi adiquirida.
-     * @param date     Refere-se a data em que foi adiquirida.
+     * @param offer    Refere-se a oferta adquirida.
+     * @param amount   Refere-se a quantidade em que foi adquirida.
+     * @param date     Refere-se a data em que foi adquirida.
      */
     public Acquisition(final IProvider provider, final IOfferVisible offer, final int amount, final Date date) {
         this.provider = provider;

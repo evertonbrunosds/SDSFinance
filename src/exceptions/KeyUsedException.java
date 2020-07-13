@@ -35,15 +35,15 @@ public class KeyUsedException extends Exception {
 
     /**
      * Construtor responsável pelo instanciamento da exceção de chave usada.
-     * @param element Refere-se ao elemento detendor da chave.
+     * @param element Refere-se ao elemento detentor da chave.
      */
     public KeyUsedException(final Object element) {
         this.element = element;
     }
 
     /**
-     * Método responsável por retornar o elemento detendor da chave.
-     * @return Retorna elemento detendor da chave.
+     * Método responsável por retornar o elemento detentor da chave.
+     * @return Retorna elemento detentor da chave.
      */
     public Object getElement() {
         return element;

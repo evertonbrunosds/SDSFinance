@@ -56,7 +56,7 @@ public class OfferManager extends javax.swing.JDialog {
      */
     private IOfferVisible offer;
     /**
-     * Refere-se a informação boleana que indica se a oferta é uma despesa.
+     * Refere-se a informação booleana que indica se a oferta é uma despesa.
      */
     private boolean isExpense;
 
@@ -173,7 +173,7 @@ public class OfferManager extends javax.swing.JDialog {
     /**
      * Método responsável por exibir a janela de adição de ofertas a dado fornecedor.
      * @param provider  Refere-se ao fornecedor.
-     * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
+     * @param isExpense Refere-se a informação booleana que indica se a oferta é uma despesa.
      */
     public static void showModal(final IProvider provider, final boolean isExpense) {
         createInstance();
@@ -186,7 +186,7 @@ public class OfferManager extends javax.swing.JDialog {
      * Método responsável por exibir a janela de edição de ofertas de dado fornecedor.
      * @param provider  Refere-se ao fornecedor.
      * @param offer     Refere-se a oferta.
-     * @param isExpense Refere-se a informação boleana que indica se a oferta é uma despesa.
+     * @param isExpense Refere-se a informação booleana que indica se a oferta é uma despesa.
      */
     public static void showModal(final IProvider provider, final IOfferVisible offer, final boolean isExpense) {
         createInstance();

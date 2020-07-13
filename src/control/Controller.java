@@ -76,7 +76,7 @@ public class Controller implements IController {
      */
     private IOrganizationCollection<IProvider> providerCollection;
     /**
-     * Refere-se a coleção de aquisições realisadas.
+     * Refere-se a coleção de aquisições realizadas.
      */
     private IBusinessCollection<IAcquisition> acquisitionCollection;
 

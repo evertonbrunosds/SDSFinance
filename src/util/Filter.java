@@ -47,7 +47,7 @@ public abstract class Filter {
     }
 
     /**
-     * Método responsável por realizar a flitragem de valores decimais válidos.
+     * Método responsável por realizar a filtragem de valores decimais válidos.
      * @param value Refere-se ao valor possívelmente válido.
      * @throws NullObjectException         Exceção lançada em caso de string nula.
      * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal inválido.
@@ -62,7 +62,7 @@ public abstract class Filter {
     }
 
     /**
-     * Método responsável por realizar a flitragem de valores inteiros válidos.
+     * Método responsável por realizar a filtragem de valores inteiros válidos.
      * @param value Refere-se ao valor possívelmente válido.
      * @throws NullObjectException          Exceção lançada em caso de string nula.
      * @throws IntegerValueInvalidException Exceção lançada em caso de valor inteiro inválido.
@@ -78,7 +78,7 @@ public abstract class Filter {
     }
 
     /**
-     * Método responsável por realizar a flitragem de datas válidas.
+     * Método responsável por realizar a filtragem de datas válidas.
      * @param date Refere-se a data possívelmente válida.
      * @throws NullObjectException  Exceção lançada em caso de data nula.
      * @throws DateInvalidException Exceção lançada em caso de data inválida.
@@ -89,7 +89,7 @@ public abstract class Filter {
     }
 
     /**
-     * Método responsável por realizar a flitragem de datas válidas.
+     * Método responsável por realizar a filtragem de datas válidas.
      * @param day   Refere-se ao dia.
      * @param month Refere-se ao mês.
      * @param year  Refere-se ao ano.

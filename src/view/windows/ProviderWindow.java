@@ -50,6 +50,7 @@ public class ProviderWindow extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new ProviderWindow(null, true) {
             private static final long serialVersionUID = 8883668983947526195L;
+
             @Override
             public void dispose() {
                 instance = null;
@@ -69,14 +70,14 @@ public class ProviderWindow extends javax.swing.JDialog {
             optRemove.setEnabled(true);
         }
         if (table.getRowCount() == 0 || table.getSelectedRow() == -1 || table.getSelectedRows().length > 1) {
-            optAcess.setEnabled(false);
+            optAccess.setEnabled(false);
             optEdit.setEnabled(false);
         } else {
-            optAcess.setEnabled(true);
+            optAccess.setEnabled(true);
             optEdit.setEnabled(true);
         }
     }
-    
+
     /**
      * Método responsável por excluir uma lista de aquisições ligadas aos fornecedores removidos.
      * @param provider Refere-se ao fornecedor removido.
@@ -85,11 +86,11 @@ public class ProviderWindow extends javax.swing.JDialog {
     private void removeAcquisitions(final IProvider provider) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
         Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
-            if(element.getProvider().equals(provider)) {
+            if (element.getProvider().equals(provider)) {
                 simpleStack.push(element);
             }
         });
-        while(!simpleStack.isEmpty()) {
+        while (!simpleStack.isEmpty()) {
             Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
     }
@@ -102,7 +103,7 @@ public class ProviderWindow extends javax.swing.JDialog {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n"
-                    + "também todas as suas ofertas e aquisições atribuidas a eles, deseja prosseguir?")) {
+                    + "também todas as suas ofertas e aquisições atribuídas a eles, deseja prosseguir?")) {
                 IProvider provider;
                 for (final int row : selectedRows) {
                     provider = (IProvider) table.getModel().getValueAt(row, 0);
@@ -152,20 +153,20 @@ public class ProviderWindow extends javax.swing.JDialog {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        optAcess = new javax.swing.JMenuItem();
+        optAccess = new javax.swing.JMenuItem();
         optAdd = new javax.swing.JMenuItem();
         optRemove = new javax.swing.JMenuItem();
         optEdit = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
-        optAcess.setText("Acessar");
-        optAcess.addActionListener(new java.awt.event.ActionListener() {
+        optAccess.setText("Acessar");
+        optAccess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                optAcessActionPerformed(evt);
+                optAccessActionPerformed(evt);
             }
         });
-        popupMenu.add(optAcess);
+        popupMenu.add(optAccess);
 
         optAdd.setText("Adicionar");
         optAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -263,12 +264,12 @@ public class ProviderWindow extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_optRemoveActionPerformed
 
-    private void optAcessActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcessActionPerformed
+    private void optAccessActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAccessActionPerformed
         OfferWindow.showModal((IProvider) table.getModel().getValueAt(table.getSelectedRow(), 0));
-    }//GEN-LAST:event_optAcessActionPerformed
+    }//GEN-LAST:event_optAccessActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem optAcess;
+    private javax.swing.JMenuItem optAccess;
     private javax.swing.JMenuItem optAdd;
     private javax.swing.JMenuItem optEdit;
     private javax.swing.JMenuItem optRemove;

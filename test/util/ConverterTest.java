@@ -210,7 +210,7 @@ public class ConverterTest {
      */
     @Test
     public void positiveValueIntegerToNegativeValueInteger() {
-        assertEquals(-5, Converter.toNegtive(5));
+        assertEquals(-5, Converter.toNegative(5));
     }
     
     /**
@@ -219,7 +219,7 @@ public class ConverterTest {
      */
     @Test
     public void negativeValueIntegerToNegativeValueInteger() {
-        assertEquals(-5, Converter.toNegtive(-5));
+        assertEquals(-5, Converter.toNegative(-5));
     }
     
     /**
@@ -228,7 +228,7 @@ public class ConverterTest {
      */
     @Test
     public void positiveValueDoubleToNegativeValueDoble() {
-        assertEquals(-5.56, Converter.toNegtive(5.56), 0.00);
+        assertEquals(-5.56, Converter.toNegative(5.56), 0.00);
     }
     
     /**
@@ -237,7 +237,7 @@ public class ConverterTest {
      */
     @Test
     public void negativeValueDoubleToNegativeValueDouble() {
-        assertEquals(-5.56, Converter.toNegtive(-5.56), 0.00);
+        assertEquals(-5.56, Converter.toNegative(-5.56), 0.00);
     }
     
     /**

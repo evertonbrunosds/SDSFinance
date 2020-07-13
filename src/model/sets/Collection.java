@@ -85,7 +85,7 @@ public class Collection<K, E> implements ICollection<K, E> {
     }
 
     /**
-     * Método responsável por insetir dado elemento na coleção.
+     * Método responsável por inserir dado elemento na coleção.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave do elemento estar em uso.
      */

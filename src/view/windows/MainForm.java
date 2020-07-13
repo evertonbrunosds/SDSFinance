@@ -55,7 +55,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     /**
-     * Método responsável por atualizar a jenala principal.
+     * Método responsável por atualizar a janela principal.
      */
     public static void updateWindow() {
         if (instance != null) {
@@ -74,7 +74,7 @@ public class MainForm extends javax.swing.JFrame {
     private void removeAcquisitions() throws ElementNotFoundException {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
-            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n"
+            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n" 
                     + "aquisições selecionadas, deseja prosseguir?")) {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
@@ -97,10 +97,10 @@ public class MainForm extends javax.swing.JFrame {
             optRemoveAcquisition.setEnabled(true);
         }
         if (table.getRowCount() == 0 || table.getSelectedRow() == -1 || table.getSelectedRows().length > 1) {
-            optAcessProvider.setEnabled(false);
+            optAccessProvider.setEnabled(false);
             optEditAcquisition.setEnabled(false);
         } else {
-            optAcessProvider.setEnabled(true);
+            optAccessProvider.setEnabled(true);
             optEditAcquisition.setEnabled(true);
         }
     }
@@ -109,7 +109,7 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        optAcessProvider = new javax.swing.JMenuItem();
+        optAccessProvider = new javax.swing.JMenuItem();
         optEditAcquisition = new javax.swing.JMenuItem();
         optRemoveAcquisition = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
@@ -126,13 +126,13 @@ public class MainForm extends javax.swing.JFrame {
         optAbout = new javax.swing.JMenu();
         optAuthor = new javax.swing.JMenuItem();
 
-        optAcessProvider.setText("Acessar Fornecedor");
-        optAcessProvider.addActionListener(new java.awt.event.ActionListener() {
+        optAccessProvider.setText("Acessar Fornecedor");
+        optAccessProvider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                optAcessProviderActionPerformed(evt);
+                optAccessProviderActionPerformed(evt);
             }
         });
-        popupMenu.add(optAcessProvider);
+        popupMenu.add(optAccessProvider);
 
         optEditAcquisition.setText("Editar Aquisição");
         optEditAcquisition.addActionListener(new java.awt.event.ActionListener() {
@@ -337,9 +337,9 @@ public class MainForm extends javax.swing.JFrame {
         AcquisitionManager.showModal((IAcquisition) table.getValueAt(table.getSelectedRow(), 0));
     }//GEN-LAST:event_optEditAcquisitionActionPerformed
 
-    private void optAcessProviderActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAcessProviderActionPerformed
+    private void optAccessProviderActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAccessProviderActionPerformed
         OfferWindow.showModal((IProvider) table.getValueAt(table.getSelectedRow(), 1));
-    }//GEN-LAST:event_optAcessProviderActionPerformed
+    }//GEN-LAST:event_optAccessProviderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,7 +363,7 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu optAbout;
-    private javax.swing.JMenuItem optAcessProvider;
+    private javax.swing.JMenuItem optAccessProvider;
     private javax.swing.JMenuItem optAuthor;
     private javax.swing.JMenuItem optBudgeting;
     private javax.swing.JMenuItem optEditAcquisition;

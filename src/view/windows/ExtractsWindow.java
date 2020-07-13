@@ -281,7 +281,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         private final String period;
 
         /**
-         * Construtor responsável pelo instnaciamento do extrato num contexto diário.
+         * Construtor responsável pelo instanciamento do extrato num contexto diário.
          * @param value Refere-se ao valor do extrato.
          * @param day   Refere-se ao dia do extrato.
          * @param month Refere-se ao mês do extrato.
@@ -296,7 +296,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         }
 
         /**
-         * Construtor responsável pelo instnaciamento do extrato num contexto mensal.
+         * Construtor responsável pelo instanciamento do extrato num contexto mensal.
          * @param value Refere-se ao valor do extrato.
          * @param month Refere-se ao mês do extrato.
          * @param year  Refere-se ao ano do extrato.
@@ -310,7 +310,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         }
 
         /**
-         * Construtor responsável pelo instnaciamento do extrato num contexto anual.
+         * Construtor responsável pelo instanciamento do extrato num contexto anual.
          * @param value Refere-se ao valor do extrato.
          * @param year  Refere-se ao ano do extrato.
          */

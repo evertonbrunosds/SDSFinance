@@ -81,7 +81,7 @@ public abstract class ViewControl {
         final String textAproveButton = "Exportar";
         final String title = "Exportar Registro";
         final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
-        if (fileDialog.exceute()) {
+        if (fileDialog.execute()) {
             try {
                 Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
             } catch (final NullObjectException ex) {
@@ -101,7 +101,7 @@ public abstract class ViewControl {
             final String textAproveButton = "Importar";
             final String title = "Importar Registro";
             final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
-            if (fileDialog.exceute()) {
+            if (fileDialog.execute()) {
                 try {
                     Controller.getInstance().loadFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
                     saveRecord();
@@ -142,7 +142,7 @@ public abstract class ViewControl {
     }
     
     /**
-     * Método responsável por reiniciar registros do disposotivo.
+     * Método responsável por reiniciar registros do dispositivo.
      */
     public static void restartRecord() {
         if(Show.questionMessage("Esta ação provocará a perda permanente de todos os\n" 

@@ -51,7 +51,7 @@ public class Income implements IIncome, IOfferEditable {
      * Construtor responsável pelo instanciamento da renda.
      * @param name  Refere-se ao nome da renda.
      * @param value Refere-se ao valor da renda.
-     * @throws NullObjectException Exceção lançada em caso de nome de renada nula.
+     * @throws NullObjectException Exceção lançada em caso de nome de renda nula.
      */
     public Income(final String name, final double value) throws NullObjectException {
         Filter.nullObject(name);

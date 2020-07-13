@@ -188,7 +188,7 @@ public class Tree<K, E> implements ITree<K, E> {
     }
 
     /**
-     * Método responsável por insetir dado elemento na árvore.
+     * Método responsável por inserir dado elemento na árvore.
      * @param key     Refere-se a chave do elemento.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.
@@ -199,7 +199,7 @@ public class Tree<K, E> implements ITree<K, E> {
     }
 
     /**
-     * Método responsável por insetir dado elemento na árvore.
+     * Método responsável por inserir dado elemento na árvore.
      * @param key         Refere-se a chave do elemento.
      * @param element     Refere-se ao elemento.
      * @param currentNode Refere-se ao nó atual da inserção.
@@ -300,7 +300,7 @@ public class Tree<K, E> implements ITree<K, E> {
             }
         } else if (currentNode.balancing >= 2) {
             if (currentNode.balancing * currentNode.sonOnTheRight.balancing > 0) {
-                return simpleRotationRigth(currentNode.sonOnTheRight, currentNode);
+                return simpleRotationRight(currentNode.sonOnTheRight, currentNode);
             } else {
                 return doubleRotationRight(currentNode.sonOnTheRight, currentNode);
             }
@@ -326,7 +326,7 @@ public class Tree<K, E> implements ITree<K, E> {
      * @param oldRoot Refere-se ao antigo nó raiz.
      * @return Retorna nó raiz de árvore rotacionada a direita.
      */
-    private Node simpleRotationRigth(final Node newRoot, final Node oldRoot) {
+    private Node simpleRotationRight(final Node newRoot, final Node oldRoot) {
         oldRoot.sonOnTheRight = newRoot.sonOnTheLeft;
         newRoot.sonOnTheLeft = oldRoot;
         return newRoot;
@@ -355,7 +355,7 @@ public class Tree<K, E> implements ITree<K, E> {
         oldRoot.sonOnTheRight = sonOnTheRight.sonOnTheLeft;
         sonOnTheRight.sonOnTheLeft = oldRoot.sonOnTheRight.sonOnTheRight;
         oldRoot.sonOnTheRight.sonOnTheRight = sonOnTheRight;
-        return simpleRotationRigth(oldRoot.sonOnTheRight, oldRoot);
+        return simpleRotationRight(oldRoot.sonOnTheRight, oldRoot);
     }
 
     /**
@@ -384,7 +384,7 @@ public class Tree<K, E> implements ITree<K, E> {
          */
         private Node sonOnTheLeft;
         /**
-         * Refere-se ao filgo a direita do nó.
+         * Refere-se ao filho a direita do nó.
          */
         private Node sonOnTheRight;
 

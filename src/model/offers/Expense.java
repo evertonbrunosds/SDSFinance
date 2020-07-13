@@ -56,7 +56,7 @@ public class Expense implements IExpense, IOfferEditable {
     public Expense(final String name, final double value) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-        this.value = Converter.toNegtive(value);
+        this.value = Converter.toNegative(value);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Expense implements IExpense, IOfferEditable {
      */
     @Override
     public void setValue(final double value) {
-        this.value = Converter.toNegtive(value);
+        this.value = Converter.toNegative(value);
     }
 
     /**

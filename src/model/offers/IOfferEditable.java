@@ -43,7 +43,7 @@ public interface IOfferEditable extends IOfferVisible, IElement<String> {
     public void setKey(String key) throws NullObjectException;
 
     /**
-     * Método responsável por pré-visualizar chave da ofeta pós-alterações.
+     * Método responsável por pré-visualizar chave da oferta pós-alterações.
      * @param key Refere-se ao novo nome.
      * @return Retorna pré-visualização de nova chave.
      * @throws NullObjectException Exceção lançada em caso de nome de oferta nula.

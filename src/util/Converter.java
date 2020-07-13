@@ -72,7 +72,7 @@ public abstract class Converter {
      * @param value Refere-se ao eventual valor positivo.
      * @return Retorna valor negativo.
      */
-    public static double toNegtive(double value) {
+    public static double toNegative(double value) {
         if (value > 0) {
             value *= -1;
         }
@@ -117,7 +117,7 @@ public abstract class Converter {
      * @param value Refere-se ao eventual valor positivo.
      * @return Retorna valor negativo.
      */
-    public static int toNegtive(int value) {
+    public static int toNegative(int value) {
         if (value > 0) {
             value *= -1;
         }
@@ -125,10 +125,10 @@ public abstract class Converter {
     }
 
     /**
-     * Método responsável por converter para ao nome de extenção indicado, eventuais caminhos de arquivo.
-     * @param pathFile      Refere-se ao eventual caminho de arquivo sem o nome de extenção.
-     * @param extensionName Refere-se ao novo nome de extenção.
-     * @return Retorna caminho de arquivo com nome de extenção.
+     * Método responsável por converter para ao nome de extensão indicado, eventuais caminhos de arquivo.
+     * @param pathFile      Refere-se ao eventual caminho de arquivo sem o nome de extensão.
+     * @param extensionName Refere-se ao novo nome de extensão.
+     * @return Retorna caminho de arquivo com nome de extensão.
      */
     public static String toExtensionName(final String pathFile, final String extensionName) {
         if (extensionName != null && pathFile != null) {

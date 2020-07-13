@@ -72,7 +72,7 @@ public interface ITree<K, E> extends Serializable {
     public void remove(Comparable<K> key) throws ElementNotFoundException;
 
     /**
-     * Método responsável por insetir dado elemento na árvore.
+     * Método responsável por inserir dado elemento na árvore.
      * @param key     Refere-se a chave do elemento.
      * @param element Refere-se ao elemento.
      * @throws KeyUsedException Exceção lançada no caso da chave estar em uso.

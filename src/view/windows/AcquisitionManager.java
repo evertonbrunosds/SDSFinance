@@ -205,7 +205,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
 
         textDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        btnConfirm.setText("Adiquirir");
+        btnConfirm.setText("Adquirir");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);

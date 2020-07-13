@@ -35,7 +35,7 @@ public class DateInvalidException extends Exception {
 
     /**
      * Construtor responsável pelo instanciamento da exceção de data inválida.
-     * @param invalidDate Refere-se a data invlálida.
+     * @param invalidDate Refere-se a data inválida.
      */
     public DateInvalidException(final String invalidDate) {
         this.invalidDate = invalidDate;

@@ -47,7 +47,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      */
     private IStreet street;
     /**
-     * Refere-se ao bairro do forencedor.
+     * Refere-se ao bairro do fornecedor.
      */
     private INeighborhood neighborhood;
     /**

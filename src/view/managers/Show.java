@@ -46,7 +46,7 @@ public abstract class Show {
     /**
      * Método responsável por exibir mensagens de questionamento.
      * @param msg Refere-se ao conteúdo da mensagem.
-     * @return Retorna escolha boleana do usuário.
+     * @return Retorna escolha booleana do usuário.
      */
     public static boolean questionMessage(final String msg) {
         final String[] options = { "Não", "Sim" };

@@ -20,7 +20,7 @@
 package util;
 
 /**
- * Interface responsável por fornecer o método de duplicabilidade.
+ * Interface responsável por fornecer o método de duplicação.
  * @author Everton Bruno Silva dos Santos.
  */
 public interface IDuplicable {

@@ -152,9 +152,9 @@ public abstract class Factory {
     /**
      * Método responsável por gerar instância de aquisição.
      * @param provider Refere-se ao fornecedor da oferta.
-     * @param offer    Refere-se a oferta adiquirida.
-     * @param amount   Refere-se a quantidade em que foi adiquirida.
-     * @param date     Refere-se a data em que foi adiquirida.
+     * @param offer    Refere-se a oferta adquirida.
+     * @param amount   Refere-se a quantidade em que foi adquirida.
+     * @param date     Refere-se a data em que foi adquirida.
      * @return Retorna instância de aquisição.
      * @throws NullObjectException          Exceção lançada no caso de haver o uso de strings nulas.
      * @throws IntegerValueInvalidException Exceção lançada no caso do valor quantitativo ser inválido.
