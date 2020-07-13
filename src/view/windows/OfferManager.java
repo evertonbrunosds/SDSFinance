@@ -19,6 +19,7 @@
  */
 package view.windows;
 
+import control.Controller;
 import exceptions.DoubleValueInvalidException;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
@@ -27,6 +28,7 @@ import model.offers.IExpense;
 import model.offers.IIncome;
 import model.offers.IOfferVisible;
 import model.organizations.IProvider;
+import model.sets.SimpleStack;
 import util.Converter;
 import util.Factory;
 import view.managers.Show;
@@ -92,30 +94,76 @@ public class OfferManager extends javax.swing.JDialog {
     }
 
     /**
+     * Método responsável por coletar alterações.
+     * @param keysStackChanged Refere-se a pilha de chaves alteradas.
+     */
+    private void collectChanges(final SimpleStack<Comparable<String>> keysStackChanged) {
+        if (keysStackChanged.isEmpty()) {
+            Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+                if (element.getProvider().equals(provider) && element.getOffer().toString().equals(offer.toString())) {
+                    keysStackChanged.push(element.getKey());
+                }
+            });
+        }
+    }
+
+    /**
+     * Método responsável por alterar o nome da oferta.
+     * @param keysStackChanged Refere-se a pilha de chaves alteradas.
+     * @throws NullObjectException         Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws ElementNotFoundException    Exceção lançada no caso da oferta não ser encontrada.
+     */
+    private void setName(final SimpleStack<Comparable<String>> keysStackChanged)
+            throws ElementNotFoundException, NullObjectException, KeyUsedException {
+        if (!textName.getText().equals(offer.toString())) {
+            collectChanges(keysStackChanged);
+            if (isExpense) {
+                provider.getExpenseCollection().redefineKey(offer.getKey(), textName.getText());
+            } else {
+                provider.getIncomeCollection().redefineKey(offer.getKey(), textName.getText());
+            }
+        }
+    }
+
+    /**
+     * Método responsável por alterar o valor da oferta.
+     * @return Retorna indicativo de que a oferta foi alterada.
+     * @throws NullObjectException         Exceção lançada no caso de haver uma string nula.
+     * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
+     * @throws ElementNotFoundException    Exceção lançada no caso da oferta não ser encontrada.
+     */
+    private boolean setValue() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException {
+        if (!textValue.getText().equals(Double.toString(offer.getValue()))) {
+            if (isExpense) {
+                provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            } else {
+                provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Método responsável por editar uma oferta de dado fornecedor.
      * @throws NullObjectException         Exceção lançada no caso de haver uma string nula.
      * @throws DoubleValueInvalidException Exceção lançada no caso de um valor decimal ser inválido.
      * @throws ElementNotFoundException    Exceção lançada no caso da oferta não ser encontrada.
      */
     private void editOffer() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, KeyUsedException {
-        boolean wasChanged = false;
-        if(!textName.getText().equals(offer.toString())) {
-            if (isExpense) {
-                provider.getExpenseCollection().redefineKey(offer.getKey(), textName.getText());
-            } else {
-                provider.getIncomeCollection().redefineKey(offer.getKey(), textName.getText());
+        boolean wasChanged = setValue();
+        final SimpleStack<Comparable<String>> keysStackChanged = new SimpleStack<>();
+        setName(keysStackChanged);
+        if (!keysStackChanged.isEmpty()) {
+            while (!keysStackChanged.isEmpty()) {
+                Controller.getInstance().getAcquisitionCollection().redefineKey(keysStackChanged.pop(), offer.toString());
             }
+            MainForm.updateWindow();
             wasChanged = true;
         }
-        if(!textValue.getText().equals(Double.toString(offer.getValue()))) {
-            if (isExpense) {
-                provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
-            } else {
-                provider.getIncomeCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
-            }
-            wasChanged = true;
-        }
-        if(wasChanged) {
+        if (wasChanged) {
             ViewControl.saveRecord();
             OfferWindow.updateWindow();
         }
@@ -161,7 +209,7 @@ public class OfferManager extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -262,7 +310,7 @@ public class OfferManager extends javax.swing.JDialog {
                 Show.warningMessage("\"" + ex.getDoubleValueInvalid() + "\" não é um valor decimal válido.");
             } catch (final ElementNotFoundException ex) {
                 Show.errorMessage("Falha no sistema, informe o desenvolvedor.");
-            } catch (KeyUsedException ex) {
+            } catch (final KeyUsedException ex) {
                 Show.warningMessage("Outra oferta já faz uso do nome \"" + ex.getElement().toString() + "\".");
             }
         }
