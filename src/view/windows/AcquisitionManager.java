@@ -112,8 +112,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
      * @throws IntegerValueInvalidException Exceção lançada no caso de um valor inteiro ser inválido.
      * @throws DateInvalidException         Exceção lançada no caso de uma data inválida.
      */
-    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException,
-            IntegerValueInvalidException, DateInvalidException {
+    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, IntegerValueInvalidException, DateInvalidException {
         boolean wasChanged = false;
         if (!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
             final double value = Converter.toDouble(textValue.getText());
@@ -126,12 +125,10 @@ public class AcquisitionManager extends javax.swing.JDialog {
             wasChanged = true;
         }
         if (!textDate.getText().equals(acquisition.getDate().toString())) {
-            Controller.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(),
-                    Factory.date(textDate.getText()));
+            Controller.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(), Factory.date(textDate.getText()));
             wasChanged = true;
         }
         if (wasChanged) {
-
             ViewControl.saveRecord();
             MainForm.updateWindow();
         }
