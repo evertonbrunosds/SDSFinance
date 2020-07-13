@@ -173,8 +173,7 @@ public class Controller implements IController {
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
     @Override
-    public void loadFromFile(final String fileName)
-            throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException {
+    public void loadFromFile(final String fileName) throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException {
         Filter.nullObject(fileName);
         fileInternalLoader(fileName);
     }
@@ -186,8 +185,7 @@ public class Controller implements IController {
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
-    private void fileInternalLoader(final String fileName)
-            throws IOException, ClassNotFoundException, IncompatibleTypeException {
+    private void fileInternalLoader(final String fileName) throws IOException, ClassNotFoundException, IncompatibleTypeException {
         final FileStream fileStream = new FileStream();
         fileStream.loadFromFile(fileName);
         if (fileStream.getObject() instanceof Controller) {

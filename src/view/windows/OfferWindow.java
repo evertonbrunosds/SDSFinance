@@ -154,11 +154,11 @@ public class OfferWindow extends javax.swing.JDialog {
     private void removeAcquisitions(final IOfferVisible offer) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
         Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
-            if(element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
+            if (element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
                 simpleStack.push(element);
             }
         });
-        while(!simpleStack.isEmpty()) {
+        while (!simpleStack.isEmpty()) {
             Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
     }

@@ -44,8 +44,7 @@ public class Expense implements IExpense, IOfferEditable {
     /**
      * Construtor responsável pelo instanciamento da despesa.
      */
-    private Expense() {
-    }
+    private Expense() {}
 
     /**
      * Construtor responsável pelo instanciamento da despesa.

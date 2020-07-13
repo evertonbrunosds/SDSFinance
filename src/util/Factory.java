@@ -103,8 +103,8 @@ public abstract class Factory {
      * @return Retorna instância de fornecedor.
      * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
      */
-    public static IProvider provider(final String name, final IStreet street, final INeighborhood neighborhood,
-            final ICity city) throws NullObjectException {
+    public static IProvider provider(final String name, final IStreet street, 
+            final INeighborhood neighborhood, final ICity city) throws NullObjectException {
         return new Provider(name, street, neighborhood, city);
     }
 
@@ -159,8 +159,8 @@ public abstract class Factory {
      * @throws NullObjectException          Exceção lançada no caso de haver o uso de strings nulas.
      * @throws IntegerValueInvalidException Exceção lançada no caso do valor quantitativo ser inválido.
      */
-    public static IAcquisition acquisition(final IProvider provider, final IOfferVisible offer, final String amount,
-            final Date date) throws NullObjectException, IntegerValueInvalidException {
+    public static IAcquisition acquisition(final IProvider provider, final IOfferVisible offer, 
+            final String amount, final Date date) throws NullObjectException, IntegerValueInvalidException {
         return new Acquisition(provider, offer, Converter.toInteger(amount), date);
     }
 

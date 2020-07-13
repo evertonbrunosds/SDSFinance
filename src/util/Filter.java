@@ -52,7 +52,8 @@ public abstract class Filter {
      * @throws NullObjectException         Exceção lançada em caso de string nula.
      * @throws DoubleValueInvalidException Exceção lançada em caso de valor decimal inválido.
      */
-    public static void invalidValueDouble(final String value) throws NullObjectException, DoubleValueInvalidException {
+    public static void invalidValueDouble(final String value)
+            throws NullObjectException, DoubleValueInvalidException {
         nullObject(value);
         try {
             Double.parseDouble(value.replace(',', '.'));

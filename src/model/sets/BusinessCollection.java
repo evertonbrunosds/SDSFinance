@@ -48,8 +48,8 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
         try {
             this.redefineKey(key, provider);
         } catch (final KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(
-                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() 
+                    + ((IBusinessEditable) search(key)).getAmount());
         }
     }
 
@@ -101,8 +101,8 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
         try {
             this.redefineKey(key, offer);
         } catch (final KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(
-                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() 
+                    + ((IBusinessEditable) search(key)).getAmount());
         }
     }
 
@@ -154,8 +154,8 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
         try {
             this.redefineKey(key, unitaryValue);
         } catch (final KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(
-                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() 
+                    + ((IBusinessEditable) search(key)).getAmount());
         }
     }
 
@@ -218,8 +218,8 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
         try {
             this.redefineKey(key, date);
         } catch (final KeyUsedException ex) {
-            ((IBusinessEditable) ex.getElement()).setAmount(
-                    ((IBusinessEditable) ex.getElement()).getAmount() + ((IBusinessEditable) search(key)).getAmount());
+            ((IBusinessEditable) ex.getElement()).setAmount(((IBusinessEditable) ex.getElement()).getAmount() 
+                    + ((IBusinessEditable) search(key)).getAmount());
         }
     }
 
@@ -230,7 +230,8 @@ public class BusinessCollection<T> extends Collection<String, T> implements IBus
      * @throws ElementNotFoundException Exceção lançada no caso do negócio não ser encontrado.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outro negócio.
      */
-    private void redefineKey(final Comparable<String> key, final Date date) throws ElementNotFoundException, KeyUsedException {
+    private void redefineKey(final Comparable<String> key, final Date date)
+            throws ElementNotFoundException, KeyUsedException {
         final IBusinessEditable businessInCurrentState = (IBusinessEditable) super.search(key);
         try {
             final IBusinessEditable businessInNewState = (IBusinessEditable) super.search(

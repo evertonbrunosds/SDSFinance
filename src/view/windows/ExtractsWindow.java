@@ -68,8 +68,8 @@ public class ExtractsWindow extends javax.swing.JDialog {
         ViewControl.clear(instance.table);
         final DefaultTableModel model = (DefaultTableModel) table.getModel();
         tree.forEach(true, extract -> {
-            model.addRow(new Object[] { extract.period, extract.getPositiveValue(), extract.getNegativeValue(),
-                    extract.getTotalValue() });
+            model.addRow(new Object[] { extract.period, extract.getPositiveValue(),
+                extract.getNegativeValue(), extract.getTotalValue() });
         });
     }
 

@@ -81,8 +81,7 @@ public interface IController extends Serializable {
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
      * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
      */
-    public void loadFromFile(String fileName)
-            throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException;
+    public void loadFromFile(String fileName) throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException;
 
     /**
      * Método responsável por gravar dados do controlador em arquivo.

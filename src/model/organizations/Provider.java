@@ -71,8 +71,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @param city         Refere-se a cidade do fornecedor.
      * @throws NullObjectException Exceção lançada no caso do nome de fornecedor nulo.
      */
-    public Provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city)
-            throws NullObjectException {
+    public Provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
         this.street = street;

@@ -50,7 +50,6 @@ public class ProviderWindow extends javax.swing.JDialog {
     private static void createInstance() {
         instance = new ProviderWindow(null, true) {
             private static final long serialVersionUID = 8883668983947526195L;
-
             @Override
             public void dispose() {
                 instance = null;

@@ -44,8 +44,7 @@ public class Income implements IIncome, IOfferEditable {
     /**
      * Construtor responsável pelo instanciamento da renda.
      */
-    private Income() {
-    }
+    private Income() {}
 
     /**
      * Construtor responsável pelo instanciamento da renda.
