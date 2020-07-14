@@ -20,13 +20,14 @@
 package model.territories;
 
 import exceptions.NullObjectException;
+import java.io.Serializable;
 import util.Filter;
 
 /**
  * Classe responsável por comportar-se como uma rua.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Street implements IStreet, ITerritoryEditable {
+public class Street implements Serializable {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -34,7 +35,7 @@ public class Street implements IStreet, ITerritoryEditable {
     /**
      * Refere-se ao nome da rua.
      */
-    private String name;
+    private final String name;
 
     /**
      * Construtor responsável pelo instanciamento da rua.
@@ -44,38 +45,6 @@ public class Street implements IStreet, ITerritoryEditable {
     public Street(final String name) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-    }
-
-    /**
-     * Método responsável por retornar chave da rua.
-     * @return Retorna chave da rua.
-     */
-    @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
-    }
-
-    /**
-     * Método responsável por pré-visualizar chave rua pós-alterações.
-     * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de nova chave.
-     * @throws NullObjectException Exceção lançada em caso de nome de rua nulo.
-     */
-    @Override
-    public Comparable<String> previewKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        return key.toLowerCase();
-    }
-
-    /**
-     * Método responsável por alterar chave da rua.
-     * @param key Refere-se ao novo nome da rua.
-     * @throws NullObjectException Exceção lançada em caso de nome de rua nulo.
-     */
-    @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
     }
 
     /**

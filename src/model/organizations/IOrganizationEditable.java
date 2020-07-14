@@ -20,9 +20,9 @@
 package model.organizations;
 
 import exceptions.NullObjectException;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
+import model.territories.City;
+import model.territories.Neighborhood;
+import model.territories.Street;
 import util.IElement;
 
 /**
@@ -45,21 +45,21 @@ public interface IOrganizationEditable extends IOrganizationVisible, IElement<St
      * @param street Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
-    public Comparable<String> previewKey(IStreet street);
+    public Comparable<String> previewKey(Street street);
 
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param neighborhood Refere-se ao novo bairro.
      * @return Retorna pré-visualização da nova chave.
      */
-    public Comparable<String> previewKey(INeighborhood neighborhood);
+    public Comparable<String> previewKey(Neighborhood neighborhood);
 
     /**
      * Método responsável por pré-visualizar chave da organização pós-alterações.
      * @param city Refere-se a nova cidade.
      * @return Retorna pré-visualização da nova chave.
      */
-    public Comparable<String> previewKey(ICity city);
+    public Comparable<String> previewKey(City city);
 
     /**
      * Método responsável por alterar chave da organização.
@@ -73,18 +73,18 @@ public interface IOrganizationEditable extends IOrganizationVisible, IElement<St
      * Método responsável por alterar a rua da organização.
      * @param street Refere-se a nova rua da organização.
      */
-    public void setStreet(IStreet street);
+    public void setStreet(Street street);
 
     /**
      * Método responsável por alterar o bairro da organização.
      * @param neighborhood Refere-se ao novo bairro da organização.
      */
-    public void setNeighborhood(INeighborhood neighborhood);
+    public void setNeighborhood(Neighborhood neighborhood);
 
     /**
      * Método responsável por alterar a cidade da organização.
      * @param city Refere-se a nova cidade da organização.
      */
-    public void setCity(ICity city);
+    public void setCity(City city);
 
 }

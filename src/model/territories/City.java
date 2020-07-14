@@ -20,13 +20,14 @@
 package model.territories;
 
 import exceptions.NullObjectException;
+import java.io.Serializable;
 import util.Filter;
 
 /**
  * Classe responsável por comportar-se como uma cidade.
  * @author Everton Bruno Silva dos Santos.
  */
-public class City implements ICity, ITerritoryEditable {
+public class City implements Serializable {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -34,7 +35,7 @@ public class City implements ICity, ITerritoryEditable {
     /**
      * Refere-se ao nome da cidade.
      */
-    private String name;
+    private final String name;
 
     /**
      * Construtor responsável pelo instanciamento da cidade.
@@ -44,38 +45,6 @@ public class City implements ICity, ITerritoryEditable {
     public City(final String name) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-    }
-
-    /**
-     * Método responsável por retornar chave da cidade.
-     * @return Retorna chave da cidade.
-     */
-    @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
-    }
-
-    /**
-     * Método responsável por pré-visualizar nome da cidade pós-alterações.
-     * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização de novo nome.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
-     */
-    @Override
-    public Comparable<String> previewKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        return key.toLowerCase();
-    }
-
-    /**
-     * Método responsável por alterar chave da cidade.
-     * @param key Refere-se ao novo nome da cidade.
-     * @throws NullObjectException Exceção lançada em caso de nome nulo.
-     */
-    @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
     }
 
     /**

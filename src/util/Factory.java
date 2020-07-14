@@ -19,10 +19,8 @@
  */
 package util;
 
-import control.Controller;
 import exceptions.DateInvalidException;
 import exceptions.IntegerValueInvalidException;
-import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import model.business.Acquisition;
 import model.business.IAcquisition;
@@ -34,9 +32,6 @@ import model.offers.Income;
 import model.organizations.IProvider;
 import model.organizations.Provider;
 import model.territories.City;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
 import model.territories.Neighborhood;
 import model.territories.Street;
 
@@ -52,14 +47,8 @@ public abstract class Factory {
      * @return Retorna instância de rua.
      * @throws NullObjectException Exceção lançada em caso de nome de rua nulo.
      */
-    public static IStreet street(final String name) throws NullObjectException {
-        final IStreet street = new Street(name);
-        try {
-            Controller.getInstance().getStreetCollection().insert(street);
-            return street;
-        } catch (final KeyUsedException ex) {
-            return (IStreet) ex.getElement();
-        }
+    public static Street street(final String name) throws NullObjectException {
+        return new Street(name);
     }
 
     /**
@@ -68,14 +57,8 @@ public abstract class Factory {
      * @return Retorna instância de bairro.
      * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
      */
-    public static INeighborhood neighborhood(final String name) throws NullObjectException {
-        final INeighborhood neighborhood = new Neighborhood(name);
-        try {
-            Controller.getInstance().getNeighborhoodCollection().insert(neighborhood);
-            return neighborhood;
-        } catch (final KeyUsedException ex) {
-            return (INeighborhood) ex.getElement();
-        }
+    public static Neighborhood neighborhood(final String name) throws NullObjectException {
+        return new Neighborhood(name);
     }
 
     /**
@@ -84,14 +67,8 @@ public abstract class Factory {
      * @return Retorna instância de cidade.
      * @throws NullObjectException Exceção lançada em caso de nome de cidade nulo.
      */
-    public static ICity city(final String name) throws NullObjectException {
-        final ICity city = new City(name);
-        try {
-            Controller.getInstance().getCityCollection().insert(city);
-            return city;
-        } catch (final KeyUsedException ex) {
-            return (ICity) ex.getElement();
-        }
+    public static City city(final String name) throws NullObjectException {
+        return new City(name);
     }
 
     /**
@@ -103,8 +80,8 @@ public abstract class Factory {
      * @return Retorna instância de fornecedor.
      * @throws NullObjectException Exceção lançada em caso de nome de fornecedor nulo.
      */
-    public static IProvider provider(final String name, final IStreet street, 
-            final INeighborhood neighborhood, final ICity city) throws NullObjectException {
+    public static IProvider provider(final String name, final Street street, 
+            final Neighborhood neighborhood, final City city) throws NullObjectException {
         return new Provider(name, street, neighborhood, city);
     }
 

@@ -20,13 +20,14 @@
 package model.territories;
 
 import exceptions.NullObjectException;
+import java.io.Serializable;
 import util.Filter;
 
 /**
  * Classe responsável por comportar-se como um bairro.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Neighborhood implements INeighborhood, ITerritoryEditable {
+public class Neighborhood implements Serializable {
     /**
      * Refere-se ao número de série da classe.
      */
@@ -34,7 +35,7 @@ public class Neighborhood implements INeighborhood, ITerritoryEditable {
     /**
      * Refere-se ao nome do bairro.
      */
-    private String name;
+    private final String name;
 
     /**
      * Construtor responsável pelo instanciamento do bairro.
@@ -44,38 +45,6 @@ public class Neighborhood implements INeighborhood, ITerritoryEditable {
     public Neighborhood(final String name) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
-    }
-
-    /**
-     * Método responsável por retornar chave do bairro.
-     * @return Retorna chave do bairro.
-     */
-    @Override
-    public Comparable<String> getKey() {
-        return name.toLowerCase();
-    }
-
-    /**
-     * Método responsável por pré-visualizar chave do bairro pós-alterações.
-     * @param key Refere-se ao novo nome.
-     * @return Retorna pré-visualização da chave.
-     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
-     */
-    @Override
-    public Comparable<String> previewKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        return key.toLowerCase();
-    }
-
-    /**
-     * Método responsável por alterar chave do bairro.
-     * @param key Refere-se ao novo nome do bairro.
-     * @throws NullObjectException Exceção lançada em caso de nome de bairro nulo.
-     */
-    @Override
-    public void setKey(final String key) throws NullObjectException {
-        Filter.nullObject(key);
-        name = key;
     }
 
     /**

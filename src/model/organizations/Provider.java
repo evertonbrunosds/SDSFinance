@@ -24,9 +24,9 @@ import model.offers.IExpense;
 import model.offers.IIncome;
 import model.sets.IOfferCollection;
 import model.sets.OfferCollection;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
+import model.territories.City;
+import model.territories.Neighborhood;
+import model.territories.Street;
 import util.Filter;
 
 /**
@@ -45,15 +45,15 @@ public class Provider implements IProvider, IOrganizationEditable {
     /**
      * Refere-se a rua do fornecedor.
      */
-    private IStreet street;
+    private Street street;
     /**
      * Refere-se ao bairro do fornecedor.
      */
-    private INeighborhood neighborhood;
+    private Neighborhood neighborhood;
     /**
      * Refere-se a cidade do fornecedor.
      */
-    private ICity city;
+    private City city;
     /**
      * Refere-se a coleção de despesas ofertadas no fornecedor.
      */
@@ -71,7 +71,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @param city         Refere-se a cidade do fornecedor.
      * @throws NullObjectException Exceção lançada no caso do nome de fornecedor nulo.
      */
-    public Provider(final String name, final IStreet street, final INeighborhood neighborhood, final ICity city) throws NullObjectException {
+    public Provider(final String name, final Street street, final Neighborhood neighborhood, final City city) throws NullObjectException {
         Filter.nullObject(name);
         this.name = name;
         this.street = street;
@@ -86,7 +86,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna rua do fornecedor.
      */
     @Override
-    public IStreet getStreet() {
+    public Street getStreet() {
         return street;
     }
 
@@ -95,7 +95,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna bairro do fornecedor.
      */
     @Override
-    public INeighborhood getNeighborhood() {
+    public Neighborhood getNeighborhood() {
         return neighborhood;
     }
 
@@ -104,7 +104,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna cidade do fornecedor.
      */
     @Override
-    public ICity getCity() {
+    public City getCity() {
         return city;
     }
 
@@ -155,7 +155,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna pré-visualização de nova chave.
      */
     @Override
-    public Comparable<String> previewKey(final IStreet street) {
+    public Comparable<String> previewKey(final Street street) {
         final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
@@ -166,7 +166,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna pré-visualização da nova chave.
      */
     @Override
-    public Comparable<String> previewKey(final INeighborhood neighborhood) {
+    public Comparable<String> previewKey(final Neighborhood neighborhood) {
         final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
@@ -177,7 +177,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @return Retorna pré-visualização da nova chave.
      */
     @Override
-    public Comparable<String> previewKey(final ICity city) {
+    public Comparable<String> previewKey(final City city) {
         final String key = name + city.toString() + neighborhood.toString() + street.toString();
         return key.toLowerCase();
     }
@@ -198,7 +198,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @param street Refere-se a nova rua do fornecedor.
      */
     @Override
-    public void setStreet(final IStreet street) {
+    public void setStreet(final Street street) {
         this.street = street;
     }
 
@@ -207,7 +207,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @param neighborhood Refere-se ao novo bairro do fornecedor.
      */
     @Override
-    public void setNeighborhood(final INeighborhood neighborhood) {
+    public void setNeighborhood(final Neighborhood neighborhood) {
         this.neighborhood = neighborhood;
     }
 
@@ -216,7 +216,7 @@ public class Provider implements IProvider, IOrganizationEditable {
      * @param city Refere-se a nova cidade do fornecedor.
      */
     @Override
-    public void setCity(final ICity city) {
+    public void setCity(final City city) {
         this.city = city;
     }
 

@@ -23,9 +23,9 @@ import java.io.Serializable;
 import model.offers.IExpense;
 import model.offers.IIncome;
 import model.sets.IOfferCollection;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
+import model.territories.City;
+import model.territories.Neighborhood;
+import model.territories.Street;
 
 /**
  * Interface responsável por fornecer os métodos de organização visível.
@@ -44,19 +44,19 @@ public interface IOrganizationVisible extends Serializable {
      * Método responsável por retornar rua da organização.
      * @return Retorna rua da organização.
      */
-    public IStreet getStreet();
+    public Street getStreet();
 
     /**
      * Método responsável por retornar bairro da organização.
      * @return Retorna bairro da organização.
      */
-    public INeighborhood getNeighborhood();
+    public Neighborhood getNeighborhood();
 
     /**
      * Método responsável por retornar cidade da organização.
      * @return Retorna cidade da organização.
      */
-    public ICity getCity();
+    public City getCity();
 
     /**
      * Método responsável por retornar coleção de ofertas de despesa.

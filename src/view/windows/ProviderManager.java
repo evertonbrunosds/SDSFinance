@@ -26,9 +26,9 @@ import exceptions.NullObjectException;
 import model.business.IAcquisition;
 import model.organizations.IProvider;
 import model.sets.SimpleStack;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
+import model.territories.City;
+import model.territories.Neighborhood;
+import model.territories.Street;
 import util.Factory;
 import view.managers.Show;
 import view.managers.ViewControl;
@@ -71,9 +71,9 @@ public class ProviderManager extends javax.swing.JDialog {
      * @throws KeyUsedException    Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
     private void addProvider() throws NullObjectException, KeyUsedException {
-        final ICity city = Factory.city(textCity.getText());
-        final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
-        final IStreet street = Factory.street(textStreet.getText());
+        final City city = Factory.city(textCity.getText());
+        final Neighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+        final Street street = Factory.street(textStreet.getText());
         final IProvider tmpProvider = Factory.provider(textName.getText(), street, neighborhood, city);
         Controller.getInstance().getProviderCollection().insert(tmpProvider);
         ViewControl.saveRecord();
@@ -102,17 +102,22 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar a cidade de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
+     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
-    private void setCity(final SimpleStack<Comparable<String>> keysStackChanged,
-            final SimpleStack<IAcquisition> acquisitionsStackChanged)
+    private boolean setCity(final SimpleStack<Comparable<String>> keysStackChanged,
+            final SimpleStack<IAcquisition> acquisitionsStackChanged, final boolean wasChanged)
             throws NullObjectException, ElementNotFoundException, KeyUsedException {
         if (!textCity.getText().equals(provider.getCity().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
-            final ICity city = Factory.city(textCity.getText());
+            final City city = Factory.city(textCity.getText());
             Controller.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
+            return true;
+        } else {
+            return wasChanged == true;
         }
     }
 
@@ -120,17 +125,22 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar o bairro de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
+     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
-    private void setNeighborhood(final SimpleStack<Comparable<String>> keysStackChanged,
-            final SimpleStack<IAcquisition> acquisitionsStackChanged)
+    private boolean setNeighborhood(final SimpleStack<Comparable<String>> keysStackChanged,
+            final SimpleStack<IAcquisition> acquisitionsStackChanged, final boolean wasChanged)
             throws NullObjectException, ElementNotFoundException, KeyUsedException {
         if (!textNeighborhood.getText().equals(provider.getNeighborhood().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
-            final INeighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
+            final Neighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
             Controller.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(), neighborhood);
+            return true;
+        } else {
+            return wasChanged == true;
         }
     }
 
@@ -138,17 +148,22 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar a rua de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
+     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
-    private void setStreet(final SimpleStack<Comparable<String>> keysStackChanged,
-            final SimpleStack<IAcquisition> acquisitionsStackChanged)
+    private boolean setStreet(final SimpleStack<Comparable<String>> keysStackChanged,
+            final SimpleStack<IAcquisition> acquisitionsStackChanged, final boolean wasChanged)
             throws NullObjectException, ElementNotFoundException, KeyUsedException {
         if (!textStreet.getText().equals(provider.getStreet().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
-            final IStreet street = Factory.street(textStreet.getText());
+            final Street street = Factory.street(textStreet.getText());
             Controller.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
+            return true;
+        } else {
+            return wasChanged == true;
         }
     }
 
@@ -156,16 +171,21 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar o nome de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
+     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
-    private void setName(final SimpleStack<Comparable<String>> keysStackChanged,
-            final SimpleStack<IAcquisition> acquisitionsStackChanged)
+    private boolean setName(final SimpleStack<Comparable<String>> keysStackChanged,
+            final SimpleStack<IAcquisition> acquisitionsStackChanged, final boolean wasChanged)
             throws NullObjectException, ElementNotFoundException, KeyUsedException {
         if (!textName.getText().equals(provider.toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
             Controller.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(), textName.getText());
+            return true;
+        } else {
+            return wasChanged == true;
         }
     }
 
@@ -176,20 +196,23 @@ public class ProviderManager extends javax.swing.JDialog {
      * @throws KeyUsedException         Exceção lançada em caso de haver um outro fornecedor com mesmo nome no mesmo local.
      */
     private void editProvider() throws NullObjectException, ElementNotFoundException, KeyUsedException {
+        boolean wasChanged = false;
         final SimpleStack<Comparable<String>> keysStackChanged = new SimpleStack<>();
         final SimpleStack<IAcquisition> acquisitionsStackChanged = new SimpleStack<>();
-        setCity(keysStackChanged, acquisitionsStackChanged);
-        setNeighborhood(keysStackChanged, acquisitionsStackChanged);
-        setStreet(keysStackChanged, acquisitionsStackChanged);
-        setName(keysStackChanged, acquisitionsStackChanged);
+        wasChanged = setCity(keysStackChanged, acquisitionsStackChanged, wasChanged);
+        wasChanged = setNeighborhood(keysStackChanged, acquisitionsStackChanged, wasChanged);
+        wasChanged = setStreet(keysStackChanged, acquisitionsStackChanged, wasChanged);
+        wasChanged = setName(keysStackChanged, acquisitionsStackChanged, wasChanged);
         if (!keysStackChanged.isEmpty()) {
             while (!keysStackChanged.isEmpty()) {
                 Controller.getInstance().getAcquisitionCollection().remove(keysStackChanged.pop());
                 Controller.getInstance().getAcquisitionCollection().insert(acquisitionsStackChanged.pop());
             }
+            MainForm.updateWindow();
+        }
+        if(wasChanged) {
             ViewControl.saveRecord();
             ProviderWindow.updateWindow();
-            MainForm.updateWindow();
         }
         dispose();
     }

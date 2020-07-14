@@ -21,9 +21,9 @@ package model.sets;
 
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
+import model.territories.City;
+import model.territories.Neighborhood;
+import model.territories.Street;
 
 /**
  * Interface responsável por fornecer os métodos de coleção de organizações.
@@ -39,7 +39,7 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setStreet(Comparable<String> key, IStreet newStreet) throws ElementNotFoundException, KeyUsedException;
+    public void setStreet(Comparable<String> key, Street newStreet) throws ElementNotFoundException, KeyUsedException;
 
     /**
      * Método responsável por alterar o bairro da organização.
@@ -48,7 +48,7 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setNeighborhood(Comparable<String> key, INeighborhood newNeighborhood)
+    public void setNeighborhood(Comparable<String> key, Neighborhood newNeighborhood)
             throws ElementNotFoundException, KeyUsedException;
 
     /**
@@ -58,6 +58,6 @@ public interface IOrganizationCollection<T> extends ICollection<String, T> {
      * @throws ElementNotFoundException Exceção lançada no caso da organização não ser encontrada.
      * @throws KeyUsedException         Exceção lançada no caso da chave estar em uso por outra organização.
      */
-    public void setCity(Comparable<String> key, ICity newCity) throws ElementNotFoundException, KeyUsedException;
+    public void setCity(Comparable<String> key, City newCity) throws ElementNotFoundException, KeyUsedException;
 
 }

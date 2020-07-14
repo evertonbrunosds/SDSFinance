@@ -25,16 +25,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import model.business.IAcquisition;
-import model.sets.ITerritoryCollection;
 import model.sets.OrganizationCollection;
 import model.sets.IOrganizationCollection;
-import model.sets.TerritoryCollection;
 import model.organizations.IProvider;
 import model.sets.BusinessCollection;
 import model.sets.IBusinessCollection;
-import model.territories.ICity;
-import model.territories.INeighborhood;
-import model.territories.IStreet;
 import util.FileStream;
 import util.Filter;
 
@@ -60,18 +55,6 @@ public class Controller implements IController {
      */
     private static Controller instance;
     /**
-     * Refere-se a coleção de ruas.
-     */
-    private ITerritoryCollection<IStreet> streetCollection;
-    /**
-     * Refere-se a coleção de bairros.
-     */
-    private ITerritoryCollection<INeighborhood> neighborhoodCollection;
-    /**
-     * Refere-se a coleção de cidades.
-     */
-    private ITerritoryCollection<ICity> cityCollection;
-    /**
      * Refere-se a coleção de fornecedores.
      */
     private IOrganizationCollection<IProvider> providerCollection;
@@ -89,9 +72,6 @@ public class Controller implements IController {
         if (!file.exists()) {
             file.mkdirs();
         }
-        streetCollection = new TerritoryCollection<>();
-        neighborhoodCollection = new TerritoryCollection<>();
-        cityCollection = new TerritoryCollection<>();
         providerCollection = new OrganizationCollection<>();
         acquisitionCollection = new BusinessCollection<>();
     }
@@ -105,33 +85,6 @@ public class Controller implements IController {
             instance = new Controller();
         }
         return instance;
-    }
-
-    /**
-     * Método responsável por retornar coleção de ruas.
-     * @return Retorna coleção de ruas.
-     */
-    @Override
-    public ITerritoryCollection<IStreet> getStreetCollection() {
-        return streetCollection;
-    }
-
-    /**
-     * Método responsável por retornar coleção de bairros.
-     * @return Retorna coleção de bairros.
-     */
-    @Override
-    public ITerritoryCollection<INeighborhood> getNeighborhoodCollection() {
-        return neighborhoodCollection;
-    }
-
-    /**
-     * Método responsável por retornar coleção de cidades.
-     * @return Retorna coleção de cidades.
-     */
-    @Override
-    public ITerritoryCollection<ICity> getCityCollection() {
-        return cityCollection;
     }
 
     /**
@@ -157,9 +110,6 @@ public class Controller implements IController {
      */
     @Override
     public void clear() {
-        streetCollection = new TerritoryCollection<>();
-        neighborhoodCollection = new TerritoryCollection<>();
-        cityCollection = new TerritoryCollection<>();
         providerCollection = new OrganizationCollection<>();
         acquisitionCollection = new BusinessCollection<>();
     }
@@ -191,9 +141,6 @@ public class Controller implements IController {
         if (fileStream.getObject() instanceof Controller) {
             final Controller controller = (Controller) fileStream.getObject();
             if (controller.version == version) {
-                streetCollection = controller.streetCollection;
-                neighborhoodCollection = controller.neighborhoodCollection;
-                cityCollection = controller.cityCollection;
                 providerCollection = controller.providerCollection;
                 acquisitionCollection = controller.acquisitionCollection;
             } else {
