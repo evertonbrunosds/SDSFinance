@@ -79,19 +79,25 @@ public class ProviderWindow extends javax.swing.JDialog {
 
     /**
      * Método responsável por excluir uma lista de aquisições ligadas aos fornecedores removidos.
-     * @param provider Refere-se ao fornecedor removido.
+     * @param provider   Refere-se ao fornecedor removido.
+     * @param wasChanged Refere-se a informação de que alterações foram feitas.
+     * @return Retorna informação de que alterações foram feitas.
      * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
      */
-    private void removeAcquisitions(final IProvider provider) throws ElementNotFoundException {
+    private boolean removeAcquisitions(final IProvider provider, boolean wasChanged) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
         Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
             if (element.getProvider().equals(provider)) {
                 simpleStack.push(element);
             }
         });
+        if(!wasChanged) {
+            wasChanged = !simpleStack.isEmpty();
+        }
         while (!simpleStack.isEmpty()) {
             Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
+        return wasChanged;
     }
 
     /**
@@ -104,13 +110,16 @@ public class ProviderWindow extends javax.swing.JDialog {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n"
                     + "também todas as suas ofertas e aquisições atribuídas a eles, deseja prosseguir?")) {
                 IProvider provider;
+                boolean wasChanged = false;
                 for (final int row : selectedRows) {
                     provider = (IProvider) table.getModel().getValueAt(row, 0);
                     Controller.getInstance().getProviderCollection().remove(provider.getKey());
-                    removeAcquisitions(provider);
+                    wasChanged = removeAcquisitions(provider, wasChanged);
                 }
                 ViewControl.saveRecord();
-                MainForm.updateWindow();
+                if(wasChanged) {
+                    MainForm.updateWindow();
+                }
                 updateWindow();
             }
         }

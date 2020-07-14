@@ -102,7 +102,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar a cidade de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
-     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @param wasChanged               Refere-se a informação de que o fornecedor foi modificado.
      * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
@@ -125,7 +125,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar o bairro de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
-     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @param wasChanged               Refere-se a informação de que o fornecedor foi modificado.
      * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
@@ -148,7 +148,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar a rua de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
-     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @param wasChanged               Refere-se a informação de que o fornecedor foi modificado.
      * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
@@ -171,7 +171,7 @@ public class ProviderManager extends javax.swing.JDialog {
      * Método responsável por alterar o nome de um fornecedor.
      * @param keysStackChanged         Refere-se a pilha de chaves alteradas
      * @param acquisitionsStackChanged Refere-se apilha de aquisições alteradas.
-     * @param wasChanged Refere-se a informação de que o fornecedor foi modificado.
+     * @param wasChanged               Refere-se a informação de que o fornecedor foi modificado.
      * @return Retorna informação de que o fornecedor foi modificado.
      * @throws NullObjectException      Exceção lançada no caso de haver uma string nula.
      * @throws ElementNotFoundException Exceção lançada no caso do fornecedor não ser encontrado.
