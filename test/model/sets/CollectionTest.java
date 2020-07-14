@@ -172,8 +172,8 @@ public class CollectionTest {
     @Test
     public void currectSearchSensitiveCase() throws NullObjectException, KeyUsedException, ElementNotFoundException {
         collection.insert(new Expense("Algo",50));
-        assertEquals(-50, collection.search("algo").getValue(),0.00);
-        assertEquals("Algo", collection.search("algo").toString());
+        assertEquals(-50, collection.search("algo-").getValue(),0.00);
+        assertEquals("Algo", collection.search("algo-").toString());
     }
     
     /**
@@ -188,10 +188,10 @@ public class CollectionTest {
         assertTrue(collection.isEmpty());
         assertEquals(0, collection.size());
         collection.insert(new Expense("Algo",50));
-        assertTrue(collection.isContains("algo"));
+        assertTrue(collection.isContains("algo-"));
         assertFalse(collection.isEmpty());
         assertEquals(1, collection.size());
-        collection.remove("algo");
+        collection.remove("algo-");
         assertFalse(collection.isContains("algo"));
         assertTrue(collection.isEmpty());
         assertEquals(0, collection.size());
