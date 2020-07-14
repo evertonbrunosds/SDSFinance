@@ -84,7 +84,7 @@ public class Expense implements IExpense, IOfferEditable {
      */
     @Override
     public Comparable<String> getKey() {
-        return name.toLowerCase();
+        return name.toLowerCase() + "-";
     }
 
     /**

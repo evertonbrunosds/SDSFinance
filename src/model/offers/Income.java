@@ -84,7 +84,7 @@ public class Income implements IIncome, IOfferEditable {
      */
     @Override
     public Comparable<String> getKey() {
-        return name.toLowerCase();
+        return name.toLowerCase() + "+";
     }
 
     /**

@@ -100,7 +100,7 @@ public class OfferManager extends javax.swing.JDialog {
     private void collectChanges(final SimpleStack<Comparable<String>> keysStackChanged) {
         if (keysStackChanged.isEmpty()) {
             Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
-                if (element.getProvider().equals(provider) && element.getOffer().toString().equals(offer.toString())) {
+                if (element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
                     keysStackChanged.push(element.getKey());
                 }
             });
