@@ -91,7 +91,7 @@ public class ProviderWindow extends javax.swing.JDialog {
                 simpleStack.push(element);
             }
         });
-        if(!wasChanged) {
+        if (!wasChanged) {
             wasChanged = !simpleStack.isEmpty();
         }
         while (!simpleStack.isEmpty()) {
@@ -117,7 +117,7 @@ public class ProviderWindow extends javax.swing.JDialog {
                     wasChanged = removeAcquisitions(provider, wasChanged);
                 }
                 ViewControl.saveRecord();
-                if(wasChanged) {
+                if (wasChanged) {
                     MainForm.updateWindow();
                 }
                 updateWindow();
@@ -215,7 +215,7 @@ public class ProviderWindow extends javax.swing.JDialog {
             /**
              * Refere-se ao número de série da classe.
              */
-            private static final long serialVersionUID = -2288420985406491358L;
+            private static final long serialVersionUID = 1L;
             boolean[] canEdit = new boolean[] { false, false, false, false };
 
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
@@ -233,9 +233,9 @@ public class ProviderWindow extends javax.swing.JDialog {
         final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE));
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400,
+                scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 304,
                 Short.MAX_VALUE));
 
         pack();

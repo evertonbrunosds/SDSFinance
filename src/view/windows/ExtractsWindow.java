@@ -69,7 +69,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         final DefaultTableModel model = (DefaultTableModel) table.getModel();
         tree.forEach(true, extract -> {
             model.addRow(new Object[] { extract.period, extract.getPositiveValue(),
-                extract.getNegativeValue(), extract.getTotalValue() });
+                    extract.getNegativeValue(), extract.getTotalValue() });
         });
     }
 
@@ -224,7 +224,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE));
 
         pack();
         setLocationRelativeTo(null);
@@ -427,8 +427,8 @@ public class ExtractsWindow extends javax.swing.JDialog {
          * @param acquisition Refere-se a aquisição.
          */
         public DailyExtract(final IAcquisition acquisition) {
-            super(acquisition.getTotalValue(), acquisition.getDate().getDay(), acquisition.getDate().getMonth(),
-                    acquisition.getDate().getYear());
+            super(acquisition.getTotalValue(), acquisition.getDate().getDay(),
+                    acquisition.getDate().getMonth(), acquisition.getDate().getYear());
         }
 
     }

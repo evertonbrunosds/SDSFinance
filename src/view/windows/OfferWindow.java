@@ -92,8 +92,7 @@ public class OfferWindow extends javax.swing.JDialog {
         } else {
             optRemoveExpense.setEnabled(true);
         }
-        if (tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1
-                || tableExpense.getSelectedRows().length > 1) {
+        if (tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1  || tableExpense.getSelectedRows().length > 1) {
             optAcquireExpense.setEnabled(false);
             optEditExpense.setEnabled(false);
         } else {
@@ -119,7 +118,7 @@ public class OfferWindow extends javax.swing.JDialog {
                     wasChanged = removeAcquisitions(expense, wasChanged);
                 }
                 ViewControl.saveRecord();
-                if(wasChanged) {
+                if (wasChanged) {
                     MainForm.updateWindow();
                 }
                 updateWindow();
@@ -144,14 +143,14 @@ public class OfferWindow extends javax.swing.JDialog {
                     wasChanged = removeAcquisitions(income, wasChanged);
                 }
                 ViewControl.saveRecord();
-                if(wasChanged) {
+                if (wasChanged) {
                     MainForm.updateWindow();
                 }
                 updateWindow();
             }
         }
     }
-    
+
     /**
      * Método responsável por excluir uma pilha de aquisições ligadas as ofertas removidas.
      * @param offer      Refere-se a oferta removida.
@@ -166,7 +165,7 @@ public class OfferWindow extends javax.swing.JDialog {
                 simpleStack.push(element);
             }
         });
-        if(!wasChanged) {
+        if (!wasChanged) {
             wasChanged = !simpleStack.isEmpty();
         }
         while (!simpleStack.isEmpty()) {
@@ -373,7 +372,7 @@ public class OfferWindow extends javax.swing.JDialog {
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE));
 
         pack();
         setLocationRelativeTo(null);
