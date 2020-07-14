@@ -112,13 +112,16 @@ public class OfferWindow extends javax.swing.JDialog {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
                     + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
                 IOfferVisible expense;
+                boolean wasChanged = false;
                 for (final int row : selectedRows) {
                     expense = (IOfferVisible) tableExpense.getModel().getValueAt(row, 0);
                     provider.getExpenseCollection().remove(expense.getKey());
-                    removeAcquisitions(expense);
+                    wasChanged = removeAcquisitions(expense, wasChanged);
                 }
                 ViewControl.saveRecord();
-                MainForm.updateWindow();
+                if(wasChanged) {
+                    MainForm.updateWindow();
+                }
                 updateWindow();
             }
         }
@@ -134,13 +137,16 @@ public class OfferWindow extends javax.swing.JDialog {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
                     + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
                 IOfferVisible income;
+                boolean wasChanged = false;
                 for (final int row : selectedRows) {
                     income = (IOfferVisible) tableIncome.getModel().getValueAt(row, 0);
                     provider.getIncomeCollection().remove(income.getKey());
-                    removeAcquisitions(income);
+                    wasChanged = removeAcquisitions(income, wasChanged);
                 }
                 ViewControl.saveRecord();
-                MainForm.updateWindow();
+                if(wasChanged) {
+                    MainForm.updateWindow();
+                }
                 updateWindow();
             }
         }
@@ -148,19 +154,25 @@ public class OfferWindow extends javax.swing.JDialog {
     
     /**
      * Método responsável por excluir uma pilha de aquisições ligadas as ofertas removidas.
-     * @param offer Refere-se a oferta removida.
+     * @param offer      Refere-se a oferta removida.
+     * @param wasChanged Refere-se ao indicativo de que houveram alterações em aquisições.
+     * @return Retorna indicativo de que houveram alterações em aquisições.
      * @throws ElementNotFoundException Exceção lançada no caso das aquisições não terem sido encontradas.
      */
-    private void removeAcquisitions(final IOfferVisible offer) throws ElementNotFoundException {
+    private boolean removeAcquisitions(final IOfferVisible offer, boolean wasChanged) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
         Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
             if (element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
                 simpleStack.push(element);
             }
         });
+        if(!wasChanged) {
+            wasChanged = !simpleStack.isEmpty();
+        }
         while (!simpleStack.isEmpty()) {
             Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
+        return wasChanged;
     }
 
     /**
