@@ -215,7 +215,7 @@ public class ProviderWindow extends javax.swing.JDialog {
             /**
              * Refere-se ao número de série da classe.
              */
-            private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = -2288420985406491358L;
             boolean[] canEdit = new boolean[] { false, false, false, false };
 
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
