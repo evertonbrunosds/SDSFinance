@@ -45,7 +45,7 @@ public class Controller implements IController {
     /**
      * Refere-se a versão da classe.
      */
-    private final long version = 03062020;
+    private final long version = 14072020;
     /**
      * Refere-se ao arquivo de registro.
      */
@@ -67,7 +67,11 @@ public class Controller implements IController {
      * Construtor responsável pelo instanciamento do controlador.
      */
     private Controller() {
-        this.pathFile = System.getProperty("user.home") + "/.SDSFinance";
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            this.pathFile = System.getProperty("user.home") + "/AppData/Roaming/SDSFinance";
+        } else {
+            this.pathFile = System.getProperty("user.home") + "/.SDSFinance";
+        }
         final File file = new File(pathFile);
         if (!file.exists()) {
             file.mkdirs();
