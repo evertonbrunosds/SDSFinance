@@ -43,7 +43,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="optImport">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Importar"/>
+                <Property name="text" type="java.lang.String" value="Importar Backup"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optImportActionPerformed"/>
@@ -51,7 +51,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optExport">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exportar"/>
+                <Property name="text" type="java.lang.String" value="Exportar Backup"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optExportActionPerformed"/>

@@ -74,12 +74,12 @@ public abstract class ViewControl {
     }
 
     /**
-     * Método responsável por exportar registros.
+     * Método responsável por exportar backup de registros.
      */
     public static void exportRecord() {
-        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
-        final String textAproveButton = "Exportar";
-        final String title = "Exportar Registro";
+        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Backup de Registro do SDS Finance", "sdsf");
+        final String textAproveButton = "Exportar Backup";
+        final String title = "Exportar Backup de Registro";
         final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
         if (fileDialog.execute()) {
             try {
@@ -87,7 +87,7 @@ public abstract class ViewControl {
             } catch (final NullObjectException ex) {
                 Show.warningMessage("Você deve especificar um nome de arquivo.");
             } catch (final IOException ex) {
-                Show.errorMessage("Não foi possível exportar o arquivo para o local especificado.");
+                Show.errorMessage("Não foi possível exportar o backup para o local especificado.");
             }
         }
     }
@@ -96,10 +96,10 @@ public abstract class ViewControl {
      * Método responsável por importar registros.
      */
     public static void importRecord() {
-        if (Show.questionMessage("Se bem sucedida esta ação irá sobrescrever seus registros atuais, deseja prosseguir?")) {
-            final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
-            final String textAproveButton = "Importar";
-            final String title = "Importar Registro";
+        if (Show.questionMessage("Se bem sucedida, esta ação irá sobrescrever seus registros atuais. Deseja prosseguir?")) {
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter("Backup de Registro do SDS Finance", "sdsf");
+            final String textAproveButton = "Importar Backup";
+            final String title = "Importar Backup de Registro";
             final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
             if (fileDialog.execute()) {
                 try {
@@ -109,11 +109,11 @@ public abstract class ViewControl {
                 } catch (final NullObjectException ex) {
                     Show.warningMessage("Você deve especificar um nome de arquivo.");
                 } catch (final IOException ex) {
-                    Show.errorMessage("Não foi possível importar o arquivo para do local especificado.");
+                    Show.errorMessage("Não foi possível importar o arquivo de backup para do local especificado.");
                 } catch (final ClassNotFoundException ex) {
-                    Show.errorMessage("Não foi possível importar, o arquivo está corrompido.");
+                    Show.errorMessage("Não foi possível importar o backup, o arquivo está corrompido.");
                 } catch (final IncompatibleTypeException ex) {
-                    Show.warningMessage("Este registro pertence a uma versão do SDS Finance diferente da atual.");
+                    Show.warningMessage("Este backup registro pertence a uma versão do SDS Finance diferente da atual.");
                 }
             }
         }

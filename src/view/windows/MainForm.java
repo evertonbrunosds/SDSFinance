@@ -198,7 +198,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optRecorder.setText("Registro");
 
-        optImport.setText("Importar");
+        optImport.setText("Importar Backup");
         optImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 optImportActionPerformed(evt);
@@ -206,7 +206,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optRecorder.add(optImport);
 
-        optExport.setText("Exportar");
+        optExport.setText("Exportar Backup");
         optExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 optExportActionPerformed(evt);
