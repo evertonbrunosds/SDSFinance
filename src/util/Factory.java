@@ -22,6 +22,7 @@ package util;
 import exceptions.DateInvalidException;
 import exceptions.IntegerValueInvalidException;
 import exceptions.NullObjectException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.business.Acquisition;
 import model.business.IAcquisition;
 import model.offers.Expense;
@@ -34,6 +35,7 @@ import model.organizations.Provider;
 import model.territories.City;
 import model.territories.Neighborhood;
 import model.territories.Street;
+import view.managers.FileDialog;
 
 /**
  * Classe responsável por comportar-se como fábrica.
@@ -139,6 +141,29 @@ public abstract class Factory {
     public static IAcquisition acquisition(final IProvider provider, final IOfferVisible offer, 
             final String amount, final Date date) throws NullObjectException, IntegerValueInvalidException {
         return new Acquisition(provider, offer, Converter.toInteger(amount), date);
+    }
+    
+    
+    /**
+     * Método responsável por gerar instância de diálogo de salvar arquivo.
+     * @return Retorna instância de diálogo de salvar arquivo.
+     */
+    public static FileDialog saveFileDialog() {
+        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
+        final String textAproveButton = "Salvar Registro";
+        final String title = "Salvar Registro do SDS Finance";
+        return new FileDialog(title, textAproveButton, filter);
+    }
+    
+    /**
+     * Método responsável por gerar instância de diálogo de abrir arquivo.
+     * @return Retorna instância de diálogo de abrir arquivo.
+     */
+    public static FileDialog openFileDialog() {
+        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Registro do SDS Finance", "sdsf");
+        final String textAproveButton = "Abrir Registro";
+        final String title = "Abrir Registro do SDS Finance";
+        return new FileDialog(title, textAproveButton, filter);
     }
 
 }

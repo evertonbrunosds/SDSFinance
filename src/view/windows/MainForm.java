@@ -21,6 +21,7 @@ package view.windows;
 
 import control.Controller;
 import exceptions.ElementNotFoundException;
+import java.awt.Frame;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.business.IAcquisition;
@@ -42,7 +43,7 @@ public class MainForm extends javax.swing.JFrame {
      * Refere-se a instância da janela principal.
      */
     private static MainForm instance;
-
+    
     /**
      * Construtor responsável por inicializar a janela principal da aplicação.
      */
@@ -51,7 +52,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         ViewControl.alignTo(table, SwingConstants.CENTER);
     }
-    
+
     /**
      * Método responsável por alterar o título da janela.
      * @param newTitle Refere-se ao novo tútulo.
@@ -158,7 +159,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         popupMenu.add(optRemoveAcquisition);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SDS Finance");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png"))
         );
@@ -231,6 +232,11 @@ public class MainForm extends javax.swing.JFrame {
         optFile.add(optOpenFile);
 
         optSaveFile.setText("Salvar");
+        optSaveFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optSaveFileActionPerformed(evt);
+            }
+        });
         optFile.add(optSaveFile);
 
         optSaveAsFile.setText("Salvar Como");
@@ -321,7 +327,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optShowItemStateChanged
 
     private void optSaveAsFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveAsFileActionPerformed
-        //ViewControl.exportRecord();
+        ViewControl.saveAs();
     }//GEN-LAST:event_optSaveAsFileActionPerformed
 
     private void optOpenFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenFileActionPerformed
@@ -360,12 +366,16 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optAccessProviderActionPerformed
 
     private void optFileItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optFileItemStateChanged
-        if(ViewControl.isWasSaved()) {
+        if(ViewControl.isWasSaved() && !Controller.getInstance().neverBeenSavedInFile()) {
             optSaveFile.setEnabled(false);
         } else {
             optSaveFile.setEnabled(true);
         }
     }//GEN-LAST:event_optFileItemStateChanged
+
+    private void optSaveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveFileActionPerformed
+        ViewControl.save();
+    }//GEN-LAST:event_optSaveFileActionPerformed
 
     /**
      * @param args the command line arguments

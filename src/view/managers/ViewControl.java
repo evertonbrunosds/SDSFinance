@@ -20,12 +20,14 @@
 package view.managers;
 
 import control.Controller;
-import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.awt.Color;
+import java.io.IOException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import util.Converter;
+import util.Factory;
 import view.windows.MainForm;
 
 /**
@@ -71,6 +73,10 @@ public abstract class ViewControl {
         }
     }
 
+    /**
+     * Método responsável por alterar indicativos de que as alterações foram salvas.
+     * @param wasSaved Refere-se a indicativo de que as alterações foram salvas.
+     */
     public static void setWasSaved(final boolean wasSaved) {
         if(!wasSaved) {
             MainForm.setTitleWindow(Controller.getInstance().getFileName() + " *");
@@ -80,10 +86,45 @@ public abstract class ViewControl {
         ViewControl.wasSaved = wasSaved;
     }
     
+    /**
+     * Método responsável por retornar indicativos de que as alterações foram salvas.
+     * @return Retorna indicativo de que as alterações foram salvas.
+     */
     public static boolean isWasSaved() {
         return wasSaved;
     }
     
+    /**
+     * Método responsável por salvar registros num dado arquivo.
+     */
+    public static void saveAs() {
+        final FileDialog fileDialog = Factory.saveFileDialog();
+        if(fileDialog.execute()) {
+            try {
+                Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
+                setWasSaved(true);
+            } catch (final NullObjectException ex) {
+                Show.warningMessage("Você deve especificar um nome de arquivo.");
+            } catch (final IOException ex) {
+                Show.errorMessage("Não foi possível salvar o arquivo no local especificado.");
+            }
+        }
+    }
     
+    /**
+     * Método responsável por salvar registros num dado arquivo anteriormente aberto ou salvo. 
+     */
+    public static void save() {
+        if(Controller.getInstance().neverBeenSavedInFile()) {
+            saveAs();
+        } else {
+            try {
+                Controller.getInstance().saveFromFile();
+                setWasSaved(true);
+            } catch (final IOException ex) {
+                Show.errorMessage("Não foi possível salvar o arquivo no local especificado.");
+            }
+        }
+    }
     
 }

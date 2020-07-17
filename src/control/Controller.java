@@ -155,6 +155,7 @@ public class Controller implements IController {
     public void saveFromFile(final String fileName) throws NullObjectException, IOException {
         Filter.nullObject(fileName);
         fileInternalRecorder(fileName);
+        this.fileName = fileName;
     }
 
     /**
@@ -166,7 +167,6 @@ public class Controller implements IController {
         final FileStream fileStream = new FileStream();
         fileStream.setObject(this);
         fileStream.saveFromFile(fileName);
-        this.fileName = fileName;
     }
 
     /**
@@ -194,15 +194,24 @@ public class Controller implements IController {
     @Override
     public String getFileName() {
         if(fileName != null) {
-            final String[] strings = fileName.split("/");
-            final String string = "[" + strings[strings.length - 1] + "]";
+            String[] strings = fileName.split("/");
+            String string = strings[strings.length - 1];
             if(string.contains(".sdsf")) {
-                return string.split(".")[string.split(".").length - 2];
-            } else {
-                return string;
+                strings = string.split(".sdsf");
+                string = strings[0];
             }
+            return "[" + string + "]";
         } else {
             return "[Sem Título]";
         }
+    }
+    
+    /**
+     * Método responsável por retornar indicativo de que nunca foi salvo em arquivo.
+     * @return Retorna indicativo de que nunca foi salvo em arquivo.
+     */
+    @Override
+    public boolean neverBeenSavedInFile() {
+        return fileName == null;
     }
 }

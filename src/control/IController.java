@@ -86,5 +86,11 @@ public interface IController extends Serializable {
      * @return Retorna o nome do arquivo.
      */
     public String getFileName();
+    
+    /**
+     * Método responsável por retornar indicativo de que nunca foi salvo em arquivo.
+     * @return Retorna indicativo de que nunca foi salvo em arquivo.
+     */
+    public boolean neverBeenSavedInFile();
 
 }
