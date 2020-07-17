@@ -108,7 +108,7 @@ public class ProviderWindow extends javax.swing.JDialog {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n"
-                    + "também todas as suas ofertas e aquisições atribuídas a eles, deseja prosseguir?")) {
+                    + "também todas as suas ofertas e aquisições atribuídas a eles. Deseja prosseguir?", "Não", "Sim")) {
                 IProvider provider;
                 boolean wasChanged = false;
                 for (final int row : selectedRows) {

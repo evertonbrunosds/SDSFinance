@@ -109,7 +109,7 @@ public class OfferWindow extends javax.swing.JDialog {
         final int[] selectedRows = tableExpense.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
-                    + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
+                    + "mas também todas as aquisições atribuídas a elas. Deseja prosseguir?", "Não", "Sim")) {
                 IOfferVisible expense;
                 boolean wasChanged = false;
                 for (final int row : selectedRows) {
@@ -134,7 +134,7 @@ public class OfferWindow extends javax.swing.JDialog {
         final int[] selectedRows = tableIncome.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente não só as ofertas selecionadas, \n"
-                    + "mas também todas as aquisições atribuídas a elas, deseja prosseguir?")) {
+                    + "mas também todas as aquisições atribuídas a elas. Deseja prosseguir?", "Não", "Sim")) {
                 IOfferVisible income;
                 boolean wasChanged = false;
                 for (final int row : selectedRows) {

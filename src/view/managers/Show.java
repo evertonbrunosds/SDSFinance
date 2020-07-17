@@ -46,10 +46,12 @@ public abstract class Show {
     /**
      * Método responsável por exibir mensagens de questionamento.
      * @param msg Refere-se ao conteúdo da mensagem.
+     * @param optionLeft Refere-se a opção da esquerda.
+     * @param optionRight Refere-se a opção da direita.
      * @return Retorna escolha booleana do usuário.
      */
-    public static boolean questionMessage(final String msg) {
-        final String[] options = { "Não", "Sim" };
+    public static boolean questionMessage(final String msg, final String optionLeft, final String optionRight) {
+        final String[] options = {optionLeft, optionRight};
         return 0 != JOptionPane.showOptionDialog(null, msg, "Mensagem de Confirmação", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
     }

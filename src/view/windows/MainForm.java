@@ -21,7 +21,6 @@ package view.windows;
 
 import control.Controller;
 import exceptions.ElementNotFoundException;
-import java.awt.Frame;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.business.IAcquisition;
@@ -51,6 +50,26 @@ public class MainForm extends javax.swing.JFrame {
         instance = this;
         initComponents();
         ViewControl.alignTo(table, SwingConstants.CENTER);
+    }
+    
+    /**
+     * Método responsável por fechar a aplicação.
+     */
+    @Override
+    public void dispose() {
+        if(!ViewControl.isWasSaved()) {
+            if(!Show.questionMessage("Se você não salvar o registro, todas as alterações\n" 
+                    + "serão perdidas. Deseja salvar antes de fechar?", "Sim", "Não")) {
+                ViewControl.save();
+                if(ViewControl.isWasSaved()) {
+                    System.exit(0);
+                }
+            } else {
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
+        }
     }
 
     /**
@@ -84,7 +103,7 @@ public class MainForm extends javax.swing.JFrame {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
             if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n" 
-                    + "aquisições selecionadas, deseja prosseguir?")) {
+                    + "aquisições selecionadas. Deseja prosseguir?", "Não", "Sim")) {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
