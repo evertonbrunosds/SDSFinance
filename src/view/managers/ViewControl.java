@@ -127,4 +127,24 @@ public abstract class ViewControl {
         }
     }
     
+    /**
+     * Método responsável por criar um novo arquivo.
+     */
+    public static void newFile() {
+        if(isWasSaved()) {
+            Controller.getInstance().clear();
+            setWasSaved(true);
+        } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n" 
+                + "perdidas. Deseja salvar antes de criar um novo arquivo?", "Sim", "Não")) {
+            ViewControl.save();
+            if(ViewControl.isWasSaved()) {
+                Controller.getInstance().clear();
+                setWasSaved(true);
+            }
+        } else {
+            Controller.getInstance().clear();
+            setWasSaved(true);
+        }
+    }
+    
 }

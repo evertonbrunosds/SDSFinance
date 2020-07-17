@@ -179,7 +179,7 @@ public class MainForm extends javax.swing.JFrame {
         popupMenu.add(optRemoveAcquisition);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SDS Finance");
+        setTitle("SDS Finance - [Sem Título]");
         setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png"))
         );
 
@@ -358,7 +358,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optExtractsActionPerformed
 
     private void optNewFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNewFileActionPerformed
-        //ViewControl.newFile();
+        ViewControl.newFile();
     }//GEN-LAST:event_optNewFileActionPerformed
 
     private void optRemoveAcquisitionActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveAcquisitionActionPerformed
@@ -385,9 +385,16 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optAccessProviderActionPerformed
 
     private void optFileItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optFileItemStateChanged
-        if(ViewControl.isWasSaved() && !Controller.getInstance().neverBeenSavedInFile()) {
-            optSaveFile.setEnabled(false);
+        if(ViewControl.isWasSaved()) {
+            if(Controller.getInstance().neverBeenSavedInFile()) {
+                optNewFile.setEnabled(false);
+                optSaveFile.setEnabled(true);
+            } else {
+                optNewFile.setEnabled(true);
+                optSaveFile.setEnabled(false);
+            }
         } else {
+            optNewFile.setEnabled(true);
             optSaveFile.setEnabled(true);
         }
     }//GEN-LAST:event_optFileItemStateChanged

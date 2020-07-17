@@ -106,6 +106,7 @@ public class Controller implements IController {
     public void clear() {
         providerCollection = new OrganizationCollection<>();
         acquisitionCollection = new BusinessCollection<>();
+        fileName = null;
     }
 
     /**
@@ -178,15 +179,6 @@ public class Controller implements IController {
         fileInternalRecorder(fileName);
     }
 
-    /**
-     * Método responsáve por alterar o nome do arquivo.
-     * @param fileName Refere-se ao novo nome de arquivo.
-     */
-    @Override
-    public void setFileName(final String fileName) {
-        this.fileName = fileName;
-    }
-    
     /**
      * Método responsáve por retornar o nome do arquivo.
      * @return Retorna o nome do arquivo.

@@ -76,12 +76,6 @@ public interface IController extends Serializable {
     public void saveFromFile() throws IOException;
     
     /**
-     * Método responsáve por alterar o nome do arquivo.
-     * @param fileName Refere-se ao novo nome de arquivo.
-     */
-    public void setFileName(final String fileName);
-    
-    /**
      * Método responsáve por retornar o nome do arquivo.
      * @return Retorna o nome do arquivo.
      */
