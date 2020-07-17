@@ -70,15 +70,21 @@ public interface IController extends Serializable {
     public void saveFromFile(String fileName) throws NullObjectException, IOException;
 
     /**
-     * Método responsável por carregar dados de arquivo para o controlador.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
-     */
-    public void loadFromFile() throws IOException;
-
-    /**
      * Método responsável por gravar dados do controlador em arquivo.
      * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      */
     public void saveFromFile() throws IOException;
+    
+    /**
+     * Método responsáve por alterar o nome do arquivo.
+     * @param fileName Refere-se ao novo nome de arquivo.
+     */
+    public void setFileName(final String fileName);
+    
+    /**
+     * Método responsáve por retornar o nome do arquivo.
+     * @return Retorna o nome do arquivo.
+     */
+    public String getFileName();
 
 }

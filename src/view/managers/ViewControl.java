@@ -131,17 +131,6 @@ public abstract class ViewControl {
     }
 
     /**
-     * Método responsável carregar registros do dispositivo.
-     */
-    public static void loadRecord() {
-        try {
-            Controller.getInstance().loadFromFile();
-        } catch (final IOException ex) {
-            Show.errorMessage("Não foi possível carregar o registro.");
-        }
-    }
-    
-    /**
      * Método responsável por reiniciar registros do dispositivo.
      */
     public static void restartRecord() {

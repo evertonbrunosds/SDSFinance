@@ -21,8 +21,6 @@ package control;
 
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import model.business.IAcquisition;
 import model.sets.OrganizationCollection;
@@ -39,6 +37,10 @@ import util.Filter;
  */
 public class Controller implements IController {
     /**
+     * Refere-se a instância do controlador.
+     */
+    private static Controller instance;
+    /**
      * Refere-se ao número de série da classe.
      */
     private static final long serialVersionUID = 3154611275482929630L;
@@ -49,11 +51,7 @@ public class Controller implements IController {
     /**
      * Refere-se ao arquivo de registro.
      */
-    private final String pathFile;
-    /**
-     * Refere-se a instância do controlador.
-     */
-    private static Controller instance;
+    private String fileName;
     /**
      * Refere-se a coleção de fornecedores.
      */
@@ -67,15 +65,7 @@ public class Controller implements IController {
      * Construtor responsável pelo instanciamento do controlador.
      */
     private Controller() {
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            this.pathFile = System.getProperty("user.home") + "/AppData/Roaming/SDSFinance";
-        } else {
-            this.pathFile = System.getProperty("user.home") + "/.SDSFinance";
-        }
-        final File file = new File(pathFile);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+        this.fileName = null;
         providerCollection = new OrganizationCollection<>();
         acquisitionCollection = new BusinessCollection<>();
     }
@@ -179,25 +169,34 @@ public class Controller implements IController {
     }
 
     /**
-     * Método responsável por carregar dados de arquivo para o controlador.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
-     */
-    @Override
-    public void loadFromFile() throws IOException {
-        try {
-            fileInternalLoader(pathFile + "/history.sdsf");
-        } catch (FileNotFoundException | ClassNotFoundException | IncompatibleTypeException ex) {
-            saveFromFile();
-        }
-    }
-
-    /**
      * Método responsável por gravar dados do controlador em arquivo.
      * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
      */
     @Override
     public void saveFromFile() throws IOException {
-        fileInternalRecorder(pathFile + "/history.sdsf");
+        fileInternalRecorder(fileName);
     }
 
+    /**
+     * Método responsáve por alterar o nome do arquivo.
+     * @param fileName Refere-se ao novo nome de arquivo.
+     */
+    @Override
+    public void setFileName(final String fileName) {
+        this.fileName = fileName;
+    }
+    
+    /**
+     * Método responsáve por retornar o nome do arquivo.
+     * @return Retorna o nome do arquivo.
+     */
+    @Override
+    public String getFileName() {
+        if(fileName != null) {
+            final String[] strings = fileName.split("/");
+            return strings[strings.length - 1];
+        } else {
+            return "[Novo]";
+        }
+    }
 }
