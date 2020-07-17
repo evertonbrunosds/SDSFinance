@@ -88,7 +88,7 @@ public class OfferManager extends javax.swing.JDialog {
             final IIncome income = Factory.income(textName.getText(), Converter.toDouble(textValue.getText()));
             provider.getIncomeCollection().insert(income);
         }
-        ViewControl.saveRecord();
+        ViewControl.setWasSaved(false);
         OfferWindow.updateWindow();
         dispose();
     }
@@ -164,7 +164,7 @@ public class OfferManager extends javax.swing.JDialog {
             wasChanged = true;
         }
         if (wasChanged) {
-            ViewControl.saveRecord();
+            ViewControl.setWasSaved(false);
             OfferWindow.updateWindow();
         }
         dispose();

@@ -36,33 +36,41 @@
     </Container>
     <Menu class="javax.swing.JMenuBar" name="toolBar">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="optRecorder">
+        <Menu class="javax.swing.JMenu" name="optFile">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registro"/>
+            <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="optFileItemStateChanged"/>
+          </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="optImport">
+            <MenuItem class="javax.swing.JMenuItem" name="optNewFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Importar Backup"/>
+                <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optImportActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optNewFileActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optExport">
+            <MenuItem class="javax.swing.JMenuItem" name="optOpenFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exportar Backup"/>
+                <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optExportActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optOpenFileActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optRestart">
+            <MenuItem class="javax.swing.JMenuItem" name="optSaveFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reiniciar"/>
+                <Property name="text" type="java.lang.String" value="Salvar"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="optSaveAsFile">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Salvar Como"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optRestartActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optSaveAsFileActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -82,11 +90,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optProviderActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="optBudgeting">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Or&#xe7;amentos"/>
-              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optExtracts">
               <Properties>

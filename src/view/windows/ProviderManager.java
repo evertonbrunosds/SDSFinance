@@ -76,7 +76,7 @@ public class ProviderManager extends javax.swing.JDialog {
         final Street street = Factory.street(textStreet.getText());
         final IProvider tmpProvider = Factory.provider(textName.getText(), street, neighborhood, city);
         Controller.getInstance().getProviderCollection().insert(tmpProvider);
-        ViewControl.saveRecord();
+        ViewControl.setWasSaved(false);
         ProviderWindow.updateWindow();
         dispose();
     }
@@ -211,7 +211,7 @@ public class ProviderManager extends javax.swing.JDialog {
             MainForm.updateWindow();
         }
         if(wasChanged) {
-            ViewControl.saveRecord();
+            ViewControl.setWasSaved(false);
             ProviderWindow.updateWindow();
         }
         dispose();

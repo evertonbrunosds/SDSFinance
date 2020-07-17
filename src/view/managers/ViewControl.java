@@ -23,12 +23,9 @@ import control.Controller;
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.awt.Color;
-import java.io.IOException;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import util.Converter;
 import view.windows.MainForm;
 
 /**
@@ -36,6 +33,7 @@ import view.windows.MainForm;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class ViewControl {
+    private static boolean wasSaved = true;
 
     /**
      * Método responsável por alinhar as linhas e colunas de uma tabela.
@@ -73,73 +71,19 @@ public abstract class ViewControl {
         }
     }
 
-    /**
-     * Método responsável por exportar backup de registros.
-     */
-    public static void exportRecord() {
-        final FileNameExtensionFilter filter = new FileNameExtensionFilter("Backup de Registro do SDS Finance", "sdsf");
-        final String textAproveButton = "Exportar Backup";
-        final String title = "Exportar Backup de Registro";
-        final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
-        if (fileDialog.execute()) {
-            try {
-                Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
-            } catch (final NullObjectException ex) {
-                Show.warningMessage("Você deve especificar um nome de arquivo.");
-            } catch (final IOException ex) {
-                Show.errorMessage("Não foi possível exportar o backup para o local especificado.");
-            }
+    public static void setWasSaved(final boolean wasSaved) {
+        if(!wasSaved) {
+            MainForm.setTitleWindow(Controller.getInstance().getFileName() + " *");
+        } else {
+            MainForm.setTitleWindow(Controller.getInstance().getFileName());
         }
+        ViewControl.wasSaved = wasSaved;
     }
-
-    /**
-     * Método responsável por importar registros.
-     */
-    public static void importRecord() {
-        if (Show.questionMessage("Se bem sucedida, esta ação irá sobrescrever seus registros atuais. Deseja prosseguir?")) {
-            final FileNameExtensionFilter filter = new FileNameExtensionFilter("Backup de Registro do SDS Finance", "sdsf");
-            final String textAproveButton = "Importar Backup";
-            final String title = "Importar Backup de Registro";
-            final FileDialog fileDialog = new FileDialog(title, textAproveButton, filter);
-            if (fileDialog.execute()) {
-                try {
-                    Controller.getInstance().loadFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
-                    saveRecord();
-                    MainForm.updateWindow();
-                } catch (final NullObjectException ex) {
-                    Show.warningMessage("Você deve especificar um nome de arquivo.");
-                } catch (final IOException ex) {
-                    Show.errorMessage("Não foi possível importar o arquivo de backup para do local especificado.");
-                } catch (final ClassNotFoundException ex) {
-                    Show.errorMessage("Não foi possível importar o backup, o arquivo está corrompido.");
-                } catch (final IncompatibleTypeException ex) {
-                    Show.warningMessage("Este backup registro pertence a uma versão do SDS Finance diferente da atual.");
-                }
-            }
-        }
+    
+    public static boolean isWasSaved() {
+        return wasSaved;
     }
-
-    /**
-     * Método responsável por gravar registros no dispositivo.
-     */
-    public static void saveRecord() {
-        try {
-            Controller.getInstance().saveFromFile();
-        } catch (final IOException ex) {
-            Show.errorMessage("Não foi possível gravar as alterações.");
-        }
-    }
-
-    /**
-     * Método responsável por reiniciar registros do dispositivo.
-     */
-    public static void restartRecord() {
-        if(Show.questionMessage("Esta ação provocará a perda permanente de todos os\n" 
-                + "dados registrados até então, deseja prosseguir?")) {
-            Controller.getInstance().clear();
-            saveRecord();
-            MainForm.updateWindow();
-        }
-    }
-
+    
+    
+    
 }

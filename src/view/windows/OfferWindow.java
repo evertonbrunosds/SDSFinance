@@ -117,7 +117,7 @@ public class OfferWindow extends javax.swing.JDialog {
                     provider.getExpenseCollection().remove(expense.getKey());
                     wasChanged = removeAcquisitions(expense, wasChanged);
                 }
-                ViewControl.saveRecord();
+                ViewControl.setWasSaved(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }
@@ -142,7 +142,7 @@ public class OfferWindow extends javax.swing.JDialog {
                     provider.getIncomeCollection().remove(income.getKey());
                     wasChanged = removeAcquisitions(income, wasChanged);
                 }
-                ViewControl.saveRecord();
+                ViewControl.setWasSaved(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }

@@ -50,9 +50,18 @@ public class MainForm extends javax.swing.JFrame {
         instance = this;
         initComponents();
         ViewControl.alignTo(table, SwingConstants.CENTER);
-        updateWindow();
     }
-
+    
+    /**
+     * Método responsável por alterar o título da janela.
+     * @param newTitle Refere-se ao novo tútulo.
+     */
+    public static void setTitleWindow(final String newTitle) {
+        if(instance != null) {
+            instance.setTitle("SDS Finance - " + newTitle);
+        }
+    }
+    
     /**
      * Método responsável por atualizar a janela principal.
      */
@@ -80,7 +89,7 @@ public class MainForm extends javax.swing.JFrame {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
                     Controller.getInstance().getAcquisitionCollection().remove(acquisition.getKey());
                 }
-                ViewControl.saveRecord();
+                ViewControl.setWasSaved(false);
                 updateWindow();
             }
         }
@@ -114,20 +123,20 @@ public class MainForm extends javax.swing.JFrame {
         scrollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         toolBar = new javax.swing.JMenuBar();
-        optRecorder = new javax.swing.JMenu();
-        optImport = new javax.swing.JMenuItem();
-        optExport = new javax.swing.JMenuItem();
-        optRestart = new javax.swing.JMenuItem();
+        optFile = new javax.swing.JMenu();
+        optNewFile = new javax.swing.JMenuItem();
+        optOpenFile = new javax.swing.JMenuItem();
+        optSaveFile = new javax.swing.JMenuItem();
+        optSaveAsFile = new javax.swing.JMenuItem();
         optShow = new javax.swing.JMenu();
         optProvider = new javax.swing.JMenuItem();
-        optBudgeting = new javax.swing.JMenuItem();
         optExtracts = new javax.swing.JMenuItem();
         optAbout = new javax.swing.JMenu();
         optAuthor = new javax.swing.JMenuItem();
 
         optAccessProvider.setText("Acessar Fornecedor");
         optAccessProvider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optAccessProviderActionPerformed(evt);
             }
         });
@@ -135,7 +144,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optEditAcquisition.setText("Editar Aquisição");
         optEditAcquisition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optEditAcquisitionActionPerformed(evt);
             }
         });
@@ -143,7 +152,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optRemoveAcquisition.setText("Excluir Aquisições");
         optRemoveAcquisition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optRemoveAcquisitionActionPerformed(evt);
             }
         });
@@ -151,31 +160,34 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SDS Finance");
-        setIconImage(
-                java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png"))
+        );
 
         scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(final java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 scrollPaneMouseReleased(evt);
             }
         });
 
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        }, new String[] { "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
-            private static final long serialVersionUID = 1239724359305259903L;
-            boolean[] canEdit = new boolean[] { false, false, false, false, false, false };
+            },
+            new String [] {
+                "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-            public boolean isCellEditable(final int rowIndex, final int columnIndex) {
-                return canEdit[columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         table.getTableHeader().setReorderingAllowed(false);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(final java.awt.event.MouseEvent evt) {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tableMouseReleased(evt);
             }
         });
@@ -195,55 +207,60 @@ public class MainForm extends javax.swing.JFrame {
             table.getColumnModel().getColumn(5).setMaxWidth(90);
         }
 
-        optRecorder.setText("Registro");
-
-        optImport.setText("Importar Backup");
-        optImport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                optImportActionPerformed(evt);
+        optFile.setText("Arquivo");
+        optFile.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optFileItemStateChanged(evt);
             }
         });
-        optRecorder.add(optImport);
 
-        optExport.setText("Exportar Backup");
-        optExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                optExportActionPerformed(evt);
+        optNewFile.setText("Novo");
+        optNewFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optNewFileActionPerformed(evt);
             }
         });
-        optRecorder.add(optExport);
+        optFile.add(optNewFile);
 
-        optRestart.setText("Reiniciar");
-        optRestart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                optRestartActionPerformed(evt);
+        optOpenFile.setText("Abrir");
+        optOpenFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optOpenFileActionPerformed(evt);
             }
         });
-        optRecorder.add(optRestart);
+        optFile.add(optOpenFile);
 
-        toolBar.add(optRecorder);
+        optSaveFile.setText("Salvar");
+        optFile.add(optSaveFile);
+
+        optSaveAsFile.setText("Salvar Como");
+        optSaveAsFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optSaveAsFileActionPerformed(evt);
+            }
+        });
+        optFile.add(optSaveAsFile);
+
+        toolBar.add(optFile);
 
         optShow.setText("Exibir");
         optShow.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(final java.awt.event.ItemEvent evt) {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optShowItemStateChanged(evt);
             }
         });
 
         optProvider.setText("Fornecedores");
         optProvider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optProviderActionPerformed(evt);
             }
         });
         optShow.add(optProvider);
 
-        optBudgeting.setText("Orçamentos");
-        optShow.add(optBudgeting);
-
         optExtracts.setText("Extratos");
         optExtracts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optExtractsActionPerformed(evt);
             }
         });
@@ -255,7 +272,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optAuthor.setText("Autoria");
         optAuthor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optAuthorActionPerformed(evt);
             }
         });
@@ -265,12 +282,16 @@ public class MainForm extends javax.swing.JFrame {
 
         setJMenuBar(toolBar);
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -293,29 +314,27 @@ public class MainForm extends javax.swing.JFrame {
 
     private void optShowItemStateChanged(final java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optShowItemStateChanged
         if (table.getRowCount() == 0) {
-            optBudgeting.setEnabled(false);
             optExtracts.setEnabled(false);
         } else {
-            optBudgeting.setEnabled(true);
             optExtracts.setEnabled(true);
         }
     }//GEN-LAST:event_optShowItemStateChanged
 
-    private void optExportActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExportActionPerformed
-        ViewControl.exportRecord();
-    }//GEN-LAST:event_optExportActionPerformed
+    private void optSaveAsFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveAsFileActionPerformed
+        //ViewControl.exportRecord();
+    }//GEN-LAST:event_optSaveAsFileActionPerformed
 
-    private void optImportActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optImportActionPerformed
-        ViewControl.importRecord();
-    }//GEN-LAST:event_optImportActionPerformed
+    private void optOpenFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenFileActionPerformed
+        //ViewControl.openFile();
+    }//GEN-LAST:event_optOpenFileActionPerformed
 
     private void optExtractsActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExtractsActionPerformed
         ExtractsWindow.showModal();
     }//GEN-LAST:event_optExtractsActionPerformed
 
-    private void optRestartActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRestartActionPerformed
-        ViewControl.restartRecord();
-    }//GEN-LAST:event_optRestartActionPerformed
+    private void optNewFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNewFileActionPerformed
+        //ViewControl.newFile();
+    }//GEN-LAST:event_optNewFileActionPerformed
 
     private void optRemoveAcquisitionActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveAcquisitionActionPerformed
         try {
@@ -339,6 +358,14 @@ public class MainForm extends javax.swing.JFrame {
     private void optAccessProviderActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAccessProviderActionPerformed
         OfferWindow.showModal((IProvider) table.getValueAt(table.getSelectedRow(), 1));
     }//GEN-LAST:event_optAccessProviderActionPerformed
+
+    private void optFileItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optFileItemStateChanged
+        if(ViewControl.isWasSaved()) {
+            optSaveFile.setEnabled(false);
+        } else {
+            optSaveFile.setEnabled(true);
+        }
+    }//GEN-LAST:event_optFileItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -364,15 +391,15 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAccessProvider;
     private javax.swing.JMenuItem optAuthor;
-    private javax.swing.JMenuItem optBudgeting;
     private javax.swing.JMenuItem optEditAcquisition;
-    private javax.swing.JMenuItem optExport;
     private javax.swing.JMenuItem optExtracts;
-    private javax.swing.JMenuItem optImport;
+    private javax.swing.JMenu optFile;
+    private javax.swing.JMenuItem optNewFile;
+    private javax.swing.JMenuItem optOpenFile;
     private javax.swing.JMenuItem optProvider;
-    private javax.swing.JMenu optRecorder;
     private javax.swing.JMenuItem optRemoveAcquisition;
-    private javax.swing.JMenuItem optRestart;
+    private javax.swing.JMenuItem optSaveAsFile;
+    private javax.swing.JMenuItem optSaveFile;
     private javax.swing.JMenu optShow;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;

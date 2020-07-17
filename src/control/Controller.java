@@ -166,6 +166,7 @@ public class Controller implements IController {
         final FileStream fileStream = new FileStream();
         fileStream.setObject(this);
         fileStream.saveFromFile(fileName);
+        this.fileName = fileName;
     }
 
     /**
@@ -194,9 +195,14 @@ public class Controller implements IController {
     public String getFileName() {
         if(fileName != null) {
             final String[] strings = fileName.split("/");
-            return strings[strings.length - 1];
+            final String string = "[" + strings[strings.length - 1] + "]";
+            if(string.contains(".sdsf")) {
+                return string.split(".")[string.split(".").length - 2];
+            } else {
+                return string;
+            }
         } else {
-            return "[Novo]";
+            return "[Sem Título]";
         }
     }
 }

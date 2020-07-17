@@ -99,7 +99,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
             }
             OfferWindow.updateWindow();
         }
-        ViewControl.saveRecord();
+        ViewControl.setWasSaved(false);
         MainForm.updateWindow();
         dispose();
     }
@@ -129,7 +129,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
             wasChanged = true;
         }
         if (wasChanged) {
-            ViewControl.saveRecord();
+            ViewControl.setWasSaved(false);
             MainForm.updateWindow();
         }
         dispose();

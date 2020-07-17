@@ -116,7 +116,7 @@ public class ProviderWindow extends javax.swing.JDialog {
                     Controller.getInstance().getProviderCollection().remove(provider.getKey());
                     wasChanged = removeAcquisitions(provider, wasChanged);
                 }
-                ViewControl.saveRecord();
+                ViewControl.setWasSaved(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }
