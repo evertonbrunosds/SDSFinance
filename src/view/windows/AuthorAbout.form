@@ -84,7 +84,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelNameDevAuthor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Desenvolvedor: Everton Bruno Silva dos Santos"/>
+        <Property name="text" type="java.lang.String" value="Copyright (c) 2020. Everton Bruno Silva dos Santos"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelEmailDevAuthor">

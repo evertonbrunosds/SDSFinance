@@ -156,6 +156,7 @@ public class MainForm extends javax.swing.JFrame {
         optProvider = new javax.swing.JMenuItem();
         optExtracts = new javax.swing.JMenuItem();
         optAbout = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         optAuthor = new javax.swing.JMenuItem();
 
         optAccessProvider.setText("Acessar Fornecedor");
@@ -299,6 +300,14 @@ public class MainForm extends javax.swing.JFrame {
 
         optAbout.setText("Sobre");
 
+        jMenuItem1.setText("Licença");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        optAbout.add(jMenuItem1);
+
         optAuthor.setText("Autoria");
         optAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,6 +416,10 @@ public class MainForm extends javax.swing.JFrame {
         ViewControl.save();
     }//GEN-LAST:event_optSaveFileActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        LicenseWindow.showModal();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -432,6 +445,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAccessProvider;
     private javax.swing.JMenuItem optAuthor;
