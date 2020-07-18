@@ -181,7 +181,7 @@ public class Controller implements IController {
     }
 
     /**
-     * Método responsáve por retornar o nome do arquivo.
+     * Método responsável por retornar o nome do arquivo.
      * @return Retorna o nome do arquivo.
      */
     @Override

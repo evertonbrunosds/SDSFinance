@@ -93,44 +93,32 @@ public class AuthorAbout extends javax.swing.JDialog {
 
         labelNameDesignerAuthor.setText("Designer de Ícones: Samuel Araújo");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelVersion)
-                    .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelProductNameAndVersion)
-                    .addComponent(labelNameDevAuthor)
-                    .addComponent(labelEmailDevAuthor)
-                    .addComponent(separatorTwo)
-                    .addComponent(labelNameDesignerAuthor)
-                    .addComponent(separatorTree, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelVersion)
-                .addGap(18, 18, 18)
-                .addComponent(labelProductNameAndVersion)
-                .addGap(7, 7, 7)
-                .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(labelNameDevAuthor)
-                .addGap(2, 2, 2)
-                .addComponent(labelEmailDevAuthor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(labelNameDesignerAuthor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separatorTree, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup().addGap(15, 15, 15).addGroup(layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER).addComponent(labelVersion)
+                        .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelProductNameAndVersion).addComponent(labelNameDevAuthor)
+                        .addComponent(labelEmailDevAuthor).addComponent(separatorTwo)
+                        .addComponent(labelNameDesignerAuthor).addComponent(separatorTree,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup().addGap(20, 20, 20).addComponent(labelVersion)
+                        .addGap(18, 18, 18).addComponent(labelProductNameAndVersion).addGap(7, 7, 7)
+                        .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0).addComponent(labelNameDevAuthor).addGap(2, 2, 2)
+                        .addComponent(labelEmailDevAuthor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(separatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0).addComponent(labelNameDesignerAuthor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(separatorTree,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()));
 
         pack();
         setLocationRelativeTo(null);

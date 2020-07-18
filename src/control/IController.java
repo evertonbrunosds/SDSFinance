@@ -76,7 +76,7 @@ public interface IController extends Serializable {
     public void saveFromFile() throws IOException;
     
     /**
-     * Método responsáve por retornar o nome do arquivo.
+     * Método responsável por retornar o nome do arquivo.
      * @return Retorna o nome do arquivo.
      */
     public String getFileName();

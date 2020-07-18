@@ -79,14 +79,14 @@ public abstract class ViewControl {
      * @param wasSaved Refere-se a indicativo de que as alterações foram salvas.
      */
     public static void setWasSaved(final boolean wasSaved) {
-        if(!wasSaved) {
+        if (!wasSaved) {
             MainForm.setTitleWindow(Controller.getInstance().getFileName() + " *");
         } else {
             MainForm.setTitleWindow(Controller.getInstance().getFileName());
         }
         ViewControl.wasSaved = wasSaved;
     }
-    
+
     /**
      * Método responsável por retornar indicativos de que as alterações foram salvas.
      * @return Retorna indicativo de que as alterações foram salvas.
@@ -94,17 +94,17 @@ public abstract class ViewControl {
     public static boolean isWasSaved() {
         return wasSaved;
     }
-    
+
     /**
      * Método responsável por abrir registros num dado arquivo.
      */
     public static void openAs() {
         final FileDialog fileDialog = Factory.openFileDialog();
-        if(fileDialog.execute()) {
+        if (fileDialog.execute()) {
             open(fileDialog.getFileName());
         }
     }
-    
+
     /**
      * Método responsável por abrir registros num dado arquivo.
      * @param fileName Refere-se ao nome do arquivo.
@@ -120,17 +120,17 @@ public abstract class ViewControl {
             Show.errorMessage("Não foi possível abrir o arquivo do local especificado.");
         } catch (final ClassNotFoundException ex) {
             Show.errorMessage("O arquivo do local especificado está corrompido.");
-        } catch (IncompatibleTypeException ex) {
+        } catch (final IncompatibleTypeException ex) {
             Show.errorMessage("O SDS Finance não é compatível com o arquivo do local especificado.");
         }
     }
-    
+
     /**
      * Método responsável por salvar registros num dado arquivo.
      */
     public static void saveAs() {
         final FileDialog fileDialog = Factory.saveFileDialog();
-        if(fileDialog.execute()) {
+        if (fileDialog.execute()) {
             try {
                 Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
                 setWasSaved(true);
@@ -141,12 +141,12 @@ public abstract class ViewControl {
             }
         }
     }
-    
+
     /**
-     * Método responsável por salvar registros num dado arquivo anteriormente aberto ou salvo. 
+     * Método responsável por salvar registros num dado arquivo anteriormente aberto ou salvo.
      */
     public static void save() {
-        if(Controller.getInstance().neverBeenSavedInFile()) {
+        if (Controller.getInstance().neverBeenSavedInFile()) {
             saveAs();
         } else {
             try {
@@ -157,24 +157,24 @@ public abstract class ViewControl {
             }
         }
     }
-    
+
     /**
      * Método responsável por criar um novo arquivo.
      */
     public static void newFile() {
-        if(isWasSaved()) {
+        if (isWasSaved()) {
             createNewFile();
-        } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n" 
+        } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n"
                 + "perdidas. Deseja salvar antes de criar um novo arquivo?", "Sim", "Não")) {
             ViewControl.save();
-            if(ViewControl.isWasSaved()) {
+            if (ViewControl.isWasSaved()) {
                 createNewFile();
             }
         } else {
             createNewFile();
         }
     }
-    
+
     /**
      * Método responsável por criar um novo arquivo.
      */
@@ -183,5 +183,5 @@ public abstract class ViewControl {
         setWasSaved(true);
         MainForm.updateWindow();
     }
-    
+
 }
