@@ -46,6 +46,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="optNewFile">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
               <Events>
@@ -54,6 +57,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optOpenFile">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
               <Events>
@@ -62,6 +68,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optSaveFile">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
@@ -70,6 +79,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optSaveAsFile">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salvar Como"/>
               </Properties>
               <Events>
@@ -88,6 +100,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="optProvider">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+P"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Fornecedores"/>
               </Properties>
               <Events>
@@ -96,6 +111,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optExtracts">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+E"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Extratos"/>
               </Properties>
               <Events>
@@ -111,6 +129,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+L"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Licen&#xe7;a"/>
               </Properties>
               <Events>
@@ -119,6 +140,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="optAuthor">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+D"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Autoria"/>
               </Properties>
               <Events>

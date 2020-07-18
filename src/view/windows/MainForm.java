@@ -239,6 +239,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        optNewFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         optNewFile.setText("Novo");
         optNewFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +248,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optNewFile);
 
+        optOpenFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         optOpenFile.setText("Abrir");
         optOpenFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,6 +257,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optOpenFile);
 
+        optSaveFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         optSaveFile.setText("Salvar");
         optSaveFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +266,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optSaveFile);
 
+        optSaveAsFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         optSaveAsFile.setText("Salvar Como");
         optSaveAsFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,6 +284,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        optProvider.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         optProvider.setText("Fornecedores");
         optProvider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +293,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optShow.add(optProvider);
 
+        optExtracts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         optExtracts.setText("Extratos");
         optExtracts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,6 +306,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optAbout.setText("Sobre");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Licença");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,6 +315,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optAbout.add(jMenuItem1);
 
+        optAuthor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         optAuthor.setText("Autoria");
         optAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
