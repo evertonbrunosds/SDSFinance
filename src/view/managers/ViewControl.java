@@ -20,6 +20,7 @@
 package view.managers;
 
 import control.Controller;
+import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.awt.Color;
 import java.io.IOException;
@@ -95,6 +96,36 @@ public abstract class ViewControl {
     }
     
     /**
+     * Método responsável por abrir registros num dado arquivo.
+     */
+    public static void openAs() {
+        final FileDialog fileDialog = Factory.openFileDialog();
+        if(fileDialog.execute()) {
+            open(fileDialog.getFileName());
+        }
+    }
+    
+    /**
+     * Método responsável por abrir registros num dado arquivo.
+     * @param fileName Refere-se ao nome do arquivo.
+     */
+    public static void open(final String fileName) {
+        try {
+            Controller.getInstance().loadFromFile(fileName);
+            setWasSaved(true);
+            MainForm.updateWindow();
+        } catch (final NullObjectException ex) {
+            Show.warningMessage("Você deve especificar um nome de arquivo.");
+        } catch (final IOException ex) {
+            Show.errorMessage("Não foi possível abrir o arquivo do local especificado.");
+        } catch (final ClassNotFoundException ex) {
+            Show.errorMessage("O arquivo do local especificado está corrompido.");
+        } catch (IncompatibleTypeException ex) {
+            Show.errorMessage("O SDS Finance não é compatível com o arquivo do local especificado.");
+        }
+    }
+    
+    /**
      * Método responsável por salvar registros num dado arquivo.
      */
     public static void saveAs() {
@@ -132,19 +163,25 @@ public abstract class ViewControl {
      */
     public static void newFile() {
         if(isWasSaved()) {
-            Controller.getInstance().clear();
-            setWasSaved(true);
+            createNewFile();
         } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n" 
                 + "perdidas. Deseja salvar antes de criar um novo arquivo?", "Sim", "Não")) {
             ViewControl.save();
             if(ViewControl.isWasSaved()) {
-                Controller.getInstance().clear();
-                setWasSaved(true);
+                createNewFile();
             }
         } else {
-            Controller.getInstance().clear();
-            setWasSaved(true);
+            createNewFile();
         }
+    }
+    
+    /**
+     * Método responsável por criar um novo arquivo.
+     */
+    private static void createNewFile() {
+        Controller.getInstance().clear();
+        setWasSaved(true);
+        MainForm.updateWindow();
     }
     
 }

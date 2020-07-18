@@ -45,11 +45,15 @@ public class MainForm extends javax.swing.JFrame {
     
     /**
      * Construtor responsável por inicializar a janela principal da aplicação.
+     * @param fileName Refere-se ao nome do arquivo que será aberto.
      */
-    private MainForm() {
+    private MainForm(final String fileName) {
         instance = this;
         initComponents();
         ViewControl.alignTo(table, SwingConstants.CENTER);
+        if(fileName != null) {
+            ViewControl.open(fileName);
+        }
     }
     
     /**
@@ -350,7 +354,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optSaveAsFileActionPerformed
 
     private void optOpenFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenFileActionPerformed
-        //ViewControl.openFile();
+        ViewControl.openAs();
     }//GEN-LAST:event_optOpenFileActionPerformed
 
     private void optExtractsActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExtractsActionPerformed
@@ -419,7 +423,11 @@ public class MainForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new MainForm().setVisible(true);
+            if(args.length > 0) {
+                new MainForm(args[0]).setVisible(true);
+            } else {
+                new MainForm(null).setVisible(true);
+            }
         });
     }
 

@@ -121,6 +121,7 @@ public class Controller implements IController {
     public void loadFromFile(final String fileName) throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException {
         Filter.nullObject(fileName);
         fileInternalLoader(fileName);
+        this.fileName = fileName;
     }
 
     /**
