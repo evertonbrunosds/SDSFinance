@@ -68,7 +68,7 @@ public class FileStream implements Serializable {
      * @throws FileNotFoundException Exceção lançada em caso do arquivo não ser encontrado.
      * @throws IOException           Exceção lançada em caso de problemas no acesso ao arquivo.
      */
-    public void saveFromFile(final String fileName) throws FileNotFoundException, IOException {
+    public void saveToFile(final String fileName) throws FileNotFoundException, IOException {
         try (ObjectOutputStream fileStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             fileStream.writeObject(object);
             fileStream.close();

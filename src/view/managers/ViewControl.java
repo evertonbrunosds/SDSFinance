@@ -19,7 +19,7 @@
  */
 package view.managers;
 
-import control.Controller;
+import control.Record;
 import exceptions.IncompatibleTypeException;
 import exceptions.NullObjectException;
 import java.awt.Color;
@@ -36,7 +36,10 @@ import view.windows.MainForm;
  * @author Everton Bruno Silva dos Santos.
  */
 public abstract class ViewControl {
-    private static boolean wasSaved = true;
+    /**
+     * Refere-se ao indicativo de que registro foi alterado.
+     */
+    private static boolean wasChanged = true;
 
     /**
      * Método responsável por alinhar as linhas e colunas de uma tabela.
@@ -78,30 +81,30 @@ public abstract class ViewControl {
      * Método responsável por alterar indicativos de que as alterações foram salvas.
      * @param wasSaved Refere-se a indicativo de que as alterações foram salvas.
      */
-    public static void setWasSaved(final boolean wasSaved) {
+    public static void setWasChanged(final boolean wasSaved) {
         if (!wasSaved) {
-            MainForm.setTitleWindow(Controller.getInstance().getFileName() + " *");
+            MainForm.setTitleWindow(Record.getInstance().getFileName() + " *");
         } else {
-            MainForm.setTitleWindow(Controller.getInstance().getFileName());
+            MainForm.setTitleWindow(Record.getInstance().getFileName());
         }
-        ViewControl.wasSaved = wasSaved;
+        ViewControl.wasChanged = wasSaved;
     }
 
     /**
      * Método responsável por retornar indicativos de que as alterações foram salvas.
      * @return Retorna indicativo de que as alterações foram salvas.
      */
-    public static boolean isWasSaved() {
-        return wasSaved;
+    public static boolean getWasChanged() {
+        return wasChanged;
     }
 
     /**
      * Método responsável por abrir registros num dado arquivo.
      */
-    public static void openAs() {
+    public static void loadRecordFromFile() {
         final FileDialog fileDialog = Factory.openFileDialog();
         if (fileDialog.execute()) {
-            open(fileDialog.getFileName());
+            ViewControl.loadRecordFromFile(fileDialog.getFileName());
         }
     }
 
@@ -109,10 +112,10 @@ public abstract class ViewControl {
      * Método responsável por abrir registros num dado arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      */
-    public static void open(final String fileName) {
+    public static void loadRecordFromFile(final String fileName) {
         try {
-            Controller.getInstance().loadFromFile(fileName);
-            setWasSaved(true);
+            Record.getInstance().loadFromFile(fileName);
+            setWasChanged(true);
             MainForm.updateWindow();
         } catch (final NullObjectException ex) {
             Show.warningMessage("Você deve especificar um nome de arquivo.");
@@ -128,12 +131,12 @@ public abstract class ViewControl {
     /**
      * Método responsável por salvar registros num dado arquivo.
      */
-    public static void saveAs() {
+    public static void saveAsRecordToFile() {
         final FileDialog fileDialog = Factory.saveFileDialog();
         if (fileDialog.execute()) {
             try {
-                Controller.getInstance().saveFromFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
-                setWasSaved(true);
+                Record.getInstance().saveToFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
+                setWasChanged(true);
             } catch (final NullObjectException ex) {
                 Show.warningMessage("Você deve especificar um nome de arquivo.");
             } catch (final IOException ex) {
@@ -145,13 +148,13 @@ public abstract class ViewControl {
     /**
      * Método responsável por salvar registros num dado arquivo anteriormente aberto ou salvo.
      */
-    public static void save() {
-        if (Controller.getInstance().neverBeenSavedInFile()) {
-            saveAs();
+    public static void saveRecordToFile() {
+        if (Record.getInstance().neverBeenSavedInFile()) {
+            saveAsRecordToFile();
         } else {
             try {
-                Controller.getInstance().saveFromFile();
-                setWasSaved(true);
+                Record.getInstance().saveToFile();
+                setWasChanged(true);
             } catch (final IOException ex) {
                 Show.errorMessage("Não foi possível salvar o arquivo no local especificado.");
             }
@@ -159,29 +162,29 @@ public abstract class ViewControl {
     }
 
     /**
-     * Método responsável por criar um novo arquivo.
+     * Método responsável por criar um novo registro.
      */
-    public static void newFile() {
-        if (isWasSaved()) {
-            createNewFile();
+    public static void newRecord() {
+        if (getWasChanged()) {
+            createNewRecord();
         } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n"
                 + "perdidas. Deseja salvar antes de criar um novo arquivo?", "Sim", "Não")) {
-            ViewControl.save();
-            if (ViewControl.isWasSaved()) {
-                createNewFile();
+            ViewControl.saveRecordToFile();
+            if (ViewControl.getWasChanged()) {
+                createNewRecord();
             }
         } else {
-            createNewFile();
+            createNewRecord();
         }
     }
 
     /**
-     * Método responsável por criar um novo arquivo.
+     * Método responsável por criar um novo registro.
      */
-    private static void createNewFile() {
-        Controller.getInstance().clear();
-        setWasSaved(true);
+    private static void createNewRecord() {
+        Record.getInstance().clear();
+        setWasChanged(true);
         MainForm.updateWindow();
     }
-
+    
 }

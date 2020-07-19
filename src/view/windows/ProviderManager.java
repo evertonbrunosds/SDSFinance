@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
@@ -75,8 +75,8 @@ public class ProviderManager extends javax.swing.JDialog {
         final Neighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
         final Street street = Factory.street(textStreet.getText());
         final IProvider tmpProvider = Factory.provider(textName.getText(), street, neighborhood, city);
-        Controller.getInstance().getProviderCollection().insert(tmpProvider);
-        ViewControl.setWasSaved(false);
+        Record.getInstance().getProviderCollection().insert(tmpProvider);
+        ViewControl.setWasChanged(false);
         ProviderWindow.updateWindow();
         dispose();
     }
@@ -89,7 +89,7 @@ public class ProviderManager extends javax.swing.JDialog {
     private void collectChanges(final SimpleStack<Comparable<String>> keysStackChanged,
             final SimpleStack<IAcquisition> acquisitionsStackChanged) {
         if (keysStackChanged.isEmpty() && acquisitionsStackChanged.isEmpty()) {
-            Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+            Record.getInstance().getAcquisitionCollection().forEach(true, element -> {
                 if (element.getProvider().equals(provider)) {
                     keysStackChanged.push(element.getKey());
                     acquisitionsStackChanged.push(element);
@@ -114,7 +114,7 @@ public class ProviderManager extends javax.swing.JDialog {
         if (!textCity.getText().equals(provider.getCity().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
             final City city = Factory.city(textCity.getText());
-            Controller.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
+            Record.getInstance().getProviderCollection().setCity(provider.getKey().toString(), city);
             return true;
         } else {
             return wasChanged == true;
@@ -137,7 +137,7 @@ public class ProviderManager extends javax.swing.JDialog {
         if (!textNeighborhood.getText().equals(provider.getNeighborhood().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
             final Neighborhood neighborhood = Factory.neighborhood(textNeighborhood.getText());
-            Controller.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(), neighborhood);
+            Record.getInstance().getProviderCollection().setNeighborhood(provider.getKey().toString(), neighborhood);
             return true;
         } else {
             return wasChanged == true;
@@ -160,7 +160,7 @@ public class ProviderManager extends javax.swing.JDialog {
         if (!textStreet.getText().equals(provider.getStreet().toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
             final Street street = Factory.street(textStreet.getText());
-            Controller.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
+            Record.getInstance().getProviderCollection().setStreet(provider.getKey().toString(), street);
             return true;
         } else {
             return wasChanged == true;
@@ -182,7 +182,7 @@ public class ProviderManager extends javax.swing.JDialog {
             throws NullObjectException, ElementNotFoundException, KeyUsedException {
         if (!textName.getText().equals(provider.toString())) {
             collectChanges(keysStackChanged, acquisitionsStackChanged);
-            Controller.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(), textName.getText());
+            Record.getInstance().getProviderCollection().redefineKey(provider.getKey().toString(), textName.getText());
             return true;
         } else {
             return wasChanged == true;
@@ -205,13 +205,13 @@ public class ProviderManager extends javax.swing.JDialog {
         wasChanged = setName(keysStackChanged, acquisitionsStackChanged, wasChanged);
         if (!keysStackChanged.isEmpty()) {
             while (!keysStackChanged.isEmpty()) {
-                Controller.getInstance().getAcquisitionCollection().remove(keysStackChanged.pop());
-                Controller.getInstance().getAcquisitionCollection().insert(acquisitionsStackChanged.pop());
+                Record.getInstance().getAcquisitionCollection().remove(keysStackChanged.pop());
+                Record.getInstance().getAcquisitionCollection().insert(acquisitionsStackChanged.pop());
             }
             MainForm.updateWindow();
         }
         if(wasChanged) {
-            ViewControl.setWasSaved(false);
+            ViewControl.setWasChanged(false);
             ProviderWindow.updateWindow();
         }
         dispose();

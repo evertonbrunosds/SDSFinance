@@ -29,10 +29,10 @@ import model.organizations.IProvider;
 import model.sets.IBusinessCollection;
 
 /**
- * Interface responsável por fornecer os métodos de controlador.
+ * Interface responsável por fornecer os métodos de registro.
  * @author Everton Bruno Silva dos Santos.
  */
-public interface IController extends Serializable {
+public interface IRecord extends Serializable {
 
     /**
      * Método responsável por retornar coleção de fornecedores.
@@ -47,33 +47,33 @@ public interface IController extends Serializable {
     public IBusinessCollection<IAcquisition> getAcquisitionCollection();
 
     /**
-     * Método responsável por esvaziar os dados contidos no controlador.
+     * Método responsável por esvaziar os dados contidos no registro.
      */
     public void clear();
 
     /**
-     * Método responsável por carregar dados de arquivo para o controlador.
+     * Método responsável por carregar arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
-     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException               Exceção lançada no caso de haverem problemas de acesso no arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
-     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haverem dados incompatíveis.
      */
     public void loadFromFile(String fileName) throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException;
 
     /**
-     * Método responsável por gravar dados do controlador em arquivo.
+     * Método responsável por salvar em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
-     * @throws IOException         Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException         Exceção lançada no caso de haverem problemas de acesso no arquivo.
      */
-    public void saveFromFile(String fileName) throws NullObjectException, IOException;
+    public void saveToFile(String fileName) throws NullObjectException, IOException;
 
     /**
-     * Método responsável por gravar dados do controlador em arquivo.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
+     * Método responsável por salvar em arquivo.
+     * @throws IOException Exceção lançada no caso de haverem problemas de acesso no arquivo.
      */
-    public void saveFromFile() throws IOException;
+    public void saveToFile() throws IOException;
     
     /**
      * Método responsável por retornar o nome do arquivo.

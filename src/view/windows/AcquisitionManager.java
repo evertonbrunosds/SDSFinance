@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.DateInvalidException;
 import exceptions.DoubleValueInvalidException;
 import exceptions.ElementNotFoundException;
@@ -89,7 +89,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
         final IOfferEditable tmpOffer = (IOfferEditable) offer.duplicate();
         tmpOffer.setValue(Converter.toDouble(textValue.getText()));
         final Date date = Factory.date(textDate.getText());
-        Controller.getInstance().getAcquisitionCollection()
+        Record.getInstance().getAcquisitionCollection()
                 .insert(Factory.acquisition(provider, tmpOffer, textAmount.getText(), date));
         if (!textValue.getText().equals(Double.toString(offer.getValue()))) {
             if (offer instanceof IExpense) {
@@ -99,7 +99,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
             }
             OfferWindow.updateWindow();
         }
-        ViewControl.setWasSaved(false);
+        ViewControl.setWasChanged(false);
         MainForm.updateWindow();
         dispose();
     }
@@ -116,20 +116,20 @@ public class AcquisitionManager extends javax.swing.JDialog {
         boolean wasChanged = false;
         if (!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
             final double value = Converter.toDouble(textValue.getText());
-            Controller.getInstance().getAcquisitionCollection().setUnitaryValue(acquisition.getKey(), value);
+            Record.getInstance().getAcquisitionCollection().setUnitaryValue(acquisition.getKey(), value);
             wasChanged = true;
         }
         if (!textAmount.getText().equals(Integer.toString(acquisition.getAmount()))) {
             final int amount = Converter.toInteger(textAmount.getText());
-            Controller.getInstance().getAcquisitionCollection().setAmount(acquisition.getKey(), amount);
+            Record.getInstance().getAcquisitionCollection().setAmount(acquisition.getKey(), amount);
             wasChanged = true;
         }
         if (!textDate.getText().equals(acquisition.getDate().toString())) {
-            Controller.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(), Factory.date(textDate.getText()));
+            Record.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(), Factory.date(textDate.getText()));
             wasChanged = true;
         }
         if (wasChanged) {
-            ViewControl.setWasSaved(false);
+            ViewControl.setWasChanged(false);
             MainForm.updateWindow();
         }
         dispose();

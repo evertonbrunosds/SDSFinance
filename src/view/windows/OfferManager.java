@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.DoubleValueInvalidException;
 import exceptions.ElementNotFoundException;
 import exceptions.KeyUsedException;
@@ -88,7 +88,7 @@ public class OfferManager extends javax.swing.JDialog {
             final IIncome income = Factory.income(textName.getText(), Converter.toDouble(textValue.getText()));
             provider.getIncomeCollection().insert(income);
         }
-        ViewControl.setWasSaved(false);
+        ViewControl.setWasChanged(false);
         OfferWindow.updateWindow();
         dispose();
     }
@@ -99,7 +99,7 @@ public class OfferManager extends javax.swing.JDialog {
      */
     private void collectChanges(final SimpleStack<Comparable<String>> keysStackChanged) {
         if (keysStackChanged.isEmpty()) {
-            Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+            Record.getInstance().getAcquisitionCollection().forEach(true, element -> {
                 if (element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
                     keysStackChanged.push(element.getKey());
                 }
@@ -158,13 +158,13 @@ public class OfferManager extends javax.swing.JDialog {
         setName(keysStackChanged);
         if (!keysStackChanged.isEmpty()) {
             while (!keysStackChanged.isEmpty()) {
-                Controller.getInstance().getAcquisitionCollection().redefineKey(keysStackChanged.pop(), offer.toString());
+                Record.getInstance().getAcquisitionCollection().redefineKey(keysStackChanged.pop(), offer.toString());
             }
             MainForm.updateWindow();
             wasChanged = true;
         }
         if (wasChanged) {
-            ViewControl.setWasSaved(false);
+            ViewControl.setWasChanged(false);
             OfferWindow.updateWindow();
         }
         dispose();

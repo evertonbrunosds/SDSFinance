@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -117,7 +117,7 @@ public class OfferWindow extends javax.swing.JDialog {
                     provider.getExpenseCollection().remove(expense.getKey());
                     wasChanged = removeAcquisitions(expense, wasChanged);
                 }
-                ViewControl.setWasSaved(false);
+                ViewControl.setWasChanged(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }
@@ -142,7 +142,7 @@ public class OfferWindow extends javax.swing.JDialog {
                     provider.getIncomeCollection().remove(income.getKey());
                     wasChanged = removeAcquisitions(income, wasChanged);
                 }
-                ViewControl.setWasSaved(false);
+                ViewControl.setWasChanged(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }
@@ -160,7 +160,7 @@ public class OfferWindow extends javax.swing.JDialog {
      */
     private boolean removeAcquisitions(final IOfferVisible offer, boolean wasChanged) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
-        Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+        Record.getInstance().getAcquisitionCollection().forEach(true, element -> {
             if (element.getProvider().equals(provider) && element.getOffer().getKey().equals(offer.getKey())) {
                 simpleStack.push(element);
             }
@@ -169,7 +169,7 @@ public class OfferWindow extends javax.swing.JDialog {
             wasChanged = !simpleStack.isEmpty();
         }
         while (!simpleStack.isEmpty()) {
-            Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
+            Record.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
         return wasChanged;
     }

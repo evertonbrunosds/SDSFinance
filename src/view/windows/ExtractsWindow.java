@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.KeyUsedException;
 import exceptions.NullObjectException;
 import javax.swing.SwingConstants;
@@ -79,7 +79,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @return Retorna árvore preenchida.
      */
     private ITree<String, Extract> forDay(final ITree<String, Extract> tree) {
-        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+        Record.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
             final Extract extract = new DailyExtract(acquisition);
             try {
                 tree.insert(extract.key, extract);
@@ -96,7 +96,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @return Retorna árvore preenchida.
      */
     private ITree<String, Extract> forMonth(final ITree<String, Extract> tree) {
-        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+        Record.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
             final Extract extract = new MonthlyExtract(acquisition);
             try {
                 tree.insert(extract.key, extract);
@@ -113,7 +113,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
      * @return Retorna árvore preenchida.
      */
     private ITree<String, Extract> forYear(final ITree<String, Extract> tree) {
-        Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+        Record.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
             final Extract extract = new AnnualExtract(acquisition);
             try {
                 tree.insert(extract.key, extract);

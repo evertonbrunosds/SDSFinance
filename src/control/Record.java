@@ -32,14 +32,14 @@ import util.FileStream;
 import util.Filter;
 
 /**
- * Classe responsável por comportar-se como controlador.
+ * Classe responsável por comportar-se como registro.
  * @author Everton Bruno Silva dos Santos.
  */
-public class Controller implements IController {
+public class Record implements IRecord {
     /**
-     * Refere-se a instância do controlador.
+     * Refere-se a instância do registro.
      */
-    private static Controller instance;
+    private static Record instance;
     /**
      * Refere-se ao número de série da classe.
      */
@@ -62,21 +62,21 @@ public class Controller implements IController {
     private IBusinessCollection<IAcquisition> acquisitionCollection;
 
     /**
-     * Construtor responsável pelo instanciamento do controlador.
+     * Construtor responsável pelo instanciamento do registro.
      */
-    private Controller() {
+    private Record() {
         this.fileName = null;
         providerCollection = new OrganizationCollection<>();
         acquisitionCollection = new BusinessCollection<>();
     }
 
     /**
-     * Método responsável por retornar instância do controlador.
-     * @return Retorna instância do controlador.
+     * Método responsável por retornar instância do registro.
+     * @return Retorna instância do registro.
      */
-    public static IController getInstance() {
+    public static IRecord getInstance() {
         if (instance == null) {
-            instance = new Controller();
+            instance = new Record();
         }
         return instance;
     }
@@ -100,7 +100,7 @@ public class Controller implements IController {
     }
 
     /**
-     * Método responsável por esvaziar os dados contidos no controlador.
+     * Método responsável por esvaziar os dados contidos no registro.
      */
     @Override
     public void clear() {
@@ -110,32 +110,32 @@ public class Controller implements IController {
     }
 
     /**
-     * Método responsável por carregar dados de arquivo para o controlador.
+     * Método responsável por carregar arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException       Exceção lançada em caso de nome de arquivo nulo.
-     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException               Exceção lançada no caso de haverem problemas de acesso no arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
-     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haverem dados incompatíveis.
      */
     @Override
     public void loadFromFile(final String fileName) throws NullObjectException, IOException, ClassNotFoundException, IncompatibleTypeException {
         Filter.nullObject(fileName);
-        fileInternalLoader(fileName);
+        auxLoadFromFile(fileName);
         this.fileName = fileName;
     }
 
     /**
-     * Método responsável por carregar dados de arquivo para o controlador.
+     * Método responsável por carregar arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws IOException               Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException               Exceção lançada no caso de haverem problemas de acesso no arquivo.
      * @throws ClassNotFoundException    Exceção lançada em caso de não haver uma classe contida no arquivo.
-     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haver os dados de um controlador incompatível.
+     * @throws IncompatibleTypeException Exceção lançada em caso de no arquivo haverem dados incompatíveis.
      */
-    private void fileInternalLoader(final String fileName) throws IOException, ClassNotFoundException, IncompatibleTypeException {
+    private void auxLoadFromFile(final String fileName) throws IOException, ClassNotFoundException, IncompatibleTypeException {
         final FileStream fileStream = new FileStream();
         fileStream.loadFromFile(fileName);
-        if (fileStream.getObject() instanceof Controller) {
-            final Controller controller = (Controller) fileStream.getObject();
+        if (fileStream.getObject() instanceof Record) {
+            final Record controller = (Record) fileStream.getObject();
             if (controller.version == version) {
                 providerCollection = controller.providerCollection;
                 acquisitionCollection = controller.acquisitionCollection;
@@ -148,36 +148,36 @@ public class Controller implements IController {
     }
 
     /**
-     * Método responsável por gravar dados do controlador em arquivo.
+     * Método responsável por salvar em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
      * @throws NullObjectException Exceção lançada em caso de nome de arquivo nulo.
-     * @throws IOException         Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException         Exceção lançada no caso de haverem problemas de acesso no arquivo.
      */
     @Override
-    public void saveFromFile(final String fileName) throws NullObjectException, IOException {
+    public void saveToFile(final String fileName) throws NullObjectException, IOException {
         Filter.nullObject(fileName);
-        fileInternalRecorder(fileName);
+        auxSaveToFile(fileName);
         this.fileName = fileName;
     }
 
     /**
-     * Método responsável por gravar dados do controlador em arquivo.
+     * Método responsável por salvar em arquivo.
      * @param fileName Refere-se ao nome do arquivo.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
+     * @throws IOException Exceção lançada no caso de haverem problemas de acesso no arquivo.
      */
-    private void fileInternalRecorder(final String fileName) throws IOException {
+    private void auxSaveToFile(final String fileName) throws IOException {
         final FileStream fileStream = new FileStream();
         fileStream.setObject(this);
-        fileStream.saveFromFile(fileName);
+        fileStream.saveToFile(fileName);
     }
 
     /**
-     * Método responsável por gravar dados do controlador em arquivo.
-     * @throws IOException Exceção lançada em caso de problemas no acesso ao arquivo.
+     * Método responsável por salvar em arquivo.
+     * @throws IOException Exceção lançada no caso de haverem problemas de acesso no arquivo.
      */
     @Override
-    public void saveFromFile() throws IOException {
-        fileInternalRecorder(fileName);
+    public void saveToFile() throws IOException {
+        auxSaveToFile(fileName);
     }
 
     /**
@@ -187,7 +187,12 @@ public class Controller implements IController {
     @Override
     public String getFileName() {
         if(fileName != null) {
-            String[] strings = fileName.split("/");
+            String[] strings;
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                strings = fileName.split("\\\\");
+            } else {
+                strings = fileName.split("/");
+            }
             String string = strings[strings.length - 1];
             if(string.contains(".sdsf")) {
                 strings = string.split(".sdsf");

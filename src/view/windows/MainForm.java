@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +52,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         ViewControl.alignTo(table, SwingConstants.CENTER);
         if (fileName != null) {
-            ViewControl.open(fileName);
+            ViewControl.loadRecordFromFile(fileName);
         }
     }
 
@@ -61,11 +61,11 @@ public class MainForm extends javax.swing.JFrame {
      */
     @Override
     public void dispose() {
-        if (!ViewControl.isWasSaved()) {
+        if (!ViewControl.getWasChanged()) {
             if (!Show.questionMessage("Se você não salvar o registro, todas as alterações\n"
                     + "serão perdidas. Deseja salvar antes de fechar?", "Sim", "Não")) {
-                ViewControl.save();
-                if (ViewControl.isWasSaved()) {
+                ViewControl.saveRecordToFile();
+                if (ViewControl.getWasChanged()) {
                     System.exit(0);
                 }
             } else {
@@ -93,7 +93,7 @@ public class MainForm extends javax.swing.JFrame {
         if (instance != null) {
             ViewControl.clear(instance.table);
             final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
-            Controller.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
+            Record.getInstance().getAcquisitionCollection().forEach(true, acquisition -> {
                 model.addRow(Converter.toVector(acquisition));
             });
         }
@@ -110,9 +110,9 @@ public class MainForm extends javax.swing.JFrame {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
-                    Controller.getInstance().getAcquisitionCollection().remove(acquisition.getKey());
+                    Record.getInstance().getAcquisitionCollection().remove(acquisition.getKey());
                 }
-                ViewControl.setWasSaved(false);
+                ViewControl.setWasChanged(false);
                 updateWindow();
             }
         }
@@ -367,19 +367,25 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optShowItemStateChanged
 
     private void optSaveAsFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveAsFileActionPerformed
-        ViewControl.saveAs();
+        ViewControl.saveAsRecordToFile();
     }//GEN-LAST:event_optSaveAsFileActionPerformed
 
     private void optOpenFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenFileActionPerformed
-        ViewControl.openAs();
+        ViewControl.loadRecordFromFile();
     }//GEN-LAST:event_optOpenFileActionPerformed
 
     private void optExtractsActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExtractsActionPerformed
-        ExtractsWindow.showModal();
+        if (table.getRowCount() > 0) {
+            ExtractsWindow.showModal();
+        }
     }//GEN-LAST:event_optExtractsActionPerformed
 
     private void optNewFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNewFileActionPerformed
-        ViewControl.newFile();
+        if (ViewControl.getWasChanged() && !Record.getInstance().neverBeenSavedInFile()) {
+            ViewControl.newRecord();
+        } else if (!ViewControl.getWasChanged()) {
+            ViewControl.newRecord();
+        }
     }//GEN-LAST:event_optNewFileActionPerformed
 
     private void optRemoveAcquisitionActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optRemoveAcquisitionActionPerformed
@@ -406,8 +412,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optAccessProviderActionPerformed
 
     private void optFileItemStateChanged(final java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optFileItemStateChanged
-        if (ViewControl.isWasSaved()) {
-            if (Controller.getInstance().neverBeenSavedInFile()) {
+        if (ViewControl.getWasChanged()) {
+            if (Record.getInstance().neverBeenSavedInFile()) {
                 optNewFile.setEnabled(false);
                 optSaveFile.setEnabled(true);
             } else {
@@ -421,7 +427,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optFileItemStateChanged
 
     private void optSaveFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveFileActionPerformed
-        ViewControl.save();
+        ViewControl.saveRecordToFile();
     }//GEN-LAST:event_optSaveFileActionPerformed
 
     private void jMenuItem1ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

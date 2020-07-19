@@ -19,7 +19,7 @@
  */
 package view.windows;
 
-import control.Controller;
+import control.Record;
 import exceptions.ElementNotFoundException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -86,7 +86,7 @@ public class ProviderWindow extends javax.swing.JDialog {
      */
     private boolean removeAcquisitions(final IProvider provider, boolean wasChanged) throws ElementNotFoundException {
         final SimpleStack<IAcquisition> simpleStack = new SimpleStack<>();
-        Controller.getInstance().getAcquisitionCollection().forEach(true, element -> {
+        Record.getInstance().getAcquisitionCollection().forEach(true, element -> {
             if (element.getProvider().equals(provider)) {
                 simpleStack.push(element);
             }
@@ -95,7 +95,7 @@ public class ProviderWindow extends javax.swing.JDialog {
             wasChanged = !simpleStack.isEmpty();
         }
         while (!simpleStack.isEmpty()) {
-            Controller.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
+            Record.getInstance().getAcquisitionCollection().remove(simpleStack.pop().getKey());
         }
         return wasChanged;
     }
@@ -113,10 +113,10 @@ public class ProviderWindow extends javax.swing.JDialog {
                 boolean wasChanged = false;
                 for (final int row : selectedRows) {
                     provider = (IProvider) table.getModel().getValueAt(row, 0);
-                    Controller.getInstance().getProviderCollection().remove(provider.getKey());
+                    Record.getInstance().getProviderCollection().remove(provider.getKey());
                     wasChanged = removeAcquisitions(provider, wasChanged);
                 }
-                ViewControl.setWasSaved(false);
+                ViewControl.setWasChanged(false);
                 if (wasChanged) {
                     MainForm.updateWindow();
                 }
@@ -132,7 +132,7 @@ public class ProviderWindow extends javax.swing.JDialog {
         if (instance != null) {
             ViewControl.clear(instance.table);
             final DefaultTableModel model = (DefaultTableModel) instance.table.getModel();
-            Controller.getInstance().getProviderCollection().forEach(false, provider -> {
+            Record.getInstance().getProviderCollection().forEach(false, provider -> {
                 model.addRow(Converter.toVector(provider));
             });
         }
