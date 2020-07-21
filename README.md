@@ -5,7 +5,7 @@
 
 O SDS Finance é uma ferramenta que visa lidar com o registro de eventos financeiros. Desse modo, ele te possibilita registrar e visualizar de forma detalhada e organizada não só suas despesas, mas também suas rendas adquiridas ao longo do mês. Sendo assim, por meio dessa ferramenta você pode planejar seus gastos e até mesmo poupar renda, para tal, basta consultar em qual fornecedor determinado produto ou serviço pode ser adquirido pelo menor preço.
 
-## Captura de Tela
+## Capturas de Tela
 
 | ![sds_0][00] | ![sds_1][01] |
 | --- | --- |
