@@ -16,9 +16,7 @@ O SDS Finance é uma ferramenta que visa lidar com o registro de eventos finance
 | ![sds_0][00] |
 | --- |
 | ![sds_1][01] |
-| --- |
 | ![xdm_2][02] |
-| --- |
 | ![xdm_3][03] |
 
 [//]: #DownloadFile
