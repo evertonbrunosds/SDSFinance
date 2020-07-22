@@ -1,4 +1,4 @@
-<p id="downloads" align="center">
+<p id="simbol" align="center">
 	<img src="https://i.imgur.com/hhzQTiv.png" height="120px"/>
 	<h1 align="center">SDS Finance v1.0</h1>
 </p>
@@ -16,3 +16,5 @@ O SDS Finance é uma ferramenta que visa lidar com o registro de eventos finance
 [01]: https://i.imgur.com/a6SDGH7.png
 [02]: https://i.imgur.com/tghOlU3.png
 [03]: https://i.imgur.com/aSxBvTQ.png
+
+<p align="center"><em> Copyright © 2020. Everton Bruno Silva dos Santos. </em></p>
