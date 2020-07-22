@@ -20,9 +20,9 @@ O SDS Finance é uma ferramenta que visa lidar com o registro de eventos finance
 | ![xdm_3][03] |
 
 [//]: #DownloadFile
-[100]: https://ufpr.dl.sourceforge.net/project/sdsfinance/v1.0/Windows/SDSFinance.exe
-[101]: https://ufpr.dl.sourceforge.net/project/sdsfinance/v1.0/Linux/SDSFinance.deb
-[102]: https://ufpr.dl.sourceforge.net/project/sdsfinance/v1.0/Others/SDSFinance.jar
+[100]: https://github.com/evertonbrunosds/SDSFinance/releases/download/v1.0/SDSFinance.exe
+[101]: https://github.com/evertonbrunosds/SDSFinance/releases/download/v1.0/SDSFinance.deb
+[102]: https://github.com/evertonbrunosds/SDSFinance/releases/download/v1.0/SDSFinance.jar
 
 [//]: #ScreenShot
 [00]: https://i.imgur.com/Lk9sd2n.png
