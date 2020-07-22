@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -184,6 +184,7 @@ public class ExtractsWindow extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Extratos");
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
         setResizable(false);
 
         scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -195,12 +196,8 @@ public class ExtractsWindow extends javax.swing.JDialog {
         table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Período", "Renda", "Despesa", "Saldo" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
             private static final long serialVersionUID = -9172262059319079266L;
             boolean[] canEdit = new boolean[] { false, false, false, false };
-
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }

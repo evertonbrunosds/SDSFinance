@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -107,7 +107,7 @@ public class ProviderWindow extends javax.swing.JDialog {
     private void removeProviders() throws ElementNotFoundException {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
-            if (Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n"
+            if (Show.questionMessage("Essa ação excluirá permanentemente não só os fornecedores selecionadas, mas\n" 
                     + "também todas as suas ofertas e aquisições atribuídas a eles. Deseja prosseguir?", "Não", "Sim")) {
                 IProvider provider;
                 boolean wasChanged = false;
@@ -202,6 +202,7 @@ public class ProviderWindow extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
 
         scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(final java.awt.event.MouseEvent evt) {
@@ -212,12 +213,8 @@ public class ProviderWindow extends javax.swing.JDialog {
         table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Fornecedor", "Rua", "Bairro", "Cidade" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
             private static final long serialVersionUID = -2288420985406491358L;
             boolean[] canEdit = new boolean[] { false, false, false, false };
-
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }

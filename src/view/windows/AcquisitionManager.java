@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -89,8 +89,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
         final IOfferEditable tmpOffer = (IOfferEditable) offer.duplicate();
         tmpOffer.setValue(Converter.toDouble(textValue.getText()));
         final Date date = Factory.date(textDate.getText());
-        Record.getInstance().getAcquisitionCollection()
-                .insert(Factory.acquisition(provider, tmpOffer, textAmount.getText(), date));
+        Record.getInstance().getAcquisitionCollection().insert(Factory.acquisition(provider, tmpOffer, textAmount.getText(), date));
         if (!textValue.getText().equals(Double.toString(offer.getValue()))) {
             if (offer instanceof IExpense) {
                 provider.getExpenseCollection().setValue(offer.getKey(), Converter.toDouble(textValue.getText()));
@@ -112,7 +111,8 @@ public class AcquisitionManager extends javax.swing.JDialog {
      * @throws IntegerValueInvalidException Exceção lançada no caso de um valor inteiro ser inválido.
      * @throws DateInvalidException         Exceção lançada no caso de uma data inválida.
      */
-    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException, IntegerValueInvalidException, DateInvalidException {
+    private void editAcquisition() throws NullObjectException, DoubleValueInvalidException, ElementNotFoundException,
+            IntegerValueInvalidException, DateInvalidException {
         boolean wasChanged = false;
         if (!textValue.getText().equals(Double.toString(acquisition.getOffer().getValue()))) {
             final double value = Converter.toDouble(textValue.getText());
@@ -125,7 +125,8 @@ public class AcquisitionManager extends javax.swing.JDialog {
             wasChanged = true;
         }
         if (!textDate.getText().equals(acquisition.getDate().toString())) {
-            Record.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(), Factory.date(textDate.getText()));
+            Record.getInstance().getAcquisitionCollection().setDate(acquisition.getKey(),
+                    Factory.date(textDate.getText()));
             wasChanged = true;
         }
         if (wasChanged) {
@@ -188,6 +189,7 @@ public class AcquisitionManager extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
         setResizable(false);
 
         labelValue.setText("Valor:");

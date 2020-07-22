@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ public class MainForm extends javax.swing.JFrame {
         if (!ViewControl.getWasChanged()) {
             if (!Show.questionMessage("Se você não salvar o registro, todas as alterações\n"
                     + "serão perdidas. Deseja salvar antes de fechar?", "Sim", "Não")) {
-                ViewControl.saveRecordToFile();
+                ViewControl.saveRecordToFile(this);
                 if (ViewControl.getWasChanged()) {
                     System.exit(0);
                 }
@@ -106,7 +106,8 @@ public class MainForm extends javax.swing.JFrame {
     private void removeAcquisitions() throws ElementNotFoundException {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
-            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n" + "aquisições selecionadas. Deseja prosseguir?", "Não", "Sim")) {
+            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n"
+                    + "aquisições selecionadas. Deseja prosseguir?", "Não", "Sim")) {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
@@ -184,8 +185,7 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SDS Finance - [Sem Título]");
-        setIconImage(
-                java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
 
         scrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(final java.awt.event.MouseEvent evt) {
@@ -196,12 +196,8 @@ public class MainForm extends javax.swing.JFrame {
         table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
             private static final long serialVersionUID = 1239724359305259903L;
             boolean[] canEdit = new boolean[] { false, false, false, false, false, false };
-
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -235,8 +231,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        optNewFile.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        optNewFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         optNewFile.setText("Novo");
         optNewFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -245,8 +240,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optNewFile);
 
-        optOpenFile.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        optOpenFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         optOpenFile.setText("Abrir");
         optOpenFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -255,8 +249,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optOpenFile);
 
-        optSaveFile.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        optSaveFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         optSaveFile.setText("Salvar");
         optSaveFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -265,8 +258,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optSaveFile);
 
-        optSaveAsFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
-                java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        optSaveAsFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         optSaveAsFile.setText("Salvar Como");
         optSaveAsFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -284,8 +276,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        optProvider.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        optProvider.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         optProvider.setText("Fornecedores");
         optProvider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -294,8 +285,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optShow.add(optProvider);
 
-        optExtracts.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        optExtracts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         optExtracts.setText("Extratos");
         optExtracts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -308,8 +298,7 @@ public class MainForm extends javax.swing.JFrame {
 
         optAbout.setText("Sobre");
 
-        jMenuItem1.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Licença");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -318,8 +307,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         optAbout.add(jMenuItem1);
 
-        optAuthor.setAccelerator(
-                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        optAuthor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         optAuthor.setText("Autoria");
         optAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -367,11 +355,11 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optShowItemStateChanged
 
     private void optSaveAsFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveAsFileActionPerformed
-        ViewControl.saveAsRecordToFile();
+        ViewControl.saveAsRecordToFile(this);
     }//GEN-LAST:event_optSaveAsFileActionPerformed
 
     private void optOpenFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optOpenFileActionPerformed
-        ViewControl.loadRecordFromFile();
+        ViewControl.loadRecordFromFile(this);
     }//GEN-LAST:event_optOpenFileActionPerformed
 
     private void optExtractsActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optExtractsActionPerformed
@@ -382,9 +370,9 @@ public class MainForm extends javax.swing.JFrame {
 
     private void optNewFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optNewFileActionPerformed
         if (ViewControl.getWasChanged() && !Record.getInstance().neverBeenSavedInFile()) {
-            ViewControl.newRecord();
+            ViewControl.newRecord(this);
         } else if (!ViewControl.getWasChanged()) {
-            ViewControl.newRecord();
+            ViewControl.newRecord(this);
         }
     }//GEN-LAST:event_optNewFileActionPerformed
 
@@ -427,7 +415,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optFileItemStateChanged
 
     private void optSaveFileActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSaveFileActionPerformed
-        ViewControl.saveRecordToFile();
+        ViewControl.saveRecordToFile(this);
     }//GEN-LAST:event_optSaveFileActionPerformed
 
     private void jMenuItem1ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -435,7 +423,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método responsável por comportar-se como o principal da classe.
+     * @param args Refere-se a linha de comando de argumentos.
      */
     public static void main(final String args[]) {
         try {
@@ -445,8 +434,7 @@ public class MainForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {

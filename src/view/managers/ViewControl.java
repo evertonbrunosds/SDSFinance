@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,10 +100,11 @@ public abstract class ViewControl {
 
     /**
      * Método responsável por abrir registros num dado arquivo.
+     * @param parent Refere-se a janela ivocadora do método.
      */
-    public static void loadRecordFromFile() {
+    public static void loadRecordFromFile(final java.awt.Frame parent) {
         final FileDialog fileDialog = Factory.openFileDialog();
-        if (fileDialog.execute()) {
+        if (fileDialog.execute(parent)) {
             ViewControl.loadRecordFromFile(fileDialog.getFileName());
         }
     }
@@ -130,10 +131,11 @@ public abstract class ViewControl {
 
     /**
      * Método responsável por salvar registros num dado arquivo.
+     * @param parent Refere-se a janela ivocadora do método.
      */
-    public static void saveAsRecordToFile() {
+    public static void saveAsRecordToFile(final java.awt.Frame parent) {
         final FileDialog fileDialog = Factory.saveFileDialog();
-        if (fileDialog.execute()) {
+        if (fileDialog.execute(parent)) {
             try {
                 Record.getInstance().saveToFile(Converter.toExtensionName(fileDialog.getFileName(), ".sdsf"));
                 setWasChanged(true);
@@ -147,10 +149,11 @@ public abstract class ViewControl {
 
     /**
      * Método responsável por salvar registros num dado arquivo anteriormente aberto ou salvo.
+     * @param parent Refere-se a janela ivocadora do método.
      */
-    public static void saveRecordToFile() {
+    public static void saveRecordToFile(final java.awt.Frame parent) {
         if (Record.getInstance().neverBeenSavedInFile()) {
-            saveAsRecordToFile();
+            saveAsRecordToFile(parent);
         } else {
             try {
                 Record.getInstance().saveToFile();
@@ -163,13 +166,14 @@ public abstract class ViewControl {
 
     /**
      * Método responsável por criar um novo registro.
+     * @param parent Refere-se a janela ivocadora do método.
      */
-    public static void newRecord() {
+    public static void newRecord(final java.awt.Frame parent) {
         if (getWasChanged()) {
             createNewRecord();
         } else if (!Show.questionMessage("Se você não salvar o registro, todas as alterações serão\n"
                 + "perdidas. Deseja salvar antes de criar um novo arquivo?", "Sim", "Não")) {
-            ViewControl.saveRecordToFile();
+            ViewControl.saveRecordToFile(parent);
             if (ViewControl.getWasChanged()) {
                 createNewRecord();
             }

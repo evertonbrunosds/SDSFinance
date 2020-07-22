@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,10 +48,11 @@ public class FileDialog {
 
     /**
      * Método responsável por executar a janela de dialogo.
+     * @param parent Refere-se a janela ivocadora do método.
      * @return Retorna resultado da execução.
      */
-    public boolean execute() {
-        return fileChooser.showDialog(null, fileChooser.getApproveButtonText()) == JFileChooser.APPROVE_OPTION;
+    public boolean execute(final java.awt.Frame parent) {
+        return fileChooser.showDialog(parent, fileChooser.getApproveButtonText()) == JFileChooser.APPROVE_OPTION;
     }
 
     /**

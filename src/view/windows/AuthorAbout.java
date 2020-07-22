@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,11 +74,10 @@ public class AuthorAbout extends javax.swing.JDialog {
         labelNameDevAuthor = new javax.swing.JLabel();
         labelEmailDevAuthor = new javax.swing.JLabel();
         separatorTwo = new javax.swing.JSeparator();
-        labelNameDesignerAuthor = new javax.swing.JLabel();
-        separatorTree = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sobre Autor");
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
         setResizable(false);
 
         labelVersion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/x128/SDSFinance.png"))); // NOI18N
@@ -87,11 +86,9 @@ public class AuthorAbout extends javax.swing.JDialog {
 
         labelProductNameAndVersion.setText("SDS Finance (v1.0)");
 
-        labelNameDevAuthor.setText("Copyright (c) 2020. Everton Bruno Silva dos Santos");
+        labelNameDevAuthor.setText("Copyright © 2020. Everton Bruno Silva dos Santos.");
 
         labelEmailDevAuthor.setText("E-mail: evertonbrunogithub@yahoo.com");
-
-        labelNameDesignerAuthor.setText("Designer de Ícones: Samuel Araújo");
 
         final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,10 +98,7 @@ public class AuthorAbout extends javax.swing.JDialog {
                         .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labelProductNameAndVersion).addComponent(labelNameDevAuthor)
-                        .addComponent(labelEmailDevAuthor).addComponent(separatorTwo)
-                        .addComponent(labelNameDesignerAuthor).addComponent(separatorTree,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)));
+                        .addComponent(labelEmailDevAuthor).addComponent(separatorTwo)).addGap(15, 15, 15)));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup().addGap(20, 20, 20).addComponent(labelVersion)
                         .addGap(18, 18, 18).addComponent(labelProductNameAndVersion).addGap(7, 7, 7)
@@ -112,13 +106,9 @@ public class AuthorAbout extends javax.swing.JDialog {
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0).addComponent(labelNameDevAuthor).addGap(2, 2, 2)
                         .addComponent(labelEmailDevAuthor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(separatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0).addComponent(labelNameDesignerAuthor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(separatorTree,
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(separatorTwo,
                                 javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap()));
+                        .addGap(0, 0, 0)));
 
         pack();
         setLocationRelativeTo(null);
@@ -126,12 +116,10 @@ public class AuthorAbout extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelEmailDevAuthor;
-    private javax.swing.JLabel labelNameDesignerAuthor;
     private javax.swing.JLabel labelNameDevAuthor;
     private javax.swing.JLabel labelProductNameAndVersion;
     private javax.swing.JLabel labelVersion;
     private javax.swing.JSeparator separatorOne;
-    private javax.swing.JSeparator separatorTree;
     private javax.swing.JSeparator separatorTwo;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,7 +2,7 @@
  * This file is part of the SDSFinance Open Source Project.
  * SDSFinance is licensed under the GNU GPLv3.
  *
- * Copyright (c) 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
+ * Copyright © 2020. Everton Bruno Silva dos Santos <evertonbrunogithub@yahoo.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ public class OfferWindow extends javax.swing.JDialog {
         } else {
             optRemoveExpense.setEnabled(true);
         }
-        if (tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1  || tableExpense.getSelectedRows().length > 1) {
+        if (tableExpense.getRowCount() == 0 || tableExpense.getSelectedRow() == -1 || tableExpense.getSelectedRows().length > 1) {
             optAcquireExpense.setEnabled(false);
             optEditExpense.setEnabled(false);
         } else {
@@ -183,8 +183,7 @@ public class OfferWindow extends javax.swing.JDialog {
         } else {
             optRemoveIncome.setEnabled(true);
         }
-        if (tableIncome.getRowCount() == 0 || tableIncome.getSelectedRow() == -1
-                || tableIncome.getSelectedRows().length > 1) {
+        if (tableIncome.getRowCount() == 0 || tableIncome.getSelectedRow() == -1 || tableIncome.getSelectedRows().length > 1) {
             optAcquireIncome.setEnabled(false);
             optEditIncome.setEnabled(false);
         } else {
@@ -299,6 +298,7 @@ public class OfferWindow extends javax.swing.JDialog {
         popupMenuIncome.add(optEditIncome);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/x48/SDSFinance.png")));
         setResizable(false);
 
         scrollPaneExpense.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -310,12 +310,8 @@ public class OfferWindow extends javax.swing.JDialog {
         tableExpense.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Nome da Oferta", "Valor da Oferta" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
             private static final long serialVersionUID = -5731350268881283750L;
             boolean[] canEdit = new boolean[] { false, false };
-
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -343,12 +339,8 @@ public class OfferWindow extends javax.swing.JDialog {
         tableIncome.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Nome da Oferta", "Valor da Oferta" }) {
-            /**
-             * Refere-se ao número de série da classe.
-             */
             private static final long serialVersionUID = 5900503163077045550L;
             boolean[] canEdit = new boolean[] { false, false };
-
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }
