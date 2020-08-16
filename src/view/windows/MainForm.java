@@ -21,6 +21,9 @@ package view.windows;
 
 import control.Record;
 import exceptions.ElementNotFoundException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.business.IAcquisition;
@@ -106,8 +109,8 @@ public class MainForm extends javax.swing.JFrame {
     private void removeAcquisitions() throws ElementNotFoundException {
         final int[] selectedRows = table.getSelectedRows();
         if (selectedRows.length > 0) {
-            if (Show.questionMessage("Essa ação excluirá permanentemente todas as\n"
-                    + "aquisições selecionadas. Deseja prosseguir?", "Não", "Sim")) {
+            if (Show.questionMessage(
+                    "Essa ação excluirá permanentemente todas as\n" + "aquisições selecionadas. Deseja prosseguir?", "Não", "Sim")) {
                 IAcquisition acquisition;
                 for (final int row : selectedRows) {
                     acquisition = (IAcquisition) table.getModel().getValueAt(row, 0);
@@ -137,6 +140,24 @@ public class MainForm extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método responsável por retornar indicativo de que há atualizações.
+     * @return Retorna indicativo de que há atualizações.
+     * @throws Exception Exceção lançada caso hajam falhas no processo.
+     */
+    public boolean thereAreUpdates() throws Exception {
+        final StringBuilder output = new StringBuilder();
+        final URL url = new URL("https://evertonbrunosds.github.io/sdsfinance/version");
+        final URLConnection uCon = url.openConnection();
+        try (InputStream input = uCon.getInputStream()) {
+            final byte[] buffer = new byte[2048];
+            while (input.read(buffer) != -1) {
+                output.append(new String(buffer));
+            }
+        }
+        return Converter.toDouble(output.toString()) > 1.0;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -156,7 +177,8 @@ public class MainForm extends javax.swing.JFrame {
         optProvider = new javax.swing.JMenuItem();
         optExtracts = new javax.swing.JMenuItem();
         optAbout = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        optUpdateChecker = new javax.swing.JMenuItem();
+        optLicense = new javax.swing.JMenuItem();
         optAuthor = new javax.swing.JMenuItem();
 
         optAccessProvider.setText("Acessar Fornecedor");
@@ -193,11 +215,11 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-
-        }, new String[] { "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data" }) {
+        table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
+                new String[] { "Aquisição", "Fornecedor", "Quantidade", "Valor Unitário", "Valor Total", "Data" }) {
             private static final long serialVersionUID = 1239724359305259903L;
             boolean[] canEdit = new boolean[] { false, false, false, false, false, false };
+
             public boolean isCellEditable(final int rowIndex, final int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -258,7 +280,8 @@ public class MainForm extends javax.swing.JFrame {
         });
         optFile.add(optSaveFile);
 
-        optSaveAsFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        optSaveAsFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
+                java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         optSaveAsFile.setText("Salvar Como");
         optSaveAsFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
@@ -298,14 +321,24 @@ public class MainForm extends javax.swing.JFrame {
 
         optAbout.setText("Sobre");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Licença");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        optUpdateChecker.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A,
+                java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        optUpdateChecker.setText("Atualizações");
+        optUpdateChecker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(final java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                optUpdateCheckerActionPerformed(evt);
             }
         });
-        optAbout.add(jMenuItem1);
+        optAbout.add(optUpdateChecker);
+
+        optLicense.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        optLicense.setText("Licença");
+        optLicense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
+                optLicenseActionPerformed(evt);
+            }
+        });
+        optAbout.add(optLicense);
 
         optAuthor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         optAuthor.setText("Autoria");
@@ -418,9 +451,30 @@ public class MainForm extends javax.swing.JFrame {
         ViewControl.saveRecordToFile(this);
     }//GEN-LAST:event_optSaveFileActionPerformed
 
-    private void jMenuItem1ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void optLicenseActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optLicenseActionPerformed
         LicenseWindow.showModal();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_optLicenseActionPerformed
+
+    private void optUpdateCheckerActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optUpdateCheckerActionPerformed
+        final Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    if (thereAreUpdates()) {
+                        if (!Show.questionMessage("Há atualizações disponíveis. Deseja baixar as atualizações?", "Sim",
+                                "Não")) {
+                            java.awt.Desktop.getDesktop().browse(new java.net.URI("https://evertonbrunosds.github.io/sdsfinance/"));
+                        }
+                    } else {
+                        Show.informationMessage("O SDS Finance está atualizado.");
+                    }
+                } catch (final Exception ex) {
+                    Show.warningMessage("Não foi possível determinar o estado de atualização.");
+                }
+            }
+        };
+        thread.start();
+    }//GEN-LAST:event_optUpdateCheckerActionPerformed
 
     /**
      * Método responsável por comportar-se como o principal da classe.
@@ -447,13 +501,13 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu optAbout;
     private javax.swing.JMenuItem optAccessProvider;
     private javax.swing.JMenuItem optAuthor;
     private javax.swing.JMenuItem optEditAcquisition;
     private javax.swing.JMenuItem optExtracts;
     private javax.swing.JMenu optFile;
+    private javax.swing.JMenuItem optLicense;
     private javax.swing.JMenuItem optNewFile;
     private javax.swing.JMenuItem optOpenFile;
     private javax.swing.JMenuItem optProvider;
@@ -461,6 +515,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem optSaveAsFile;
     private javax.swing.JMenuItem optSaveFile;
     private javax.swing.JMenu optShow;
+    private javax.swing.JMenuItem optUpdateChecker;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTable table;

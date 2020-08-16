@@ -42,6 +42,14 @@ public abstract class Show {
     public static void warningMessage(final String msg) {
         JOptionPane.showMessageDialog(null, msg, "Mensagem de Aviso", JOptionPane.WARNING_MESSAGE);
     }
+    
+    /**
+     * Método responsável por exibir mensagens informativas.
+     * @param msg Refere-se ao conteúdo da mensagem.
+     */
+    public static void informationMessage(final String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Mensagem Informativa", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * Método responsável por exibir mensagens de questionamento.

@@ -19,6 +19,10 @@
  */
 package view.windows;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import view.managers.Show;
+
 /**
  * Classe responsável por comportar-se como janela de autoria.
  * @author Everton Bruno Silva dos Santos.
@@ -73,6 +77,7 @@ public class AuthorAbout extends javax.swing.JDialog {
         labelProductNameAndVersion = new javax.swing.JLabel();
         labelNameDevAuthor = new javax.swing.JLabel();
         labelEmailDevAuthor = new javax.swing.JLabel();
+        labelWebSite = new javax.swing.JLabel();
         separatorTwo = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -90,6 +95,15 @@ public class AuthorAbout extends javax.swing.JDialog {
 
         labelEmailDevAuthor.setText("E-mail: evertonbrunogithub@yahoo.com");
 
+        labelWebSite.setForeground(new java.awt.Color(0, 0, 255));
+        labelWebSite.setText("<html><u>Web Site</u>");
+        labelWebSite.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelWebSite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(final java.awt.event.MouseEvent evt) {
+                labelWebSiteMouseReleased(evt);
+            }
+        });
+
         final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,27 +112,41 @@ public class AuthorAbout extends javax.swing.JDialog {
                         .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labelProductNameAndVersion).addComponent(labelNameDevAuthor)
-                        .addComponent(labelEmailDevAuthor).addComponent(separatorTwo)).addGap(15, 15, 15)));
+                        .addComponent(labelEmailDevAuthor).addComponent(separatorTwo).addComponent(labelWebSite,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup().addGap(20, 20, 20).addComponent(labelVersion)
                         .addGap(18, 18, 18).addComponent(labelProductNameAndVersion).addGap(7, 7, 7)
                         .addComponent(separatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0).addComponent(labelNameDevAuthor).addGap(2, 2, 2)
-                        .addComponent(labelEmailDevAuthor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(separatorTwo,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelEmailDevAuthor).addGap(2, 2, 2)
+                        .addComponent(labelWebSite, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2).addComponent(separatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void labelWebSiteMouseReleased(final java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelWebSiteMouseReleased
+        try {
+            java.awt.Desktop.getDesktop().browse(new java.net.URI("https://evertonbrunosds.github.io/sdsfinance/"));
+        } catch (IOException | URISyntaxException ex) {
+            Show.errorMessage("Acesso indisponível.");
+        }
+    }//GEN-LAST:event_labelWebSiteMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelEmailDevAuthor;
     private javax.swing.JLabel labelNameDevAuthor;
     private javax.swing.JLabel labelProductNameAndVersion;
     private javax.swing.JLabel labelVersion;
+    private javax.swing.JLabel labelWebSite;
     private javax.swing.JSeparator separatorOne;
     private javax.swing.JSeparator separatorTwo;
     // End of variables declaration//GEN-END:variables
